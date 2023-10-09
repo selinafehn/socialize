@@ -1,32 +1,31 @@
-
-buildscript {
-    ext {
-        springBootVersion = '2.1.2.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
-group = 'com.graphql-java.tutorial'
+group = 'com.mosbach'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'com.graphql-java:graphql-java:11.0'
-    implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
-    implementation 'com.google.guava:guava:26.0-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    implementation 'commons-dbcp:commons-dbcp:1.4'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.11.880'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+}
+
+test {
+    useJUnitPlatform()
 }

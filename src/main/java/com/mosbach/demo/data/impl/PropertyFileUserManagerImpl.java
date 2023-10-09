@@ -38,15 +38,15 @@ public class PropertyFileUserManagerImpl implements UserManager {
 
             createUserLogger.log(Level.INFO,"Adding new user.");
 
-        User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
-        users.add(newUser);
+        //User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
+        //users.add(newUser);
 
             createUserLogger.log(Level.INFO,"Start storing all users.");
 
         storeAllUsers(users);
 
-        return
-                newUser;
+        return null;
+                //newUser;
     }
 
     public void storeAllUsers(List<User> users) {
@@ -70,7 +70,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
         List<User> users = readAllUsers();
 
         loginUserLogger.log(Level.INFO,"Finding user.");
-        for (int i = 0; i < users.size(); i++) {
+        /*for (int i = 0; i < users.size(); i++) {
             User temp = users.get(i);
             if (temp.getEmail().equals(email)) {
                 loginUserLogger.log(Level.INFO,"User found. Setting his token. Ignoring password check.");
@@ -84,7 +84,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
             return
                     users.get(i);
         }
-
+*/
        return null;
     }
 
@@ -97,7 +97,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
         List<User> users = readAllUsers();
 
         loginOffLogger.log(Level.INFO,"Finding user.");
-        for (int i = 0; i < users.size(); i++) {
+        /*for (int i = 0; i < users.size(); i++) {
             User temp = users.get(i);
             if (temp.getEmail().equals(email)) {
                 loginOffLogger.log(Level.INFO,"User found. Setting his token. Ignoring token check.");
@@ -112,7 +112,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
             return
                     users.get(i);
         }
-
+*/
         return null;
     }
 
