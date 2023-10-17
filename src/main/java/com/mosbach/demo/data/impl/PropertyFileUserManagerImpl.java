@@ -38,15 +38,15 @@ public class PropertyFileUserManagerImpl implements UserManager {
 
             createUserLogger.log(Level.INFO,"Adding new user.");
 
-        //User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
-        //users.add(newUser);
+        // User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
+        // users.add(newUser);
 
             createUserLogger.log(Level.INFO,"Start storing all users.");
 
         storeAllUsers(users);
 
-        return null;
-                //newUser;
+        return
+                null;
     }
 
     public void storeAllUsers(List<User> users) {
@@ -70,13 +70,13 @@ public class PropertyFileUserManagerImpl implements UserManager {
         List<User> users = readAllUsers();
 
         loginUserLogger.log(Level.INFO,"Finding user.");
-        /*for (int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User temp = users.get(i);
             if (temp.getEmail().equals(email)) {
                 loginUserLogger.log(Level.INFO,"User found. Setting his token. Ignoring password check.");
-                users.set(i, new UserImpl(temp.getFirstName(), temp.getLastName(), temp.getPassword(), temp.getEmail(),
-                        System.currentTimeMillis() + "", 0)
-                        );
+                // users.set(i, new UserImpl(temp.getFirstName(), temp.getLastName(), temp.getPassword(), temp.getEmail(),
+                //        System.currentTimeMillis() + "", 0)
+                //        );
             }
             loginUserLogger.log(Level.INFO,"Writing data back to file.");
             storeAllUsers(users);
@@ -84,7 +84,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
             return
                     users.get(i);
         }
-*/
+
        return null;
     }
 
@@ -97,13 +97,13 @@ public class PropertyFileUserManagerImpl implements UserManager {
         List<User> users = readAllUsers();
 
         loginOffLogger.log(Level.INFO,"Finding user.");
-        /*for (int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             User temp = users.get(i);
             if (temp.getEmail().equals(email)) {
                 loginOffLogger.log(Level.INFO,"User found. Setting his token. Ignoring token check.");
-                users.set(i, new UserImpl(temp.getFirstName(), temp.getLastName(), temp.getPassword(), temp.getEmail(),
-                        "logged-off", 0)
-                );
+                // users.set(i, new UserImpl(temp.getFirstName(), temp.getLastName(), temp.getPassword(), temp.getEmail(),
+                //        "logged-off", 0)
+                //);
             }
 
             loginOffLogger.log(Level.INFO,"Writing data back to file.");
@@ -112,7 +112,7 @@ public class PropertyFileUserManagerImpl implements UserManager {
             return
                     users.get(i);
         }
-*/
+
         return null;
     }
 

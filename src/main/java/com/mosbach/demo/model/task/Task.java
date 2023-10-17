@@ -10,32 +10,16 @@ import java.util.Map;
 public class Task {
 
 	private String name = "";
-	private String description = "";
 	private int priority = 0;
-	private String date = "";
-	private int difficulty = 0;
-	private int id;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<>();
 
 	public Task() { }
 
-	public Task(int id, String name, String description, int priority, String date, int difficulty) {
+	public Task(String name, int priority) {
 		this.name = name;
-		this.description = description;
 		this.priority = priority;
-		this.date = date;
-		this.difficulty = difficulty;
-		this.id = id;
 	}
 
 	public String getName() {
@@ -46,14 +30,6 @@ public class Task {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public int getPriority() {
 		return priority;
 	}
@@ -62,21 +38,6 @@ public class Task {
 		this.priority = priority;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public int getDifficulty() {
-		return difficulty;
-	}
-
-	public void setDifficulty(int difficulty) {
-		this.difficulty = difficulty;
-	}
 
 	@JsonAnyGetter
 	public Map<String, Object> getAdditionalProperties() {

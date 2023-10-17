@@ -87,12 +87,13 @@ public class PostgresDBUserManagerImpl implements UserManager {
         List<User> users = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;
-/*
+
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
+            /*
             while (rs.next()) {
                 users.add(
                         new UserImpl(
@@ -105,6 +106,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                         )
                 );
             }
+             */
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -115,7 +117,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-*/
+
         return
                 users;
     }
@@ -129,7 +131,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
         Statement stmt = null;
         Connection connection = null;
-/*
+
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
@@ -153,8 +155,9 @@ public class PostgresDBUserManagerImpl implements UserManager {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
-        //User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
+        }
+
+        // User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
 
         return
                 null;
