@@ -30,7 +30,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "", allowedHeaders = "")
 @RestController
 @RequestMapping("/api/v1.0")
 public class MappingController {
@@ -136,7 +136,7 @@ public class MappingController {
      */
     @GetMapping("/tasks/all")
     public TaskList getAllTasks(@RequestParam(value = "sortOrder", defaultValue = "date") String sortOrder,
-                              @RequestParam(value = "token", defaultValue = "no-token") String token) {
+                                @RequestParam(value = "token", defaultValue = "no-token") String token) {
         Logger.getLogger("MappingController")
                 .log(Level.INFO,"MappingController /tasks/all " + sortOrder);
 
@@ -185,8 +185,8 @@ public class MappingController {
             outText += "Welcome to the Mosbach Task Organizer. ";
 
         if (alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest")
-            &&
-            (alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("TaskReadIntent"))
+                &&
+                (alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("TaskReadIntent"))
         ) {
             outText += "You have to do the following tasks. ";
             List<com.mosbach.demo.data.api.Task> tasks = taskManager.readAllTasks();
@@ -232,5 +232,3 @@ public class MappingController {
 
 
 }
-
-
