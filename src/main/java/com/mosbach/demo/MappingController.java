@@ -126,7 +126,7 @@ public class MappingController {
 
 
     /**
-     * POST to same endpoint -> /dashboard/create, to create a new meetup into the dashboard. Send with following JSON
+     * POST to endpoint -> /dashboard/create, to create a new meetup into the dashboard. Send with following JSON
      * {
      *    "title":"title",
      *    "friends":[
@@ -152,7 +152,7 @@ public class MappingController {
 
 
     /**
-     * DELETE to same endpoint -> /auth/register, to delete the user account. Send with following JSON
+     * DELETE to same endpoint -> /dashboard/create, to delete the Meetup. Send with following JSON
      * {
      * "userID":"userID",
      * "meetupID":"meetupID"
@@ -167,6 +167,17 @@ public class MappingController {
         return "sucessfully deleted";
     }
 
-
+    /**
+     * POST to /dashboard/edit, to change some things in the MeetUp Send with following JSON
+     *
+     */
+    @PostMapping(
+            path = "/dashboard/edit",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupEdit(@RequestBody Meetupedit Meetupedit) {
+        return "Sucessfully changed the Meetup";
+    }
 
 }
