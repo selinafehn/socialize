@@ -151,6 +151,21 @@ public class MappingController {
     }
 
 
+    /**
+     * DELETE to same endpoint -> /auth/register, to delete the user account. Send with following JSON
+     * {
+     * "userID":"userID",
+     * "meetupID":"meetupID"
+     * }
+     */
+    @DeleteMapping(
+            path = "/dashboard/create",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupDelete(@RequestBody Meetupdelete Meetupdelete) {
+        return "sucessfully deleted";
+    }
 
 
 
