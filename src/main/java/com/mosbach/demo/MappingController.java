@@ -202,8 +202,31 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String meetupShow(@RequestBody Meetupshow Meetupshow) {
-        return "Sucessfully changed the Meetup";
+        return "Sucessfully changed the Meetup" +
+                "- title\n" +
+                "- friends\n" +
+                "- date\n" +
+                "- place\n" +
+                "- sepcification\n" +
+                "- timerange\n" +
+                "- description\n" +
+                "\n";
     }
 
 
+    /**
+     * GET /dashboard/show to show the User the meetup connected with the MeetupID
+     * {
+     * "meetupID":"meetupID",
+     * "token":"token"
+     * }
+     */
+    @GetMapping(
+            path = "/dashboard/overview",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupOverview(@RequestBody Meetupoverview Meetupoverview) {
+        return "LIST(meetup)";
+    }
 }
