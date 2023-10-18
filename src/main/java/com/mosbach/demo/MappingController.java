@@ -45,6 +45,17 @@ public class MappingController {
 
 
     /**
+     * The API Call header: ###
+     *
+     * POST https://radiant-ravine-78045-5b6112d7be12.herokuapp.com/api/v1.0/auth/register
+     * Content-Type: application/JSON
+     *
+     * HERE HAS TO STAND THE JSON SENT IN!
+     */
+
+
+
+    /**
      * GET /auth only for testing whether the server is alive
      */
     @GetMapping("/auth")
@@ -52,6 +63,13 @@ public class MappingController {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
         return "OK";
     }
+    /**
+     * POST to /auth/login. important you have to send the following Data with the Api Call:
+     * {
+     * "email":"email",
+     * "password":"password"
+     * }
+     */
     @PostMapping(
             path = "/auth/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -60,6 +78,17 @@ public class MappingController {
     public String userLogIn(@RequestBody Userlogin userlogin) {
         return "OK";
     }
+
+    /**
+     * POST to /auth/register. important you have to sent the following Data within the API call:
+     {
+     "email":"email",
+     "password":"password",
+     " firstname ":" firstname ",
+     " lastname ":" lastname ",
+     " username ":" username "
+     }
+     */
     @PostMapping(
             path = "/auth/register",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -68,20 +97,34 @@ public class MappingController {
     public String userRegister(@RequestBody Userregister userregister) {
         return "OK";
     }
+    /**
+     * DELETE to same endpoint -> /auth/login, to revert the login syntactically. Send with following JSON
+     * {
+     * "token":"token"
+     * }
+     */
     @DeleteMapping(
             path = "/auth/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userlogoff(@RequestBody Userlogoff userlogoff) {
+    public String userLogoff(@RequestBody Userlogoff userlogoff) {
         return "logged off";
     }
+    /**
+     * DELETE to same endpoint -> /auth/register, to delete the user account. Send with following JSON
+     * {
+     * "email":"email",
+     * "token":"token",
+     * "password":"password"
+     * }
+     */
     @DeleteMapping(
             path = "/auth/register",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userdelete(@RequestBody Userdelete userdelete) {
+    public String userDelete(@RequestBody Userdelete userdelete) {
         return "sucessfully deleted";
     }
 
