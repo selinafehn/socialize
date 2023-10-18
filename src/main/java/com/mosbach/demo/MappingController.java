@@ -56,7 +56,7 @@ public class MappingController {
     @GetMapping("/auth")
     public String getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
-        return "OK";
+        return "Server steht und läuft";
     }
     /**
      * POST to /auth/login. important you have to send the following Data with the Api Call:
@@ -71,7 +71,12 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userLogIn(@RequestBody Userlogin userlogin) {
-        return "OK";
+        return "Token\n" +
+                "Validinmin\n" +
+                "\n" +
+                "Oder\n" +
+                "\n" +
+                "Error pw falsch\n";
     }
 
     /**
@@ -90,7 +95,9 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userRegister(@RequestBody Userregister userregister) {
-        return "OK";
+        return "OK \n" +
+                "oder \n" +
+                "error\n";
     }
     /**
      * DELETE to same endpoint -> /auth/login, to revert the login syntactically. Send with following JSON
@@ -179,5 +186,24 @@ public class MappingController {
     public String meetupEdit(@RequestBody Meetupedit Meetupedit) {
         return "Sucessfully changed the Meetup";
     }
+
+
+
+    /**
+     * GET /dashboard/show to show the User the meetup connected with the MeetupID
+     * {
+     * "meetupID":"meetupID",
+     * "token":"token"
+     * }
+     */
+    @GetMapping(
+        path = "/dashboard/show",
+        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupShow(@RequestBody Meetupshow Meetupshow) {
+        return "Sucessfully changed the Meetup";
+    }
+
 
 }
