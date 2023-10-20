@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 
 public class PostgresDBTaskManagerImpl implements TaskManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-3-212-29-93.compute-1.amazonaws.com:5432/d112sce6c9cjgs";
-    String username = "pnejojqestlulc";
-    String password = "f98161fe2a5d07ec609235fcc4dc93b75c1e4707459dab4c47d0d7555b6c53a4";
+    String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:dek9s2en5qfdl1";
+    String username = "rkmyfwyjvgqzgt";
+    String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
     BasicDataSource basicDataSource;
 
 

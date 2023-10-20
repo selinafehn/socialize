@@ -215,9 +215,8 @@ public class MappingController {
 
 
     /**
-     * GET /dashboard/show to show the User the meetup connected with the MeetupID
+     * GET /dashboard/overview to show the User the dashboard in an overview
      * {
-     * "meetupID":"meetupID",
      * "token":"token"
      * }
      */
