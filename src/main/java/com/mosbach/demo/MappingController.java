@@ -33,18 +33,33 @@ import java.util.logging.Logger;
 public class MappingController {
 
     // Turn on if you store data to postgres
-    // UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
+    UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
 
     // Turn on if you store data to property files
-    UserManager userManager = PropertyFileUserManagerImpl.getPropertyFileUserManagerImpl("src/main/resources/users.properties");
-    // TaskManager taskManager = PropertyFileTaskManagerImpl.getPropertyFileTaskManagerImpl("src/main/resources/tasks.properties");
+    // UserManager userManager = PropertyFileUserManagerImpl.getPropertyFileUserManagerImpl("src/main/resources/users.properties");
+    //TaskManager taskManager = PropertyFileTaskManagerImpl.getPropertyFileTaskManagerImpl("src/main/resources/tasks.properties");
     TaskManager taskManager = PostgresDBTaskManagerImpl.getPostgresDBUserManagerImpl();
+
+
+    @PostMapping ("/createTable/user")
+    public String createUserTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        userManager.createUserTable();
+        return "User Created";
+    }
+
+
+    // write endpoint with mapping
+    // insert Interface with own information
+    // PostgresDBUserManagerImpl
+
+
+
 
 
     /**
      * The API Call header: ###
      *
-     * POST https://radiant-ravine-78045-5b6112d7be12.herokuapp.com/api/v1.0/auth/register
+     * POST https://socialize-rest-64e8dc6bda81.herokuapp.com/api/v1.0/auth/register
      * Content-Type: application/JSON
      *
      * HERE HAS TO STAND THE JSON SENT IN! EVERY JSON IS WRITTEN IN FRONT OF THE API CALL

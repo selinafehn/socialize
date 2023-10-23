@@ -41,32 +41,25 @@ public class PostgresDBUserManagerImpl implements UserManager {
         return postgresDBUserManager;
     }
 
-    public void createUserTable() {
 
-        // Be carefull: It deletes data if table already exists.
-        //
+    // Be carefull: It deletes data if table already exists.
+    // String dropTable = "DROP TABLE tasks";
+    // stmt.executeUpdate(dropTable);
+    public void createUserTable() {
         Statement stmt = null;
         Connection connection = null;
-
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-
-            // String dropTable = "DROP TABLE tasks";
-
             String createTable = "CREATE TABLE users (" +
-                    "id SERIAL PRIMARY KEY, " +
-                    "firstname varchar(100) NOT NULL, " +
-                    "lastname varchar(100) NOT NULL, " +
-                    "password varchar(100) NOT NULL, " +
-                    "email varchar(100) NOT NULL, " +
-                    "token varchar(100) NOT NULL, " +
-                    "validuntil int NOT NULL)";
-
-            // stmt.executeUpdate(dropTable);
-
+                    "userid varchar(100) PRIMARY KEY NOT NULL, " +
+                    "firstname varchar(255) NOT NULL, " +
+                    "lastname varchar(255) NOT NULL, " +
+                    "password varchar(255) NOT NULL, " +
+                    "email varchar(255) NOT NULL, " +
+                    "token varchar(255) NOT NULL, " +
+                    "validuntil int(10) NOT NULL)";
             stmt.executeUpdate(createTable);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,7 +69,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public List<User> readAllUsers() {
