@@ -48,9 +48,21 @@ public class MappingController {
     }
 
 
+
+
     // write endpoint with mapping
     // insert Interface with own information
     // PostgresDBUserManagerImpl
+
+    @PostMapping(
+            path = "/createuser",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String userRegistration(@RequestBody CreateUser createUser) {
+        return "user created";
+    }
+
 
 
     /**
