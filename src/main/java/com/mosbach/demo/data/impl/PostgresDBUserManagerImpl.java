@@ -128,7 +128,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
      */
 
     @Override
-    public User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validuntil) {
+    public User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil) {
 
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
@@ -139,19 +139,18 @@ public class PostgresDBUserManagerImpl implements UserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validuntil) VALUES (" +
+            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validUntil) VALUES (" +
                     "''" + userID +"', " +
                     "'" + firstName + "', " +
                     "'" + lastName + "', " +
                     "'" + password + "', " +
                     "'" + email + "', " +
                     "'" + token + "', " +
-                    "'" + validuntil + "', " +
+                    "'" + validUntil + "', " +
                     "'logged-off', " +
                     "0)";
 
             stmt.executeUpdate(udapteSQL);
-
             stmt.close();
             connection.close();
         } catch (SQLException e) {
