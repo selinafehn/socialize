@@ -41,7 +41,7 @@ public class MappingController {
     TaskManager taskManager = PostgresDBTaskManagerImpl.getPostgresDBUserManagerImpl();
 
 
-    @PostMapping ("/createTable/user")
+    @PostMapping ("/create-table/user")
     public String createUserTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         userManager.createUserTable();
         return "User Created";
