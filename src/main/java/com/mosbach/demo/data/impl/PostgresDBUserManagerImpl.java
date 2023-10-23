@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 
 public class PostgresDBUserManagerImpl implements UserManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-34-202-127-5.compute-1.amazonaws.com:5432/defa4ehgv6lm5";
-    String username = "etjbssbrohalwp";
-    String password = "2d579abf3a3eb6e77a889ca22e20677c6b88c60041a2d6c8796d547bf0ae5e99";
+    String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:5432/dek9s2en5qfdl1";
+    String username = "rkmyfwyjvgqzgt";
+    String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
     BasicDataSource basicDataSource;
 
 
@@ -51,14 +51,16 @@ public class PostgresDBUserManagerImpl implements UserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
+
             String createTable = "CREATE TABLE users (" +
                     "userid varchar(100) PRIMARY KEY NOT NULL, " +
-                    "firstname varchar(255) NOT NULL, " +
-                    "lastname varchar(255) NOT NULL, " +
-                    "password varchar(255) NOT NULL, " +
-                    "email varchar(255) NOT NULL, " +
-                    "token varchar(255) NOT NULL, " +
-                    "validuntil int(10) NOT NULL)";
+                    "firstname varchar(255) NOT NULL," +
+                    "lastname varchar(255) NOT NULL," +
+                    "password varchar(255) NOT NULL," +
+                    "email varchar(255) NOT NULL," +
+                    "token varchar(255) NOT NULL," +
+                    "validuntil int(10) NOT NULL )";
+
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
             e.printStackTrace();
