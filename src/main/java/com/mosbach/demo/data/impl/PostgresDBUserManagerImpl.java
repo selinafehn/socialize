@@ -145,9 +145,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "'" + password + "', " +
                     "'" + email + "', " +
                     "'" + token + "', " +
-                    "'" + validUntil + "', " +
-                    "'logged-off', " +
-                    "0)";
+                    "'" + validUntil;
 
             stmt.executeUpdate(udapteSQL);
             stmt.close();
