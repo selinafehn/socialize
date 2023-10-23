@@ -34,7 +34,6 @@ public class MappingController {
 
     // Turn on if you store data to postgres
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
-
     // Turn on if you store data to property files
     // UserManager userManager = PropertyFileUserManagerImpl.getPropertyFileUserManagerImpl("src/main/resources/users.properties");
     //TaskManager taskManager = PropertyFileTaskManagerImpl.getPropertyFileTaskManagerImpl("src/main/resources/tasks.properties");
@@ -47,9 +46,6 @@ public class MappingController {
         return "User Created";
     }
 
-
-
-
     // write endpoint with mapping
     // insert Interface with own information
     // PostgresDBUserManagerImpl
@@ -60,10 +56,17 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userRegistration(@RequestBody CreateUser createUser) {
+
+        userManager.createUser(
+                createUser.getUserID(),
+                createUser.getFirstname(),
+                createUser.getLastname(),
+                createUser.getPassword(), createUser.getEmail(),
+                createUser.getToken(),
+                createUser.getValiduntil());
+
         return "user created";
     }
-
-
 
     /**
      * The API Call header: ###
