@@ -132,7 +132,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
-
         Statement stmt = null;
         Connection connection = null;
 
@@ -140,7 +139,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validUntil) VALUES (" +
-                    "''" + userID +"', " +
+                    "'" + userID +"', " +
                     "'" + firstName + "', " +
                     "'" + lastName + "', " +
                     "'" + password + "', " +
