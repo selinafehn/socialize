@@ -58,7 +58,7 @@ public class MappingController {
     public String userRegistration(@RequestBody CreateUser createUser) {
 
         userManager.createUser(
-                createUser.getUserID(),
+                UUID.randomUUID().toString(),
                 createUser.getFirstname(),
                 createUser.getLastname(),
                 createUser.getPassword(),
