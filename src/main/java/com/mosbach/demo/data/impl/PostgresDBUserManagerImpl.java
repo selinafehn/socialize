@@ -59,7 +59,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "password varchar(255) NOT NULL," +
                     "email varchar(255) NOT NULL," +
                     "token varchar(255) NOT NULL," +
-                    "validuntil int(10) NOT NULL )";
+                    "validuntil int NOT NULL)";
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
