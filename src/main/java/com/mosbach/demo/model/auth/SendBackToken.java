@@ -10,12 +10,12 @@ import java.util.Map;
 public class SendBackToken {
 
     private String token;
-    private int validInSeconds;
+    private long validInSeconds;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 
-    public SendBackToken(String token, int validInSeconds) {
+    public SendBackToken(String token, long validInSeconds) {
         this.token = token;
         this.validInSeconds = validInSeconds;
     }
@@ -28,11 +28,11 @@ public class SendBackToken {
         this.token = token;
     }
 
-    public int getValidInSeconds() {
+    public long getValidInSeconds() {
         return validInSeconds;
     }
 
-    public void setValidInSeconds(int validInSeconds) {
+    public void setValidInSeconds(long validInSeconds) {
         this.validInSeconds = validInSeconds;
     }
 

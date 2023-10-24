@@ -7,5 +7,5 @@ public interface User {
     String getPassword();
     String getEmail();
     String getToken();
-    int getValidUntil();
+    long getValidUntil();
 }

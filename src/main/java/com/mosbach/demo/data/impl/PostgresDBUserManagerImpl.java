@@ -107,7 +107,10 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "password varchar(255) NOT NULL," +
                     "email varchar(255) NOT NULL," +
                     "token varchar(255) NOT NULL," +
-                    "validuntil int NOT NULL)";
+                    "validuntil bigint NOT NULL)";
+
+            String droptable = "drop table users";
+            stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
@@ -179,7 +182,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         if (!testuser.getPassword().equals(password)) return null;
 
         //token generation
-        int validUntil = (int) (System.currentTimeMillis()+(1800*1000));
+        long validUntil = (System.currentTimeMillis()+(1800*1000));
         byte[] tokenbyte = new byte[16];
         random.nextBytes(tokenbyte);
         String token = encoder.encodeToString(tokenbyte);
@@ -206,7 +209,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
        return new SendBackToken(token, validUntil);
     }
 

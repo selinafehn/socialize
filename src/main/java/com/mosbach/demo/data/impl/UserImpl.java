@@ -11,9 +11,9 @@ public class UserImpl implements User {
     private String password;
     private String email;
     private String token;
-    private int validUntil;
+    private long validUntil;
 
-    public UserImpl(String ID, String firstname, String lastname, String password, String email, String token, int validUntil) {
+    public UserImpl(String ID, String firstname, String lastname, String password, String email, String token, long validUntil) {
         this.ID = ID;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -75,11 +75,11 @@ public class UserImpl implements User {
         this.token = token;
     }
 
-    public int getValidUntil() {
+    public long getValidUntil() {
         return validUntil;
     }
 
-    public void setValidUntil(int validUntil) {
+    public void setValidUntil(long validUntil) {
         this.validUntil = validUntil;
     }
 }
