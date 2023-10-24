@@ -189,9 +189,9 @@ public class PostgresDBUserManagerImpl implements UserManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "UPDATE users SET token = " +
-                    "'" +token +"'" +
+                    "'" +token +"', " +
                     "validuntil = " + validUntil +
-                    "where UserID = " +testuser.getUserID() ;
+                    " where UserID = " + testuser.getUserID() ;
             Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
 
             stmt.executeUpdate(udapteSQL);
