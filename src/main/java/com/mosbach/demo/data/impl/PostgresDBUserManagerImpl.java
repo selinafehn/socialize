@@ -184,7 +184,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         random.nextBytes(tokenbyte);
         String token = encoder.encodeToString(tokenbyte);
 
-        //SQL Statement
+        //SQL Statement for update database
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
@@ -211,21 +211,58 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
     @Override
-    public User logUserOff(String email, String token) {
+    public boolean logUserOff(String token) {
 
         final Logger loginOffLogger = Logger.getLogger("LogoffUserLogger");
-        loginOffLogger.log(Level.INFO,"Start logging off " + email);
+        loginOffLogger.log(Level.INFO,"Start logging off ");
 
-        // update set
+        List<User> userlist = readAllUsers();
 
-        return null;
+        User testuser = null;
+
+        for (User u : userlist){
+            if (u.getToken().equals(token)){
+                testuser = u;
+            }
+        }
+
+        if (testuser == null) return false;
+
+        //SQL statement
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+
+            String udapteSQL = "UPDATE users SET token = " +
+                    "' logged off ', " +
+                    "validuntil= " + 0 +
+                    " WHERE userid = '" + testuser.getUserID() +"'";
+
+            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
 
+    // ?????
     @Override
     public String getEmailForToken(String token) {
-
         // SQL WHERE
-
         return "not-found";
     }
 }
