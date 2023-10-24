@@ -207,7 +207,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
             e.printStackTrace();
         }
 
-       return null;
+       return new SendBackToken(token, validUntil);
     }
 
     @Override
