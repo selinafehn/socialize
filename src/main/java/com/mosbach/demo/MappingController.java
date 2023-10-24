@@ -154,7 +154,10 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userLogoff(@RequestBody Userlogoff userlogoff) {
-        return "logged off";
+        if (userManager.logUserOff(userlogoff.getToken())){
+            return "logged off";
+        }
+        return "could not log off";
     }
 
 
