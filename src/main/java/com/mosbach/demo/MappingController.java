@@ -1,24 +1,10 @@
 package com.mosbach.demo;
 
-import com.mosbach.demo.data.api.SortOrder;
 import com.mosbach.demo.data.api.TaskManager;
+import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
-import com.mosbach.demo.model.auth.EmailToken;
-import com.mosbach.demo.model.alexa.AlexaRO;
-import com.mosbach.demo.model.alexa.OutputSpeechRO;
-import com.mosbach.demo.model.alexa.ResponseRO;
-import com.mosbach.demo.model.auth.OnlyToken;
-import com.mosbach.demo.model.auth.SendBackToken;
-import com.mosbach.demo.model.auth.User;
-import com.mosbach.demo.model.student.Student;
-import com.mosbach.demo.model.student.StudentList;
-import com.mosbach.demo.model.student.StudentNoPassword;
-import com.mosbach.demo.model.task.Task;
-import com.mosbach.demo.model.task.TaskList;
-import com.mosbach.demo.model.task.TokenTask;
-import com.mosbach.demo.model.task.TokenTaskid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -32,23 +18,54 @@ import java.util.logging.Logger;
 @RequestMapping("/api/v1.0")
 public class MappingController {
 
-    // Turn on if you store data to postgres
+    // Datenbankenschnittstelle zum POSTGRESDBUSERMANAGERIMPL
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
-    // Turn on if you store data to property files
-    // UserManager userManager = PropertyFileUserManagerImpl.getPropertyFileUserManagerImpl("src/main/resources/users.properties");
-    //TaskManager taskManager = PropertyFileTaskManagerImpl.getPropertyFileTaskManagerImpl("src/main/resources/tasks.properties");
+
+    // KANN MAN DOCH EIGENTLICH LÖSCHEN????
     TaskManager taskManager = PostgresDBTaskManagerImpl.getPostgresDBUserManagerImpl();
 
+    //meetUp Manager (?)
 
+    /**
+     *
+     * HIER ENTSTEHT DER DATENBANKEN CALL ZUM ERSTELLEN DER USER TABELLE, ZUM ERSTELLEN EINES USERS, UND WSL AUCH ZUM LÖSCHEN EINES USERS
+     *
+     * SCHRITT FÜR SCHRITT ERKLÄRUNG:
+     *
+     * WRITE ENDPOINT FOR CREATING THE TABLE.
+     * -> IMPORTANT: IN POSTGRESDBUSERMANAGERIMPL THERE IS -- public void createUserTable() -- METHOD.
+     * THIS HAS TO BE ADDED FRIST. AND THEN IT HAS TO BE USED IN ENDPOINT MAPPING
+     *
+     * String createTable= "CREATE TABLE users (" +
+     *                     "userid varchar(100) PRIMARY KEY NOT NULL, " +
+     *                     "firstname varchar(255) NOT NULL," +
+     *                     "lastname varchar(255) NOT NULL," +
+     *                     "password varchar(255) NOT NULL," +
+     *                     "email varchar(255) NOT NULL," +
+     *                     "token varchar(255) NOT NULL," +
+     *                     "validuntil int NOT NULL)";
+     * ---> DIE DATEN WELCHE HIER STEHEN SIND ALLE AUS DEM ERM ZU ENTNEHMEN
+     *
+     * IM USERMANAGER.java SIND DANN ERGÄNZUNGEN VORZUNEHMEN BEZÜGLICH DES INTERFACES UND DER METHODEN
+     * DIE FUNKTIONEN SIND IM POSTGRESDBUSERMANAGERIMPL.java HINTERLEGT. WELCHE DANN AUCH ANGEPASST WERDEN MÜSSEN.
+     *
+     * DAS CREATE USER MAPPING IST AUCH ALS POST REALISIERT.
+     * WELCHER DANN AN DEN USERMANAGER IN DER ALLE WICHTIGEN DATEN ALS ATTRIBUTE HINTERLEGT UND SPEICHERT.
+     * DIE ID'S WERDEN ALLE ALS UUID AUTOGENERIERT.
+     *
+     * DAS USER INTERFACE MUSS AUCH ALLE INFORMATIONEN HINTERLEGT HABEN. MIT TYPEN
+     * PER JSONPOJO MUSS DANN AUCH DAS JSON WELCHES MIT DEM CALL GESENDET WIRD IN EINE KLASSE UMGEWANDELT WERDEN.
+     *
+     * IM POSTGRESDBUSERMANAGER IST DANN DIE EIGENTLICHE CREATEUSER() FUNKTION HINTERLEGT.
+     *
+     */
+
+    // erstellt die Datenbanktabelle zum User.
     @PostMapping ("/create-table/user")
     public String createUserTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         userManager.createUserTable();
         return "User Created";
     }
-
-    // write endpoint with mapping
-    // insert Interface with own information
-    // PostgresDBUserManagerImpl
 
     @PostMapping(
             path = "/createuser",
@@ -56,7 +73,6 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userRegistration(@RequestBody CreateUser createUser) {
-
         userManager.createUser(
                 UUID.randomUUID().toString(),
                 createUser.getFirstname(),
@@ -65,29 +81,30 @@ public class MappingController {
                 createUser.getEmail(),
                 createUser.getToken(),
                 createUser.getValiduntil());
-
         return "user created";
     }
 
+
     /**
-     * The API Call header: ###
-     *
-     * POST https://socialize-rest-64e8dc6bda81.herokuapp.com/api/v1.0/auth/register
-     * Content-Type: application/JSON
-     *
-     * HERE HAS TO STAND THE JSON SENT IN! EVERY JSON IS WRITTEN IN FRONT OF THE API CALL
+     * ----------------------------------------------------------------------------------------------------------------
+     * FOLGEND SIND DIE API'S HINTERLEGT
+     * ----------------------------------------------------------------------------------------------------------------
      */
 
     /**
      * GET /auth only for testing whether the server is alive
      */
+
     @GetMapping("/auth")
-    public String getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
+    public List<User> getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
-        return "Server steht und läuft";
+        return userManager.readAllUsers();
     }
+
+
     /**
-     * POST to /auth/login. important you have to send the following Data with the Api Call:
+     * POST to /auth/login. FOLLOWING JSON HAS TO BE SEND:
+     *
      * {
      * "email":"email",
      * "password":"password"
@@ -108,7 +125,7 @@ public class MappingController {
     }
 
     /**
-     * POST to /auth/register. important you have to sent the following Data within the API call:
+     * POST to /auth/register. FOLLOWING JSON HAS TO BE SEND:
      {
      "email":"email",
      "password":"password",
@@ -127,8 +144,10 @@ public class MappingController {
                 "oder \n" +
                 "error\n";
     }
+
+
     /**
-     * DELETE to same endpoint -> /auth/login, to revert the login syntactically. Send with following JSON
+     * DELETE to /auth/login, to revert the login syntactically. FOLLOWING JSON HAS TO BE SEND:
      * {
      * "token":"token"
      * }
@@ -141,8 +160,10 @@ public class MappingController {
     public String userLogoff(@RequestBody Userlogoff userlogoff) {
         return "logged off";
     }
+
+
     /**
-     * DELETE to same endpoint -> /auth/register, to delete the user account. Send with following JSON
+     * DELETE to  /auth/register, to delete the user account. FOLLOWING JSON HAS TO BE SEND:
      * {
      * "email":"email",
      * "token":"token",
@@ -161,7 +182,7 @@ public class MappingController {
 
 
     /**
-     * POST to endpoint -> /dashboard/create, to create a new meetup into the dashboard. Send with following JSON
+     * POST to endpoint -> /dashboard/create, to create a new meetup into the dashboard. FOLLOWING JSON HAS TO BE SEND:
      * {
      *    "title":"title",
      *    "friends":[
@@ -187,7 +208,7 @@ public class MappingController {
 
 
     /**
-     * DELETE to same endpoint -> /dashboard/create, to delete the Meetup. Send with following JSON
+     * DELETE to same endpoint -> /dashboard/create, to delete the Meetup. FOLLOWING JSON HAS TO BE SEND:
      * {
      * "userID":"userID",
      * "meetupID":"meetupID"
@@ -202,8 +223,10 @@ public class MappingController {
         return "sucessfully deleted";
     }
 
+
+
     /**
-     * POST to /dashboard/edit, to change some things in the MeetUp Send with following JSON
+     * POST to /dashboard/edit, to change some things in the MeetUp. FOLLOWING JSON HAS TO BE SEND:
      *
      */
     @PostMapping(
@@ -218,7 +241,7 @@ public class MappingController {
 
 
     /**
-     * GET /dashboard/show to show the User the meetup connected with the MeetupID
+     * GET /dashboard/show to show the User the meetup connected with the MeetupID. FOLLOWING JSON HAS TO BE SEND:
      * {
      * "meetupID":"meetupID",
      * "token":"token"
@@ -243,7 +266,7 @@ public class MappingController {
 
 
     /**
-     * GET /dashboard/overview to show the User the dashboard in an overview
+     * GET /dashboard/overview to show the User the dashboard in an overview. FOLLOWING JSON HAS TO BE SEND:
      * {
      * "token":"token"
      * }

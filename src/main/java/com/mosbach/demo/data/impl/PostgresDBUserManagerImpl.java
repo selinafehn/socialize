@@ -45,6 +45,57 @@ public class PostgresDBUserManagerImpl implements UserManager {
     // Be carefull: It deletes data if table already exists.
     // String dropTable = "DROP TABLE tasks";
     // stmt.executeUpdate(dropTable);
+
+
+    public List<User> readAllUsers() {
+
+        final Logger readUserLogger = Logger.getLogger("ReadUserLogger");
+        readUserLogger.log(Level.INFO,"Start reading ");
+
+        List<User> users = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            while (rs.next()) {
+                users.add(
+                        new UserImpl(
+                                rs.getString("userid"),
+                                rs.getString("firstname"),
+                                rs.getString("lastname"),
+                                rs.getString("password"),
+                                rs.getString("email"),
+                                rs.getString("token"),
+                                rs.getInt("validuntil")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                users;
+    }
+
+    /**
+     *
+     * konstruktor anpassen
+     *
+     * Interface
+     *
+     * SQL statment update SQL insert SQL
+     *
+     *
+     */
+
     public void createUserTable() {
         Statement stmt = null;
         Connection connection = null;
@@ -73,68 +124,12 @@ public class PostgresDBUserManagerImpl implements UserManager {
         }
     }
 
-    public List<User> readAllUsers() {
-
-        final Logger readUserLogger = Logger.getLogger("ReadUserLogger");
-        readUserLogger.log(Level.INFO,"Start reading ");
-
-        List<User> users = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
-
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-
-            /*
-            while (rs.next()) {
-                users.add(
-                        new UserImpl(
-                                rs.getString("firstname"),
-                                rs.getString("lastname"),
-                                rs.getString("password"),
-                                rs.getString("email"),
-                                rs.getString("token"),
-                                rs.getInt("validuntil")
-                        )
-                );
-            }
-             */
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return
-                users;
-    }
-
-    /**
-     *
-     * konstruktor anpassen
-     *
-     * Interface
-     *
-     * SQL statment update SQL insert SQL
-     *
-     *
-     */
-
     @Override
     public User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil) {
-
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
         Statement stmt = null;
         Connection connection = null;
-
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
@@ -160,9 +155,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // User newUser = new UserImpl(firstName, lastName, userPassword, email, "logged-off",0);
-
         return
                 null;
     }
