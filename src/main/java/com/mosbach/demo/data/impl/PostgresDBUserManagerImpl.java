@@ -2,17 +2,20 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
+import com.mosbach.demo.model.auth.SendBackToken;
 import com.mosbach.demo.model.task.Task;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
@@ -25,6 +28,11 @@ public class PostgresDBUserManagerImpl implements UserManager {
     String username = "rkmyfwyjvgqzgt";
     String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
     BasicDataSource basicDataSource;
+
+
+    // dass die bytes randomized werden (stack overflow)
+    private static SecureRandom random = new SecureRandom();
+    private static Base64.Encoder encoder = Base64.getUrlEncoder();
 
 
     // Singleton
@@ -84,17 +92,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
         return
                 users;
     }
-
-    /**
-     *
-     * konstruktor anpassen
-     *
-     * Interface
-     *
-     * SQL statment update SQL insert SQL
-     *
-     *
-     */
 
     public void createUserTable() {
         Statement stmt = null;
@@ -161,12 +158,54 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
 
     @Override
-    public User logUserIn(String email, String password) {
+    public SendBackToken logUserIn(String email, String password) {
 
         final Logger loginUserLogger = Logger.getLogger("LoginUserLogger");
         loginUserLogger.log(Level.INFO,"Start logging in " + email);
 
-        // Update set
+        Statement stmt = null;
+        Connection connection = null;
+
+        List<User> user = readAllUsers();
+
+        User testuser = null;
+
+        for (User u : user){
+            if (u.getEmail().equals(email)){
+                testuser = u;
+            }
+        }
+
+        if (!testuser.getPassword().equals(password)) return null;
+
+        //token generation
+        int validUntil = (int) (System.currentTimeMillis()+(1800*1000));
+        byte[] tokenbyte = new byte[16];
+        random.nextBytes(tokenbyte);
+        String token = encoder.encodeToString(tokenbyte);
+
+        //SQL Statement
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "UPDATE users SET token = " +
+                    "'" +token +"'" +
+                    "validuntil = " + validUntil +
+                    "where UserID = " +testuser.getUserID() ;
+            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
        return null;
     }

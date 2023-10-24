@@ -1,5 +1,7 @@
 package com.mosbach.demo.data.api;
 
+import com.mosbach.demo.model.auth.SendBackToken;
+
 import java.util.List;
 
 public interface UserManager {
@@ -7,7 +9,7 @@ public interface UserManager {
     List<User> readAllUsers();
     User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil);
     void createUserTable();
-    User logUserIn(String email, String password);
+    SendBackToken logUserIn(String email, String password);
     User logUserOff(String email, String token);
     String getEmailForToken(String token);
 
