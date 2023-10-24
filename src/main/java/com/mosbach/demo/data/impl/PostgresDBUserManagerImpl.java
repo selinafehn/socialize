@@ -76,7 +76,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                                 rs.getString("password"),
                                 rs.getString("email"),
                                 rs.getString("token"),
-                                rs.getInt("validuntil")
+                                rs.getLong("validuntil")
                         )
                 );
             }
