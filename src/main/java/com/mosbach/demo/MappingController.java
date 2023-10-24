@@ -5,6 +5,7 @@ import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
+import com.mosbach.demo.model.auth.SendBackToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -104,7 +105,7 @@ public class MappingController {
 
     /**
      * POST to /auth/login. FOLLOWING JSON HAS TO BE SEND:
-     *
+     * <p>
      * {
      * "email":"email",
      * "password":"password"
@@ -115,13 +116,8 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userLogIn(@RequestBody Userlogin userlogin) {
-        return "Token\n" +
-                "Validinmin\n" +
-                "\n" +
-                "Oder\n" +
-                "\n" +
-                "Error pw falsch\n";
+    public SendBackToken userLogIn(@RequestBody Userlogin userlogin) {
+        return userManager.logUserIn(userlogin.getEmail(), userlogin.getPassword());
     }
 
     /**

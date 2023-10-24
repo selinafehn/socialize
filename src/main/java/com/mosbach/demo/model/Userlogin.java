@@ -13,27 +13,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "username",
+    "email",
     "password"
 })
 @Generated("jsonschema2pojo")
 public class Userlogin {
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("email")
+    private String email;
     @JsonProperty("password")
     private String password;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("username")
-    public String getUsername() {
-        return username;
+    @JsonProperty("email")
+    public String getEmail() {
+        return email;
     }
 
-    @JsonProperty("username")
-    public void setUsername(String username) {
-        this.username = username;
+    @JsonProperty("email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @JsonProperty("password")
