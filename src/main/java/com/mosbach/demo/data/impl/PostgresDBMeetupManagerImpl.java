@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:dek9s2en5qfdl1";
+    String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:5432/dek9s2en5qfdl1";
     String username = "rkmyfwyjvgqzgt";
     String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
     BasicDataSource basicDataSource;
