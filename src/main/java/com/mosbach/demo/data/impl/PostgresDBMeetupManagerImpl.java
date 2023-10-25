@@ -42,11 +42,11 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     }
 
     public void createMeetupTable() {
-        Statement stmt = null;
-        Connection connection = null;
+        Statement stmts = null;
+        Connection connections = null;
         try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
+            connections = basicDataSource.getConnection();
+            stmts = connections.createStatement();
 
             String createTable = "CREATE TABLE meetup (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
@@ -57,15 +57,15 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL) ";
 
             String droptable = "drop table meetup";
-            stmt.executeUpdate(droptable);
+            stmts.executeUpdate(droptable);
 
-            stmt.executeUpdate(createTable);
+            stmts.executeUpdate(createTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            stmt.close();
-            connection.close();
+            stmts.close();
+            connections.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
