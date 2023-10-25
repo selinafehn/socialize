@@ -10,7 +10,6 @@ public class MeetupImpl implements Meetup {
     private String location;
     private long validUntil;
 
-
     public MeetupImpl(String meetupID, String description, String title, String option, String location, long validUntil) {
         this.meetupID = meetupID;
         this.description = description;

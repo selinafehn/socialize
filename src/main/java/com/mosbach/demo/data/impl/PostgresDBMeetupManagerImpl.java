@@ -116,7 +116,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validUntil) VALUES (" +
+            String udapteSQL = "INSERT into meetup (meetupID, description, title, option, location, validUntil) VALUES (" +
                     "'" + meetupID +"', " +
                     "'" + description + "', " +
                     "'" + title + "', " +
