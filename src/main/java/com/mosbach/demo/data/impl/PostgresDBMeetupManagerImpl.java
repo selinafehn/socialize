@@ -1,21 +1,19 @@
 package com.mosbach.demo.data.impl;
 
-import com.mosbach.demo.data.api.Task;
-import com.mosbach.demo.data.api.TaskManager;
-import com.mosbach.demo.data.api.User;
-import com.mosbach.demo.data.api.UserManager;
+import com.mosbach.demo.data.api.Meetup;
+import com.mosbach.demo.data.api.MeetupManager;
 import org.apache.commons.dbcp.BasicDataSource;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PostgresDBTaskManagerImpl implements TaskManager {
+public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
     String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:dek9s2en5qfdl1";
     String username = "rkmyfwyjvgqzgt";
@@ -23,19 +21,93 @@ public class PostgresDBTaskManagerImpl implements TaskManager {
     BasicDataSource basicDataSource;
 
 
+    // dass die bytes randomized werden (stack overflow)
+    private static SecureRandom random = new SecureRandom();
+    private static Base64.Encoder encoder = Base64.getUrlEncoder();
+
     // Singleton
-    static PostgresDBTaskManagerImpl postgresDBTaskManager = null;
-    private PostgresDBTaskManagerImpl() {
+    static PostgresDBMeetupManagerImpl postgresDBTaskManager = null;
+    private PostgresDBMeetupManagerImpl() {
         basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(databaseURL);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
     }
-    public static PostgresDBTaskManagerImpl getPostgresDBUserManagerImpl() {
+    public static PostgresDBMeetupManagerImpl getPostgresDBUserManagerImpl() {
         if (postgresDBTaskManager == null)
-            postgresDBTaskManager = new PostgresDBTaskManagerImpl();
+            postgresDBTaskManager = new PostgresDBMeetupManagerImpl();
         return postgresDBTaskManager;
     }
+
+
+    @Override
+    public List<Meetup> readAllMeetups() {
+        return null;
+    }
+
+    public void createMeetupTable() {
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+
+            String createTable = "CREATE TABLE meetup (" +
+                    "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
+                    "description varchar(255) NULL, "+
+                    "title varchar(255) NOT NULL, "+
+                    "option varchar(255) NULL, "+
+                    "location varchar(255) NULL, "+
+                    "validuntil bigint NOT NULL) ";
+
+            //String droptable = "drop table meetup";
+            //stmt.executeUpdate(droptable);
+
+            stmt.executeUpdate(createTable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createMeetup(String meetupID, String description, String title, String option, String location, int validUntil) {
+        final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
+        createMeetupLogger.log(Level.INFO,"Start creating ");
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validUntil) VALUES (" +
+                    "'" + meetupID +"', " +
+                    "'" + description + "', " +
+                    "'" + title + "', " +
+                    "'" + option + "', " +
+                    "'" + location + "', " +
+                    validUntil +")";
+            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+/**
 
     public void createTaskTable() {
 
@@ -70,12 +142,12 @@ public class PostgresDBTaskManagerImpl implements TaskManager {
 
     }
 
-    public List<Task> readAllTasks() {
+    public List<Meetup> readAllTasks() {
 
         final Logger readTaskLogger = Logger.getLogger("ReadTaskLogger");
         readTaskLogger.log(Level.INFO,"Start reading tasks ");
 
-        List<Task> tasks = new ArrayList<>();
+        List<Meetup> tasks = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;
 
@@ -86,7 +158,7 @@ public class PostgresDBTaskManagerImpl implements TaskManager {
 
             while (rs.next()) {
                 tasks.add(
-                        new TaskImpl(
+                        new MeetupImpl(
                                 rs.getString("name"),
                                 rs.getInt("priority")
                         )
@@ -139,5 +211,6 @@ public class PostgresDBTaskManagerImpl implements TaskManager {
         }
     }
 
+**/
 
 }

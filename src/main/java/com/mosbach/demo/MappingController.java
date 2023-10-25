@@ -1,6 +1,7 @@
 package com.mosbach.demo;
 
-import com.mosbach.demo.data.api.TaskManager;
+import com.mosbach.demo.data.api.MeetupManager;
+import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.data.impl.*;
@@ -9,7 +10,6 @@ import com.mosbach.demo.model.auth.SendBackToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +19,10 @@ import java.util.logging.Logger;
 @RequestMapping("/api/v1.0")
 public class MappingController {
 
-    // Datenbankenschnittstelle zum POSTGRESDBUSERMANAGERIMPL
+    // Datenbankenschnittstelle zum POSTGRESDBUSERMANAGERIMPL und POSTGRESDBMEETUPMANAGER
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
+    MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
 
-    // KANN MAN DOCH EIGENTLICH LÖSCHEN????
-    TaskManager taskManager = PostgresDBTaskManagerImpl.getPostgresDBUserManagerImpl();
-
-    //meetUp Manager (?)
 
     /**
      *
@@ -68,9 +65,10 @@ public class MappingController {
         return "UserTable Created";
     }
 
+    // erstellt die Datenbanktabelle zum Meetup.
     @PostMapping ("/create-table/meetup")
     public String createMeetupTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
-        userManager.createMeetupTable();
+        meetupManager.createMeetupTable();
         return "MeetupTable Created";
     }
 

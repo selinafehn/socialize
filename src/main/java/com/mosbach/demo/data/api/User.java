@@ -8,4 +8,5 @@ public interface User {
     String getEmail();
     String getToken();
     long getValidUntil();
+
 }
