@@ -62,7 +62,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         return postgresDBTaskManager;
     }
 
-
     @Override
     public List<Meetup> readAllMeetups() {
         return null;
