@@ -1,7 +1,7 @@
 package com.mosbach.demo;
 
-import com.mosbach.demo.data.api.MeetupManager;
 import com.mosbach.demo.data.api.Meetup;
+import com.mosbach.demo.data.api.MeetupManager;
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.data.impl.*;
@@ -89,6 +89,22 @@ public class MappingController {
         return "user created";
     }
 
+    @PostMapping(
+            path = "/createmeetup",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupCreation(@RequestBody CreateMeetup createMeetup) {
+        meetupManager.createMeetup(
+                UUID.randomUUID().toString(),
+                createMeetup.getDescription(),
+                createMeetup.getTitle(),
+                createMeetup.getOption(),
+                createMeetup.getLocation(),
+                createMeetup.getValiduntil());
+        return "meetup created";
+    }
+
 
     /**
      * ----------------------------------------------------------------------------------------------------------------
@@ -100,10 +116,16 @@ public class MappingController {
      * GET /auth only for testing whether the server is alive
      */
 
-    @GetMapping("/auth")
-    public List<User> getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
+    @GetMapping("/auth/user")
+    public List<User> getInfoUSer(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
         return userManager.readAllUsers();
+    }
+
+    @GetMapping("/auth/meetup")
+    public List<Meetup> getInfoMeetup(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
+        return meetupManager.readAllMeetups();
     }
 
 
