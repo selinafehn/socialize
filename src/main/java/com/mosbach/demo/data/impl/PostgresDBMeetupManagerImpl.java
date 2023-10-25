@@ -54,7 +54,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
             String createTable = "CREATE TABLE meetup (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
-                    "description varchar(255) NULL, "+
+                    "description varchar(255) NOT NULL, "+
                     "title varchar(255) NOT NULL, "+
                     "option varchar(255) NULL, "+
                     "location varchar(255) NULL, "+
