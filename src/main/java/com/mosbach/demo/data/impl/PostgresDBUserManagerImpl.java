@@ -160,6 +160,42 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
 
+
+    public void createMeetupTable() {
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+
+            String createTable = "CREATE TABLE meetup (" +
+                    "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
+                    "description varchar(255) NULL, "+
+                    "title varchar(255) NOT NULL, "+
+                    "option varchar(255) NULL, "+
+                    "location varchar(255) NULL, "+
+                    "validuntil bigint NOT NULL) ";
+
+            //String droptable = "drop table meetup";
+            //stmt.executeUpdate(droptable);
+
+            stmt.executeUpdate(createTable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
     @Override
     public SendBackToken logUserIn(String email, String password) {
 
