@@ -56,8 +56,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
                     "description varchar(255) NOT NULL, "+
                     "title varchar(255) NOT NULL, "+
-                    "option varchar(255) NULL, "+
-                    "location varchar(255) NULL, "+
+                    "option varchar(255) NOT NULL, "+
+                    "location varchar(255)  NOT NULL, "+
                     "validuntil bigint NOT NULL) ";
 
             String droptable = "drop table meetup";
@@ -74,6 +74,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void createMeetup(String meetupID, String description, String title, String option, String location, int validUntil) {
@@ -107,7 +108,9 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         }
     }
 
-/**
+
+
+    /** HARTWIG CODE
 
     public void createTaskTable() {
 
@@ -141,6 +144,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         }
 
     }
+
 
     public List<Meetup> readAllTasks() {
 
