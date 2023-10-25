@@ -65,7 +65,13 @@ public class MappingController {
     @PostMapping ("/create-table/user")
     public String createUserTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         userManager.createUserTable();
-        return "User Created";
+        return "UserTable Created";
+    }
+
+    @PostMapping ("/create-table/meetup")
+    public String createMeetupTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        userManager.createMeetupTable();
+        return "MeetupTable Created";
     }
 
     @PostMapping(

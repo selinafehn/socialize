@@ -13,4 +13,6 @@ public interface UserManager {
     boolean logUserOff( String token);
     String getEmailForToken(String token);
 
+    public void createMeetupTable();
+
 }
