@@ -1,9 +1,7 @@
 package com.mosbach.demo.data.impl;
-
 import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.MeetupManager;
 import org.apache.commons.dbcp.BasicDataSource;
-
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,8 +10,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
@@ -27,7 +23,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
 
     // Singleton
-    static PostgresDBMeetupManagerImpl postgresDBTaskManager = null;
+    static PostgresDBMeetupManagerImpl postgresDBMeetupManager = null;
     private PostgresDBMeetupManagerImpl() {
         basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(databaseURL);
@@ -35,9 +31,9 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         basicDataSource.setPassword(password);
     }
     public static PostgresDBMeetupManagerImpl getPostgresDBUserManagerImpl() {
-        if (postgresDBTaskManager == null)
-            postgresDBTaskManager = new PostgresDBMeetupManagerImpl();
-        return postgresDBTaskManager;
+        if (postgresDBMeetupManager == null)
+            postgresDBMeetupManager = new PostgresDBMeetupManagerImpl();
+        return postgresDBMeetupManager;
     }
 
     @Override
@@ -91,7 +87,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "'" + option + "', " +
                     "'" + location + "', " +
                     validUntil +")";
-            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+            Logger.getLogger("DbMeetupManager").log(Level.INFO,udapteSQL);
 
             stmt.executeUpdate(udapteSQL);
             stmt.close();
