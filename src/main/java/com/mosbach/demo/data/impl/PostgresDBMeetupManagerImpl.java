@@ -76,14 +76,14 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
             String createTable = "CREATE TABLE meetup (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
-                    "description varchar(255) NOT NULL, "+
+                    "description varchar(255), "+
                     "title varchar(255) NOT NULL, "+
-                    "option varchar(255) NOT NULL, "+
-                    "location varchar(255)  NOT NULL, "+
+                    "option varchar(255), "+
+                    "location varchar(255), "+
                     "validuntil bigint NOT NULL) ";
 
-            //String droptable = "drop table meetup";
-            //stmt.executeUpdate(droptable);
+            String droptable = "drop table meetup";
+            stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
