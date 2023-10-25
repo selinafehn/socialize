@@ -44,7 +44,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
     BasicDataSource basicDataSource;
 
-
     // dass die bytes randomized werden (stack overflow)
     private static SecureRandom random = new SecureRandom();
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
@@ -84,8 +83,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "location varchar(255)  NOT NULL, "+
                     "validuntil bigint NOT NULL) ";
 
-            String droptable = "drop table meetup";
-            stmt.executeUpdate(droptable);
+            //String droptable = "drop table meetup";
+            //stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
@@ -131,8 +130,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             e.printStackTrace();
         }
     }
-
-
 
     /** HARTWIG CODE
 
@@ -240,5 +237,4 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     }
 
 **/
-
 }
