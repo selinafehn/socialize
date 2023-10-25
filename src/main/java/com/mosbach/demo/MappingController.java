@@ -117,7 +117,7 @@ public class MappingController {
      */
 
     @GetMapping("/auth/user")
-    public List<User> getInfoUSer(@RequestParam(value = "name", defaultValue = "Student") String name) {
+    public List<User> getInfoUser(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
         return userManager.readAllUsers();
     }

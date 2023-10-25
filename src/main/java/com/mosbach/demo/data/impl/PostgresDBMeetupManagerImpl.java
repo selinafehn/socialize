@@ -41,9 +41,11 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     public List<Meetup> readAllMeetups() {
+
         final Logger readUserLogger = Logger.getLogger("ReadMeetupLogger");
         readUserLogger.log(Level.INFO,"Start reading ");
-        List<Meetup> meetup = new ArrayList<>();
+
+        List<Meetup> meetups = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;
         try {
@@ -51,7 +53,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM meetup");
             while (rs.next()) {
-                meetup.add(
+                meetups.add(
                         new MeetupImpl(
                                 rs.getString("meetupid"),
                                 rs.getString("description"),
@@ -72,7 +74,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             e.printStackTrace();
         }
         return
-                meetup;
+                meetups;
     }
 
     public void createMeetupTable() {
