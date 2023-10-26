@@ -1,9 +1,6 @@
 package com.mosbach.demo;
 
-import com.mosbach.demo.data.api.Meetup;
-import com.mosbach.demo.data.api.MeetupManager;
-import com.mosbach.demo.data.api.User;
-import com.mosbach.demo.data.api.UserManager;
+import com.mosbach.demo.data.api.*;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
 import com.mosbach.demo.model.auth.SendBackToken;
@@ -22,7 +19,7 @@ public class MappingController {
     // Datenbankenschnittstelle zum POSTGRESDBUSERMANAGERIMPL und POSTGRESDBMEETUPMANAGER
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
     MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
-
+    LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
 
     /**
      *
@@ -70,6 +67,13 @@ public class MappingController {
     public String createMeetupTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         meetupManager.createMeetupTable();
         return "MeetupTable Created";
+    }
+
+    // erstellt die Datenbanktabelle zum Meetup.
+    @PostMapping ("/create-table/location")
+    public String createLocationTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        locationManager.createLocationTable();
+        return "LocationTable Created";
     }
 
     @PostMapping(

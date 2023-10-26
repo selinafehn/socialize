@@ -1,7 +1,7 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.MeetupManager;
-import com.mosbach.demo.data.api.User;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import java.security.SecureRandom;
 import java.sql.Connection;
