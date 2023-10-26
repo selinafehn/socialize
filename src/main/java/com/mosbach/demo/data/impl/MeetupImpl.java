@@ -48,4 +48,28 @@ public class MeetupImpl implements Meetup {
     public long getValidUntil() {
         return 0;
     }
+
+    public void setMeetupID(String meetupID) {
+        this.meetupID = meetupID;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setOption(String option) {
+        this.option = option;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setValidUntil(long validUntil) {
+        this.validUntil = validUntil;
+    }
 }

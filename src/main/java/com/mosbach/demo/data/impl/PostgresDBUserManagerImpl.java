@@ -56,7 +56,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     // stmt.executeUpdate(dropTable);
 
 
-    public List<User> readAllUsers() {
+    public List<User>readAllUsers() {
 
         final Logger readUserLogger = Logger.getLogger("ReadUserLogger");
         readUserLogger.log(Level.INFO,"Start reading ");
