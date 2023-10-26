@@ -30,8 +30,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     private PostgresDBMeetupManagerImpl() {
         basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(databaseURL);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        //basicDataSource.setUsername(username);
+        //basicDataSource.setPassword(password);
     }
     public static PostgresDBMeetupManagerImpl getPostgresDBUserManagerImpl() {
         if (postgresDBMeetupManager == null)
