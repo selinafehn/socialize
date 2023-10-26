@@ -3,7 +3,7 @@ import com.mosbach.demo.data.api.Meetup;
 
 public class MeetupImpl implements Meetup {
 
-    private String meetupID;
+    private String ID;
     private String description;
     private String title;
     private String option;
@@ -21,7 +21,7 @@ public class MeetupImpl implements Meetup {
 
     @Override
     public String getMeetupID() {
-        return meetupID;
+        return ID;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MeetupImpl implements Meetup {
     }
 
     public void setMeetupID(String meetupID) {
-        this.meetupID = meetupID;
+        this.ID = meetupID;
     }
 
     public void setDescription(String description) {
