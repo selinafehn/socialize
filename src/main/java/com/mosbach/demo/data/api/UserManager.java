@@ -11,9 +11,6 @@ public interface UserManager {
     void createUserTable();
 
 
-
-
-
     SendBackToken logUserIn(String email, String password);
     boolean logUserOff( String token);
 

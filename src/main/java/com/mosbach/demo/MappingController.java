@@ -125,7 +125,7 @@ public class MappingController {
     @GetMapping("/auth/meetup")
     public List<Meetup> getInfoMeetup(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
-        return meetupManager.readAllMeetups();
+        return meetupManager.readAllMeetup();
     }
 
 
