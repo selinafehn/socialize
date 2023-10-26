@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.model.auth.SendBackToken;
-import jdk.jpackage.internal.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
