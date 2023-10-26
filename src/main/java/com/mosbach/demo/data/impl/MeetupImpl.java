@@ -10,8 +10,8 @@ public class MeetupImpl implements Meetup {
     private String location;
     private long validUntil;
 
-    public MeetupImpl(String meetupID, String description, String title, String option, String location, long validUntil) {
-        this.meetupID = meetupID;
+    public MeetupImpl(String ID, String description, String title, String option, String location, long validUntil) {
+        this.ID = ID;
         this.description = description;
         this.title = title;
         this.option = option;
@@ -21,32 +21,32 @@ public class MeetupImpl implements Meetup {
 
     @Override
     public String getMeetupID() {
-        return null;
+        return meetupID;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
     @Override
     public String getOption() {
-        return null;
+        return option;
     }
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override
     public long getValidUntil() {
-        return 0;
+        return validUntil;
     }
 
     public void setMeetupID(String meetupID) {

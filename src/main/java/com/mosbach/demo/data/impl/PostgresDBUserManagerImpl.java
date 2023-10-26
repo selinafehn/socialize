@@ -168,9 +168,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
         Statement stmt = null;
         Connection connection = null;
-
         List<User> user = readAllUsers();
-
         User testuser = null;
 
         for (User u : user){
@@ -178,9 +176,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                 testuser = u;
             }
         }
-
         if (!testuser.getPassword().equals(password)) return null;
-
         //token generation
         long validUntil = (System.currentTimeMillis()+(1800*1000));
         byte[] tokenbyte = new byte[16];
