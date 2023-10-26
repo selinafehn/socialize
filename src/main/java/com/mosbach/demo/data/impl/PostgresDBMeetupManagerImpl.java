@@ -55,13 +55,15 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             while (rs.next()) {
                 meetups.add(
                         new MeetupImpl(
-                                rs.getString("meetupid"),
+                                rs.getString("meetupID"),
                                 rs.getString("description"),
                                 rs.getString("title"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getLong("validuntil")
+                                rs.getLong("validUntil")
                         )
+
+
                 );
             }
         } catch (SQLException e) {
