@@ -120,6 +120,11 @@ public class MappingController {
      * GET /auth only for testing whether the server is alive
      */
 
+    @GetMapping("/auth")
+    public void getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO, "MappingController auth " + name);
+    }
+
     @GetMapping("/auth/user")
     public List<User> getInfoUser(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
