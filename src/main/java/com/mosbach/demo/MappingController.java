@@ -21,6 +21,8 @@ public class MappingController {
     LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
     OptionsManager optionsManager = PostgresDBOptionManagerImpl.getPostgresDBOptionManagerImpl();
 
+    AttendeesManager attendeesManager = PostgresDBAttendeesManagerImpl.getPostgresDBAttendeesManagerImpl();
+
     /**
      *
      * HIER ENTSTEHT DER DATENBANKEN CALL ZUM ERSTELLEN DER USER TABELLE, ZUM ERSTELLEN EINES USERS, UND WSL AUCH ZUM LÖSCHEN EINES USERS
@@ -74,6 +76,13 @@ public class MappingController {
     public String createLocationTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         locationManager.createLocationTable();
         return "LocationTable Created";
+    }
+
+    // erstellt die Datenbanktabelle zu den Datums Optionen.
+    @PostMapping ("/create-table/attendees")
+    public String createAttendeesTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        attendeesManager.createAttendeesTable();
+        return "AttendeesTable Created";
     }
 
     // erstellt die Datenbanktabelle zum Meetup.
