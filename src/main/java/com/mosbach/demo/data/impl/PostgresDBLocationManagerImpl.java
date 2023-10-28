@@ -11,9 +11,9 @@ import java.util.Base64;
 
 public class PostgresDBLocationManagerImpl implements LocationManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-52-45-200-167.compute-1.amazonaws.com:5432/dek9s2en5qfdl1";
-    String username = "rkmyfwyjvgqzgt";
-    String password = "b29b9c1650eea403f4f9ea9fa2a19f21a86fa352d84d6e228932c09ed3a2f620";
+    String databaseURL = "jdbc:postgresql://ec2-3-214-103-146.compute-1.amazonaws.com";
+    String username = "uiefynxlnqznhz";
+    String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
     BasicDataSource basicDataSource;
 
     // dass die bytes randomized werden (stack overflow)
