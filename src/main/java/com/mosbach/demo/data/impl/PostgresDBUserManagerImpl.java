@@ -1,15 +1,9 @@
 package com.mosbach.demo.data.impl;
 
-import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
 import com.mosbach.demo.model.auth.SendBackToken;
-import com.mosbach.demo.model.task.Task;
 import org.apache.commons.dbcp.BasicDataSource;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,8 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
