@@ -43,7 +43,7 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
 
-            String createTable = "CREATE TABLE locations (" +
+            String createTable = "CREATE TABLE options (" +
                     "optionid bigint PRIMARY KEY NOT NULL, " +
                     "dateandtime timestamp NOT NULL) ";
 
