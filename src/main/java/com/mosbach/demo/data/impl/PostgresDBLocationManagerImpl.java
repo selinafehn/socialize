@@ -1,7 +1,5 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.LocationManager;
-
-
 import org.apache.commons.dbcp.BasicDataSource;
 import java.security.SecureRandom;
 import java.sql.Connection;

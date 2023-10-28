@@ -1,5 +1,4 @@
 package com.mosbach.demo;
-
 import com.mosbach.demo.data.api.*;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
