@@ -19,6 +19,7 @@ public class MappingController {
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
     MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
     LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
+    OptionsManager optionsManager = PostgresDBOptionManagerImpl.getPostgresDBOptionManagerImpl();
 
     /**
      *
@@ -68,11 +69,18 @@ public class MappingController {
         return "MeetupTable Created";
     }
 
-    // erstellt die Datenbanktabelle zum Meetup.
+    // erstellt die Datenbanktabelle zur Location.
     @PostMapping ("/create-table/location")
     public String createLocationTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         locationManager.createLocationTable();
         return "LocationTable Created";
+    }
+
+    // erstellt die Datenbanktabelle zum Meetup.
+    @PostMapping ("/create-table/options")
+    public String createOptionsTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        optionsManager.createOptionsTable();
+        return "OptionsTable Created";
     }
 
     @PostMapping(
