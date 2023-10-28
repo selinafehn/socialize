@@ -43,7 +43,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
 
-            String createTable = "CREATE TABLE options (" +
+            String createTable = "CREATE TABLE attendees (" +
                     "relid bigint PRIMARY KEY NOT NULL, " +
                     "userID bigint NOT NULL, " +
                     "meetupid bigint NOT NULL, " +
