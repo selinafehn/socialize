@@ -47,7 +47,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "relid bigint PRIMARY KEY NOT NULL, " +
                     "userID bigint NOT NULL, " +
                     "meetupid bigint NOT NULL, " +
-                    "host byte ) ";
+                    "host Byte ) ";
 
             //String dropTable = "drop table favourites";
             //stmt.executeUpdate(dropTable);
