@@ -2,8 +2,6 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.User;
 
-import java.util.UUID;
-
 public class UserImpl implements User {
     private String ID;
     private String firstname;
