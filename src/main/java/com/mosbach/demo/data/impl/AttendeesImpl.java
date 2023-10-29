@@ -1,5 +1,9 @@
 package com.mosbach.demo.data.impl;
 
+import com.mosbach.demo.data.api.User;
+
+import java.math.BigInteger;
+
 public class AttendeesImpl {
 
     private String relID;
@@ -19,9 +23,10 @@ public class AttendeesImpl {
     }
 
     public void setRelID(String relID) {
-        this.relID = relID;
+        this.relID = (getUserID() + getMeetupID());
     }
 
+    //TODO irgendwie herholen frage ist wie?
     public String getUserID() {
         return userID;
     }
@@ -45,4 +50,5 @@ public class AttendeesImpl {
     public void setHost(byte host) {
         this.host = host;
     }
+
 }

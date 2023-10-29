@@ -107,4 +107,37 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                 attendees;
     }
 
+
+    @Override
+    public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
+        final Logger createAttendeesLogger = Logger.getLogger("CreateUserLogger");
+        createAttendeesLogger.log(Level.INFO,"Start creating ");
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into users (relID, userID, meetupID, host) VALUES (" +
+                    "'" + relID +"', " +
+                    "'" + userID + "', " +
+                    "'" + meetupID + "', " +
+                    host +")";
+            Logger.getLogger("DbUserManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                null;
+    }
+
 }
