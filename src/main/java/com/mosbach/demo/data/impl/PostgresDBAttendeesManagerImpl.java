@@ -73,7 +73,8 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
     }
 
-    public List<Attendees>readAllAttedees() {
+
+    public List<Attendees>readAllAttendees() {
         final Logger readAttendeesLogger = Logger.getLogger("ReadAttendeesLogger");
         readAttendeesLogger.log(Level.INFO,"Start reading ");
         List<Attendees> attendees = new ArrayList<>();
