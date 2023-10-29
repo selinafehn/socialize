@@ -10,7 +10,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@CrossOrigin(origins = "", allowedHeaders = "")
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1.0")
 public class MappingController {
@@ -139,9 +140,7 @@ public class MappingController {
      * ----------------------------------------------------------------------------------------------------------------
      */
 
-    /**
-     * GET /auth only for testing whether the server is alive
-     */
+    // GET /auth only for testing whether the server is alive
 
     @GetMapping("/auth")
     public void getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
