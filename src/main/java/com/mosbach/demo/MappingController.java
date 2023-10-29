@@ -20,8 +20,8 @@ public class MappingController {
     MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
     LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
     OptionsManager optionsManager = PostgresDBOptionManagerImpl.getPostgresDBOptionManagerImpl();
-
     AttendeesManager attendeesManager = PostgresDBAttendeesManagerImpl.getPostgresDBAttendeesManagerImpl();
+    VotingManager votingManager = PostgresDBVotingManagerImpl.getPostgresDBVotingManagerImpl();
 
     /**
      *
@@ -85,11 +85,18 @@ public class MappingController {
         return "AttendeesTable Created";
     }
 
-    // erstellt die Datenbanktabelle zum Meetup.
+    // erstellt die Datenbanktabelle zu den datumsoptionen.
     @PostMapping ("/create-table/options")
     public String createOptionsTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         optionsManager.createOptionsTable();
         return "OptionsTable Created";
+    }
+
+    // erstellt die Datenbanktabelle zum voting.
+    @PostMapping ("/create-table/voting")
+    public String createVotingTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
+        votingManager.createVotingTable();
+        return "VotingTable Created";
     }
 
     @PostMapping(
