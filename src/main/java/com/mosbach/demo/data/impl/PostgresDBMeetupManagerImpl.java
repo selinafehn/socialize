@@ -1,7 +1,6 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.MeetupManager;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -141,110 +140,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         }
     }
 
-    /** HARTWIG CODE
-
-    public void createTaskTable() {
-
-        // Be carefull: It deletes data if table already exists.
-        //
-        Statement stmt = null;
-        Connection connection = null;
-
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-
-            // String dropTable = "DROP TABLE tasks";
-            // stmt.executeUpdate(dropTable);
-
-            String createTable = "CREATE TABLE tasks (" +
-                    "id SERIAL PRIMARY KEY, " +
-                    "name varchar(100) NOT NULL, " +
-                    "priority int NOT NULL)";
-
-            stmt.executeUpdate(createTable);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
-    public List<Meetup> readAllTasks() {
-
-        final Logger readTaskLogger = Logger.getLogger("ReadTaskLogger");
-        readTaskLogger.log(Level.INFO,"Start reading tasks ");
-
-        List<Meetup> tasks = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
-
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM tasks");
-
-            while (rs.next()) {
-                tasks.add(
-                        new MeetupImpl(
-                                rs.getString("name"),
-                                rs.getInt("priority")
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return
-                tasks;
-    }
-
-
-    @Override
-    public void addTask(String name, int priority) {
-
-        final Logger createTaskLogger = Logger.getLogger("CreateTaskLogger");
-        createTaskLogger.log(Level.INFO,"Start creating task " + name);
-
-        Statement stmt = null;
-        Connection connection = null;
-
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            String udapteSQL = "INSERT into tasks (name, priority) VALUES (" +
-                    "'" + name + "', " +
-                    priority + ")";
-
-            stmt.executeUpdate(udapteSQL);
-
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-**/
 }

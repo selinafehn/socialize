@@ -1,13 +1,20 @@
 package com.mosbach.demo.data.impl;
 
+import com.mosbach.demo.data.api.Attendees;
 import com.mosbach.demo.data.api.AttendeesManager;
+import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
@@ -65,4 +72,38 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
         }
 
     }
+
+    public List<Attendees>readAllAttedees() {
+        final Logger readAttendeesLogger = Logger.getLogger("ReadAttendeesLogger");
+        readAttendeesLogger.log(Level.INFO,"Start reading ");
+        List<Attendees> attendees = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
+            while (rs.next()) {
+                attendees.add(
+                        (Attendees) new AttendeesImpl(
+                                rs.getString("relid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getByte("host")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                attendees;
+    }
+
 }

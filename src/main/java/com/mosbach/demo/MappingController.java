@@ -10,13 +10,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1.0")
 public class MappingController {
 
-    // Datenbankenschnittstelle zum POSTGRESDBUSERMANAGERIMPL und POSTGRESDBMEETUPMANAGER
+    // Datenbankenschnittstelle
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
     MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
     LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
@@ -24,39 +23,18 @@ public class MappingController {
     AttendeesManager attendeesManager = PostgresDBAttendeesManagerImpl.getPostgresDBAttendeesManagerImpl();
     VotingManager votingManager = PostgresDBVotingManagerImpl.getPostgresDBVotingManagerImpl();
 
-    /**
-     *
-     * HIER ENTSTEHT DER DATENBANKEN CALL ZUM ERSTELLEN DER USER TABELLE, ZUM ERSTELLEN EINES USERS, UND WSL AUCH ZUM LÖSCHEN EINES USERS
-     *
-     * SCHRITT FÜR SCHRITT ERKLÄRUNG:
-     *
-     * WRITE ENDPOINT FOR CREATING THE TABLE.
-     * -> IMPORTANT: IN POSTGRESDBUSERMANAGERIMPL THERE IS -- public void createUserTable() -- METHOD.
-     * THIS HAS TO BE ADDED FRIST. AND THEN IT HAS TO BE USED IN ENDPOINT MAPPING
-     *
-     * String createTable= "CREATE TABLE users (" +
-     *                     "userid varchar(100) PRIMARY KEY NOT NULL, " +
-     *                     "firstname varchar(255) NOT NULL," +
-     *                     "lastname varchar(255) NOT NULL," +
-     *                     "password varchar(255) NOT NULL," +
-     *                     "email varchar(255) NOT NULL," +
-     *                     "token varchar(255) NOT NULL," +
-     *                     "validuntil int NOT NULL)";
-     * ---> DIE DATEN WELCHE HIER STEHEN SIND ALLE AUS DEM ERM ZU ENTNEHMEN
-     *
-     * IM USERMANAGER.java SIND DANN ERGÄNZUNGEN VORZUNEHMEN BEZÜGLICH DES INTERFACES UND DER METHODEN
-     * DIE FUNKTIONEN SIND IM POSTGRESDBUSERMANAGERIMPL.java HINTERLEGT. WELCHE DANN AUCH ANGEPASST WERDEN MÜSSEN.
-     *
-     * DAS CREATE USER MAPPING IST AUCH ALS POST REALISIERT.
-     * WELCHER DANN AN DEN USERMANAGER IN DER ALLE WICHTIGEN DATEN ALS ATTRIBUTE HINTERLEGT UND SPEICHERT.
-     * DIE ID'S WERDEN ALLE ALS UUID AUTOGENERIERT.
-     *
-     * DAS USER INTERFACE MUSS AUCH ALLE INFORMATIONEN HINTERLEGT HABEN. MIT TYPEN
-     * PER JSONPOJO MUSS DANN AUCH DAS JSON WELCHES MIT DEM CALL GESENDET WIRD IN EINE KLASSE UMGEWANDELT WERDEN.
-     *
-     * IM POSTGRESDBUSERMANAGER IST DANN DIE EIGENTLICHE CREATEUSER() FUNKTION HINTERLEGT.
-     *
-     */
+    // ---------------------------------------------------------------------------------------
+    // CHECK SERVER
+    // ---------------------------------------------------------------------------------------
+
+    @GetMapping("/auth")
+    public void getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO, "MappingController auth " + name);
+    }
+
+    // ---------------------------------------------------------------------------------------
+    // CREATE TABLE
+    // ---------------------------------------------------------------------------------------
 
     // erstellt die Datenbanktabelle zum User.
     @PostMapping ("/create-table/user")
@@ -100,6 +78,10 @@ public class MappingController {
         return "VotingTable Created";
     }
 
+    // ---------------------------------------------------------------------------------------
+    // USER ENDPUNKTE
+    // ---------------------------------------------------------------------------------------
+
     @PostMapping(
             path = "/createuser",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -117,48 +99,11 @@ public class MappingController {
         return "user created";
     }
 
-    @PostMapping(
-            path = "/createmeetup",
-            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-    )
-    @ResponseStatus(HttpStatus.OK)
-    public String meetupCreation(@RequestBody CreateMeetup createMeetup) {
-        meetupManager.createMeetup(
-                UUID.randomUUID().toString(),
-                createMeetup.getDescription(),
-                createMeetup.getTitle(),
-                createMeetup.getOption(),
-                createMeetup.getLocation(),
-                createMeetup.getValiduntil());
-        return "meetup created";
-    }
-
-
-    /**
-     * ----------------------------------------------------------------------------------------------------------------
-     * FOLGEND SIND DIE API'S HINTERLEGT
-     * ----------------------------------------------------------------------------------------------------------------
-     */
-
-    // GET /auth only for testing whether the server is alive
-
-    @GetMapping("/auth")
-    public void getInfo(@RequestParam(value = "name", defaultValue = "Student") String name) {
-        Logger.getLogger("MappingController").log(Level.INFO, "MappingController auth " + name);
-    }
-
     @GetMapping("/auth/user")
     public List<User> getInfoUser(@RequestParam(value = "name", defaultValue = "Student") String name) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
         return userManager.readAllUsers();
     }
-
-    @GetMapping("/auth/meetup")
-    public List<Meetup> getInfoMeetup(@RequestParam(value = "name", defaultValue = "Student") String name) {
-        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
-        return meetupManager.readAllMeetup();
-    }
-
 
     /**
      * POST to /auth/login. FOLLOWING JSON HAS TO BE SEND:
@@ -198,7 +143,6 @@ public class MappingController {
                 "error\n";
     }
 
-
     /**
      * DELETE to /auth/login, to revert the login syntactically. FOLLOWING JSON HAS TO BE SEND:
      * {
@@ -216,7 +160,6 @@ public class MappingController {
         }
         return "could not log off";
     }
-
 
     /**
      * DELETE to  /auth/register, to delete the user account. FOLLOWING JSON HAS TO BE SEND:
@@ -236,6 +179,31 @@ public class MappingController {
     }
 
 
+    // ---------------------------------------------------------------------------------------
+    // MEETUP
+    // ---------------------------------------------------------------------------------------
+
+    @PostMapping(
+            path = "/createmeetup",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String meetupCreation(@RequestBody CreateMeetup createMeetup) {
+        meetupManager.createMeetup(
+                UUID.randomUUID().toString(),
+                createMeetup.getDescription(),
+                createMeetup.getTitle(),
+                createMeetup.getOption(),
+                createMeetup.getLocation(),
+                createMeetup.getValiduntil());
+        return "meetup created";
+    }
+
+    @GetMapping("/auth/meetup")
+    public List<Meetup> getInfoMeetup(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
+        return meetupManager.readAllMeetup();
+    }
 
     /**
      * POST to endpoint -> /dashboard/create, to create a new meetup into the dashboard. FOLLOWING JSON HAS TO BE SEND:
@@ -279,8 +247,6 @@ public class MappingController {
         return "sucessfully deleted";
     }
 
-
-
     /**
      * POST to /dashboard/edit, to change some things in the MeetUp. FOLLOWING JSON HAS TO BE SEND:
      *
@@ -320,7 +286,6 @@ public class MappingController {
                 "\n";
     }
 
-
     /**
      * GET /dashboard/overview to show the User the dashboard in an overview. FOLLOWING JSON HAS TO BE SEND:
      * {
@@ -335,4 +300,16 @@ public class MappingController {
     public String meetupOverview(@RequestBody Meetupoverview Meetupoverview) {
         return "LIST(meetup)";
     }
+
+
+// ---------------------------------------------------------------------------------------
+// ATTENDEES
+// ---------------------------------------------------------------------------------------
+
+    @GetMapping("/auth/attendees")
+    public List<Attendees> getInfoAttendees(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
+        return attendeesManager.readAllAttendees();
+    }
+
 }
