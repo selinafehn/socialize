@@ -123,6 +123,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "'" + meetupID + "', " +
                     host +")";
             Logger.getLogger("DbUserManager").log(Level.INFO,udapteSQL);
+            createAttendeesLogger.log(Level.INFO,"created attendee ");
 
             stmt.executeUpdate(udapteSQL);
             stmt.close();
