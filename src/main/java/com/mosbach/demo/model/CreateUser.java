@@ -34,7 +34,7 @@ public class CreateUser {
     @JsonProperty("token")
     private String token;
     @JsonProperty("validuntil")
-    private Integer validuntil;
+    private long validuntil;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -89,12 +89,12 @@ public class CreateUser {
     }
 
     @JsonProperty("validuntil")
-    public Integer getValiduntil() {
+    public long getValiduntil() {
         return validuntil;
     }
 
     @JsonProperty("validuntil")
-    public void setValiduntil(Integer validuntil) {
+    public void setValiduntil(long validuntil) {
         this.validuntil = validuntil;
     }
 

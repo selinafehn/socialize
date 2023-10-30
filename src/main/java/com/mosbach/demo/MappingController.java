@@ -95,7 +95,7 @@ public class MappingController {
                 createUser.getPassword(),
                 createUser.getEmail(),
                 createUser.getToken(),
-                createUser.getValiduntil());
+                (int)createUser.getValiduntil());
         return "user created";
     }
 
