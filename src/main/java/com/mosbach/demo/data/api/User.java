@@ -6,7 +6,7 @@ public interface User {
     String getLastName();
     String getPassword();
     String getEmail();
-    String getToken();
-    long getValidUntil();
+    //String getToken();
+    //long getValidUntil();
 
 }

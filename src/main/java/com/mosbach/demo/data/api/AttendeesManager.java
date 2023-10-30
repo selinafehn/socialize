@@ -7,6 +7,6 @@ public interface AttendeesManager {
     void createAttendeesTable();
     List<Attendees> readAllAttendees();
 
-    public Attendees createAttendee(String relID, String userID, String meetupID, byte host);
+    Attendees createAttendee(String relID, String userID, String meetupID, byte host);
 
 }

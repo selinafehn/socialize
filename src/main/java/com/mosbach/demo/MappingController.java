@@ -93,9 +93,7 @@ public class MappingController {
                 createUser.getFirstname(),
                 createUser.getLastname(),
                 createUser.getPassword(),
-                createUser.getEmail(),
-                createUser.getToken(),
-                createUser.getValiduntil());
+                createUser.getEmail());
         return "user created";
     }
 
@@ -312,4 +310,19 @@ public class MappingController {
         return attendeesManager.readAllAttendees();
     }
 
+    /**
+    @PostMapping(
+            path = "/createattendee",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String attendeeCreation(@RequestBody CreateAttendee createAttendee) {
+        attendeesManager.createAttendee(
+                createAttendee.getRelID(),
+                createAttendee.getUserID(),
+                createAttendee.getMeetupID(),
+                createAttendee.gethost());
+        return "attendee created";
+    }
+    */
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserManager {
 
     List<User> readAllUsers();
-    User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil);
+    User createUser(String userID, String firstName, String lastName, String password, String email);
     void createUserTable();
 
 
