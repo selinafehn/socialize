@@ -64,9 +64,9 @@ public class PostgresDBUserManagerImpl implements UserManager {
                                 rs.getString("firstname"),
                                 rs.getString("lastname"),
                                 rs.getString("password"),
-                                rs.getString("email")
-                                //rs.getString("token"),
-                                //rs.getLong("validuntil")
+                                rs.getString("email"),
+                                rs.getString("token"),
+                                rs.getLong("validuntil")
                         )
                 );
             }
@@ -115,7 +115,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
     @Override
-    public User createUser(String userID, String firstName, String lastName, String password, String email) {
+    public User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil) {
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
         Statement stmt = null;
@@ -123,12 +123,14 @@ public class PostgresDBUserManagerImpl implements UserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email) VALUES (" +
+            String udapteSQL = "INSERT into users (userID, firstname, lastname, password, email, token, validUntil) VALUES (" +
                     "'" + userID +"', " +
                     "'" + firstName + "', " +
                     "'" + lastName + "', " +
                     "'" + password + "', " +
-                    email +")";
+                    "'" + email + "', " +
+                    "'" + token + "', " +
+                    validUntil +")";
             Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
 
             stmt.executeUpdate(udapteSQL);
