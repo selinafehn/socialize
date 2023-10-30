@@ -42,8 +42,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
 
     // Be carefull: It deletes data if table already exists.
-    // String dropTable = "DROP TABLE tasks";
-    // stmt.executeUpdate(dropTable);
+
 
     public List<User>readAllUsers() {
 
@@ -99,8 +98,8 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "token varchar(255) NOT NULL," +
                     "validuntil bigint NOT NULL)";
 
-            //String droptable = "drop table users";
-            //stmt.executeUpdate(droptable);
+            String droptable = "drop table users";
+            stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {
