@@ -2,7 +2,6 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.Attendees;
 import com.mosbach.demo.data.api.AttendeesManager;
-import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
