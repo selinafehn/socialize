@@ -95,8 +95,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "location varchar(255), " +
                     "validuntil bigint NOT NULL) ";
 
-            //String dropTable = "drop table favourites";
-            //stmt.executeUpdate(dropTable);
+            String dropTable = "drop table favourites";
+            stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
