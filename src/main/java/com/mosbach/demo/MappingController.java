@@ -128,8 +128,7 @@ public class MappingController {
      "email":"email",
      "password":"password",
      "firstname ":"firstname ",
-     "lastname ":"lastname ",
-     "username ":"username "
+     "lastname ":"lastname "
      }
      */
     @PostMapping(

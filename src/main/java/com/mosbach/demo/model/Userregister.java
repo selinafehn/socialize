@@ -15,9 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "fistname",
     "lastname",
-    "username",
-    "email",
-    "password"
+    "password",
+    "email"
 })
 @Generated("jsonschema2pojo")
 public class Userregister {
@@ -26,8 +25,6 @@ public class Userregister {
     private String fistname;
     @JsonProperty("lastname")
     private String lastname;
-    @JsonProperty("username")
-    private String username;
     @JsonProperty("email")
     private String email;
     @JsonProperty("password")
@@ -53,16 +50,6 @@ public class Userregister {
     @JsonProperty("lastname")
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    @JsonProperty("username")
-    public String getUsername() {
-        return username;
-    }
-
-    @JsonProperty("username")
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @JsonProperty("email")
