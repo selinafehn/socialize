@@ -72,7 +72,17 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
     }
 
+    @Override
+    public List<Attendees> readAllAttendees() {
+        return null;
+    }
 
+    @Override
+    public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
+        return null;
+    }
+
+/**
     public List<Attendees>readAllAttendees() {
         final Logger readAttendeesLogger = Logger.getLogger("ReadAttendeesLogger");
         readAttendeesLogger.log(Level.INFO,"Start reading ");
@@ -109,7 +119,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
     @Override
     public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
-        final Logger createAttendeesLogger = Logger.getLogger("CreateUserLogger");
+        final Logger createAttendeesLogger = Logger.getLogger("CreateAttendeeLogger");
         createAttendeesLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
         Connection connection = null;
@@ -121,7 +131,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
                     host +")";
-            Logger.getLogger("DbUserManager").log(Level.INFO,udapteSQL);
+            Logger.getLogger("DbAttendeeManager").log(Level.INFO,udapteSQL);
             createAttendeesLogger.log(Level.INFO,"created attendee ");
 
             stmt.executeUpdate(udapteSQL);
@@ -139,5 +149,6 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
         return
                 null;
     }
+*/
 
 }
