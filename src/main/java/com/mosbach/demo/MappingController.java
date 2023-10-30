@@ -136,7 +136,7 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userRegister(@RequestBody Userregister userregister) {
+    public String userRegister(@RequestBody CreateUser createUser) {
         return "OK \n" +
                 "oder \n" +
                 "error\n";

@@ -67,7 +67,6 @@ public class CreateUser {
     public void setPassword(String password) {
         this.password = password;
     }
-
     @JsonProperty("email")
     public String getEmail() {
         return email;
