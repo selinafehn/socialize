@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "userID",
+    "meetupID",
     "title",
     "friends",
     "option",
@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class CreateMeetup {
 
-    @JsonProperty("userID")
-    private String userID;
+    @JsonProperty("meetupID")
+    private String meetupID;
     @JsonProperty("title")
     private String title;
     @JsonProperty("friends")
@@ -43,13 +43,13 @@ public class CreateMeetup {
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
     @JsonProperty("userID")
-    public String getUserID() {
-        return userID;
+    public String getMeetupID() {
+        return meetupID;
     }
 
     @JsonProperty("userID")
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserID(String meetupID) {
+        this.meetupID = meetupID;
     }
 
     @JsonProperty("description")

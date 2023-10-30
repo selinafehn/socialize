@@ -1,6 +1,8 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.Meetup;
 
+import java.util.List;
+
 public class MeetupImpl implements Meetup {
 
     private String ID;
@@ -12,14 +14,14 @@ public class MeetupImpl implements Meetup {
     private String description;
 
 
-    public MeetupImpl(String ID, String friends, String description, String title, String option,long validUntil, String location ) {
+    public MeetupImpl(String ID, String title, String friends, String option, String location, long validUntil, String description) {
         this.ID = ID;
-        this.friends= friends;
-        this.description = description;
         this.title = title;
+        this.friends= friends;
         this.option = option;
         this.location = location;
         this.validUntil = validUntil;
+        this.description = description;
     }
 
     @Override

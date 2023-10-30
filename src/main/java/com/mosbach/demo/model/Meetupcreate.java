@@ -25,10 +25,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class Meetupcreate {
 
+    @JsonProperty("id")
+    private String id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("friends")
-    private List<String> friends;
+    private String friends;
     @JsonProperty("date")
     private String date;
     @JsonProperty("place")
@@ -55,12 +57,12 @@ public class Meetupcreate {
     }
 
     @JsonProperty("friends")
-    public List<String> getFriends() {
+    public String getFriends() {
         return friends;
     }
 
     @JsonProperty("friends")
-    public void setFriends(List<String> friends) {
+    public void setFriends(String friends) {
         this.friends = friends;
     }
 

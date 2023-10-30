@@ -114,7 +114,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
     @Override
-    public User createUser(String userID, String firstName, String lastName, String password, String email, String token, int validUntil) {
+    public User createUser(String userID, String firstName, String lastName, String password, String email, String token, long validUntil) {
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
         Statement stmt = null;
