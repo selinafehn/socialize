@@ -311,5 +311,18 @@ public class MappingController {
         return attendeesManager.readAllAttendees();
     }
 
+    // TODO create Attendees
+    @PostMapping(
+            path = "/dashboard/addAttendee",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String attendeeAdd(@RequestBody CreateAttendee addAttendee) {
+        return "Attendee was added";
+    }
+
+
+
+
 
 }
