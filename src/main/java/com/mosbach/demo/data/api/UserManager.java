@@ -10,7 +10,6 @@ public interface UserManager {
     User createUser(String userID, String firstName, String lastName, String password, String email);
     void createUserTable();
 
-
     SendBackToken logUserIn(String email, String password);
     boolean logUserOff( String token);
 
