@@ -95,6 +95,9 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL" +
                     "description varchar(255)) ";
 
+            //String dropTable = "drop table";
+            //stmt.executeUpdate(dropTable);
+
             stmt.executeUpdate(createTable);
 
         } catch (SQLException e) {
