@@ -8,8 +8,8 @@ public class UserImpl implements User {
     private String lastname;
     private String password;
     private String email;
-    //private String token;
-    //private long validUntil;
+    private String token;
+    private long validUntil;
 
     public UserImpl(String ID, String firstname, String lastname, String password, String email) {
         this.ID = ID;
@@ -17,7 +17,6 @@ public class UserImpl implements User {
         this.lastname = lastname;
         this.password = password;
         this.email = email;
-
     }
 
     public String getUserID() {
@@ -62,7 +61,6 @@ public class UserImpl implements User {
         this.email = email;
     }
 
-    /**
     @Override
     public String getToken() {
         return token;
@@ -80,5 +78,5 @@ public class UserImpl implements User {
     public void setValidUntil(long validUntil) {
         this.validUntil = validUntil;
     }
-    */
+
 }
