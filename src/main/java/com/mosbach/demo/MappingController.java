@@ -190,11 +190,12 @@ public class MappingController {
     public String meetupCreation(@RequestBody CreateMeetup createMeetup) {
         meetupManager.createMeetup(
                 UUID.randomUUID().toString(),
-                createMeetup.getDescription(),
                 createMeetup.getTitle(),
+                createMeetup.getFriends(),
                 createMeetup.getOption(),
                 createMeetup.getLocation(),
-                createMeetup.getValiduntil());
+                createMeetup.getValiduntil(),
+                createMeetup.getDescription());
         return "meetup created";
     }
 
@@ -268,6 +269,7 @@ public class MappingController {
      * "token":"token"
      * }
      */
+    //TODO
     @GetMapping(
         path = "/dashboard/show",
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -311,7 +313,7 @@ public class MappingController {
         return attendeesManager.readAllAttendees();
     }
 
-
+/**
     @PostMapping(
             path = "/dashboard/addAttendee",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -320,7 +322,7 @@ public class MappingController {
     public String attendeeAdd(@RequestBody CreateAttendee addAttendee) {
         return "Attendee was added";
     }
-
+*/
 
 
 

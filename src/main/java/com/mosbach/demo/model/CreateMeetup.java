@@ -14,27 +14,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "userID",
-    "description",
     "title",
+    "friends",
     "option",
     "location",
-    "validuntil"
+    "validuntil",
+    "description",
+
 })
 @Generated("jsonschema2pojo")
 public class CreateMeetup {
 
     @JsonProperty("userID")
     private String userID;
-    @JsonProperty("description")
-    private String description;
     @JsonProperty("title")
     private String title;
+    @JsonProperty("friends")
+    private String friends;
     @JsonProperty("option")
     private String option;
     @JsonProperty("location")
     private String location;
     @JsonProperty("validuntil")
-    private Integer validuntil;
+    private long validuntil;
+    @JsonProperty("description")
+    private String description;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -89,12 +93,12 @@ public class CreateMeetup {
     }
 
     @JsonProperty("validuntil")
-    public Integer getValiduntil() {
+    public long getValiduntil() {
         return validuntil;
     }
 
     @JsonProperty("validuntil")
-    public void setValiduntil(Integer validuntil) {
+    public void setValiduntil(long validuntil) {
         this.validuntil = validuntil;
     }
 
@@ -108,4 +112,11 @@ public class CreateMeetup {
         this.additionalProperties.put(name, value);
     }
 
+    public String getFriends() {
+        return friends;
+    }
+
+    public void setFriends(String friends) {
+        this.friends = friends;
+    }
 }

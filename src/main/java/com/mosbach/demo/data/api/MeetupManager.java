@@ -5,7 +5,7 @@ import java.util.List;
 public interface MeetupManager {
 
     List<Meetup> readAllMeetup();
-    void createMeetup(String meetupID, String description, String title, String option, String location, int validUntil);
+    void createMeetup(String meetupID, String friends, String description, String title, String option,  long validUntil, String location);
     void createMeetupTable();
 
 }

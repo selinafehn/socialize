@@ -98,8 +98,8 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "token varchar(255) NOT NULL," +
                     "validuntil bigint NOT NULL)";
 
-            String droptable = "drop table users";
-            stmt.executeUpdate(droptable);
+            //String droptable = "drop table users";
+            //stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {

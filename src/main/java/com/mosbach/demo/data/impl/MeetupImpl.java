@@ -4,14 +4,17 @@ import com.mosbach.demo.data.api.Meetup;
 public class MeetupImpl implements Meetup {
 
     private String ID;
-    private String description;
     private String title;
+    private String friends;
     private String option;
     private String location;
     private long validUntil;
+    private String description;
 
-    public MeetupImpl(String ID, String description, String title, String option, String location, long validUntil) {
+
+    public MeetupImpl(String ID, String friends, String description, String title, String option,long validUntil, String location ) {
         this.ID = ID;
+        this.friends= friends;
         this.description = description;
         this.title = title;
         this.option = option;
@@ -71,5 +74,13 @@ public class MeetupImpl implements Meetup {
 
     public void setValidUntil(long validUntil) {
         this.validUntil = validUntil;
+    }
+
+    public String getFriends() {
+        return friends;
+    }
+
+    public void setFriends(String friends) {
+        this.friends = friends;
     }
 }

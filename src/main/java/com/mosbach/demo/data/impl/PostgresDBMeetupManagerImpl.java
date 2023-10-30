@@ -55,11 +55,12 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                 meetups.add(
                         new MeetupImpl(
                                 rs.getString("meetupid"),
-                                rs.getString("description"),
                                 rs.getString("title"),
+                                rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getLong("validuntil")
+                                rs.getLong("validuntil"),
+                                rs.getString("description")
                         )
                 );
             }
@@ -76,6 +77,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                 meetups;
     }
 
+
+
     public void createMeetupTable() {
         Statement stmt = null;
         Connection connection = null;
@@ -84,6 +87,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             stmt = connection.createStatement();
 
             String createTable = "CREATE TABLE meetup (" +
+                    "friends varchat(255), "+
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
                     "description varchar(255), " +
                     "title varchar(255) NOT NULL, " +
@@ -109,7 +113,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public void createMeetup(String meetupID, String description, String title, String option, String location, int validUntil) {
+    public void createMeetup(String meetupID, String friends, String description, String title, String option, String location, int validUntil) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
@@ -117,8 +121,9 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into meetup (meetupID, description, title, option, location, validUntil) VALUES (" +
+            String udapteSQL = "INSERT into meetup (meetupID, friends, description, title, option, location, validUntil) VALUES (" +
                     "'" + meetupID +"', " +
+                    "'" + friends +"', "+
                     "'" + description + "', " +
                     "'" + title + "', " +
                     "'" + option + "', " +
