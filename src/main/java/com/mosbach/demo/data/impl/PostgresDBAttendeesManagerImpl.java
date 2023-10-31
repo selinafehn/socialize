@@ -51,13 +51,13 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
             stmt = connection.createStatement();
 
             String createTable = "CREATE TABLE attendees (" +
-                    "relid bigint PRIMARY KEY NOT NULL, " +
-                    "userID bigint NOT NULL, " +
-                    "meetupid bigint NOT NULL, " +
+                    "relid String PRIMARY KEY NOT NULL, " +
+                    "userID String NOT NULL, " +
+                    "meetupid String NOT NULL, " +
                     "host boolean ) ";
 
-            //String dropTable = "drop table favourites";
-            //stmt.executeUpdate(dropTable);
+            String dropTable = "drop table favourites";
+            stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
@@ -74,9 +74,39 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
     }
 
     @Override
-    public List<Attendees> readAllAttendees() {
-        return null;
-    }
+    public List<Attendees>readAllAttendees() {
+            final Logger readUserLogger = Logger.getLogger("ReadAttendeeLogger");
+            readUserLogger.log(Level.INFO,"Start reading ");
+
+            List<Attendees> attendees = new ArrayList<>();
+            Statement stmt = null;
+            Connection connection = null;
+            try {
+                connection = basicDataSource.getConnection();
+                stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
+                while (rs.next()) {
+                    attendees.add(
+                            new AttendeesImpl(
+                                    rs.getString("relid"),
+                                    rs.getString("userid"),
+                                    rs.getString("meetupid"),
+                                    rs.getByte("host")
+                            )
+                    );
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                stmt.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return
+                    attendees;
+        }
 
     @Override
     public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {

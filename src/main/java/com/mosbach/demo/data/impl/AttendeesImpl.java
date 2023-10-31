@@ -1,10 +1,9 @@
 package com.mosbach.demo.data.impl;
 
+import com.mosbach.demo.data.api.Attendees;
 import com.mosbach.demo.data.api.User;
 
-import java.math.BigInteger;
-
-public class AttendeesImpl {
+public class AttendeesImpl implements Attendees {
 
     private String relID;
     private String userID;
@@ -37,6 +36,11 @@ public class AttendeesImpl {
 
     public String getMeetupID() {
         return meetupID;
+    }
+
+    @Override
+    public Byte gethost() {
+        return null;
     }
 
     public void setMeetupID(String meetupID) {
