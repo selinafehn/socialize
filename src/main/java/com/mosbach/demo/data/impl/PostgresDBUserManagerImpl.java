@@ -193,7 +193,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       return new SendBackToken(token, validUntil, getUserIDByEmail(email));
+       return new SendBackToken(token, validUntil, testuser.getUserID());
     }
 
     public String getUserIDByEmail(String email) {
