@@ -110,8 +110,8 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
     @Override
     public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
-        final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
-        createUserLogger.log(Level.INFO,"Start creating " + relID);
+        final Logger createAttendeeLogger = Logger.getLogger("CreateUserLogger");
+        createAttendeeLogger.log(Level.INFO,"Start creating " + relID);
         Statement stmt = null;
         Connection connection = null;
         try {
@@ -122,7 +122,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
                     host +")";
-            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+            Logger.getLogger("DbAttendeeManager").log(Level.INFO,udapteSQL);
 
             stmt.executeUpdate(udapteSQL);
             stmt.close();
