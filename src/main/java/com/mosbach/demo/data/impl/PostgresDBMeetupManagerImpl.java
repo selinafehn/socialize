@@ -98,7 +98,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             String dropTable = "drop table";
             stmt.executeUpdate(dropTable);
 
-            //stmt.executeUpdate(createTable);
+            stmt.executeUpdate(createTable);
 
         } catch (SQLException e) {
             e.printStackTrace();
