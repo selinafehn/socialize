@@ -46,7 +46,7 @@ public class Userlogin {
 
     @JsonProperty("userid")
     public void setUserID(String userid) {
-        this.email = userid;
+        this.userid = userid;
     }
 
     @JsonProperty("password")
