@@ -1,6 +1,15 @@
 package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.User;
+import org.apache.commons.dbcp.BasicDataSource;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 public class UserImpl implements User {
     private String ID;
@@ -11,6 +20,7 @@ public class UserImpl implements User {
     private String token;
     private long validUntil;
 
+    BasicDataSource basicDataSource;
     public UserImpl(String ID, String firstname, String lastname, String password, String email, String token, long validUntil) {
         this.ID = ID;
         this.firstname = firstname;
@@ -80,4 +90,7 @@ public class UserImpl implements User {
     public void setValidUntil(long validUntil) {
         this.validUntil = validUntil;
     }
+
+
+
 }

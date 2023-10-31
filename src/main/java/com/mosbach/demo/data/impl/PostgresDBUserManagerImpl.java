@@ -193,7 +193,30 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       return new SendBackToken(token, validUntil, userID);
+       return new SendBackToken(token, validUntil, getUserIDByEmail(email));
+    }
+
+    public String getUserIDByEmail(String email) {
+        final Logger readUserLogger = Logger.getLogger("ReadUserLogger");
+        readUserLogger.log(Level.INFO,"Start reading ");
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email = "+email );
+            String userID = rs.getNString(0);
+            return userID;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
