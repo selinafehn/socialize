@@ -206,9 +206,9 @@ public class MappingController {
     }
 
     @GetMapping("/auth/mymeetup")
-    public List<Meetup> getMyMeetup(@RequestParam(value = "token") String name) {
-        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
-        return meetupManager.readMyMeetups();
+    public List<Meetup> getMyMeetup(@RequestParam(value = "token") String token) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + token);
+        return meetupManager.readMyMeetups(token);
     }
 
     /**
