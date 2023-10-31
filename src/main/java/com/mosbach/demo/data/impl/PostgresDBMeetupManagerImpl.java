@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.mosbach.demo.data.impl.UserSession.sessionuser;
+
 public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
     String databaseURL = "jdbc:postgresql://ec2-3-214-103-146.compute-1.amazonaws.com/ddba3pgnqq5msa";
@@ -87,7 +89,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM meetup WHERE userid = " );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM meetup WHERE userid = " +UserSession.sessionuser.getUserID() );
             while (rs.next()) {
                 meetups.add(
                         new MeetupImpl(

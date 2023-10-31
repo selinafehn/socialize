@@ -205,6 +205,12 @@ public class MappingController {
         return meetupManager.readAllMeetup();
     }
 
+    @GetMapping("/auth/mymeetup")
+    public List<Meetup> getMyMeetup(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
+        return meetupManager.readMyMeetups();
+    }
+
     /**
      * POST to endpoint -> /dashboard/create, to create a new meetup into the dashboard. FOLLOWING JSON HAS TO BE SEND:
      * {
