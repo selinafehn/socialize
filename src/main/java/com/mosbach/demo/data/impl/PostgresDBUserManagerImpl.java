@@ -198,7 +198,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
         loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
 
-        UserSession.sessionuser = (com.mosbach.demo.model.auth.User) testuser;
+        UserSession session = new UserSession(testuser);
 
         loginUserLogger.log(Level.INFO,"Start logging in " + testuser);
         loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
