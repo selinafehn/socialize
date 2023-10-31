@@ -12,12 +12,15 @@ public class SendBackToken {
     private String token;
     private long validInSeconds;
 
+    private String userID;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<>();
 
-    public SendBackToken(String token, long validInSeconds) {
+    public SendBackToken(String token, long validInSeconds, String userID) {
         this.token = token;
         this.validInSeconds = validInSeconds;
+        this.userID = userID;
     }
 
     public String getToken() {
@@ -34,6 +37,18 @@ public class SendBackToken {
 
     public void setValidInSeconds(long validInSeconds) {
         this.validInSeconds = validInSeconds;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+        this.additionalProperties = additionalProperties;
     }
 
     @JsonAnyGetter
