@@ -329,8 +329,4 @@ public class MappingController {
         return "Attendee was added";
     }
 
-
-
-
-
 }

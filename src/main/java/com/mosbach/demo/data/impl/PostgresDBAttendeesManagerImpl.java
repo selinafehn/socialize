@@ -2,6 +2,7 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.Attendees;
 import com.mosbach.demo.data.api.AttendeesManager;
+import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
@@ -79,7 +80,34 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
 
     @Override
     public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
-        return null;
+        final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
+        createUserLogger.log(Level.INFO,"Start creating " + relID);
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into attendees (relID, userID, meetupID, host) VALUES (" +
+                    "'" + relID +"', " +
+                    "'" + userID + "', " +
+                    "'" + meetupID + "', " +
+                    host +")";
+            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                null;
     }
 
 /**
