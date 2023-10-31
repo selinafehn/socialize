@@ -3,6 +3,8 @@ import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.MeetupManager;
 import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -78,7 +80,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                 meetups;
     }
 
-    public List<Meetup>readMyMeetups() {
+    public List<Meetup>readMyMeetups(String token) {
         final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
         readMeetupLogger.log(Level.INFO,"Start reading ");
 
@@ -89,7 +91,11 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM meetup WHERE userid = " +UserSession.sessionuser.getUserID() );
+
+            ResultSet rss = stmt.executeQuery("SELECT userID FROM meetup WHERE token LIKE " +token);
+            String eintrag = rss.getNString(0);
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM meetup WHERE userid = " +eintrag);
             while (rs.next()) {
                 meetups.add(
                         new MeetupImpl(

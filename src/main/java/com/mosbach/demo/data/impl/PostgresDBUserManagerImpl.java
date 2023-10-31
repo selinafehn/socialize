@@ -26,6 +26,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     private static SecureRandom random = new SecureRandom();
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
 
+    static String sessiontoken ="";
 
     // Singleton
     static PostgresDBUserManagerImpl postgresDBUserManager = null;
@@ -155,8 +156,11 @@ public class PostgresDBUserManagerImpl implements UserManager {
         final Logger loginUserLogger = Logger.getLogger("LoginUserLogger");
         loginUserLogger.log(Level.INFO,"Start logging in " + email);
 
+
         Statement stmt = null;
         Connection connection = null;
+
+
         List<User> user = readAllUsers();
         User testuser = null;
 
@@ -196,13 +200,8 @@ public class PostgresDBUserManagerImpl implements UserManager {
             e.printStackTrace();
         }
 
-        loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
-
+        sessiontoken = token;
         UserSession session = new UserSession(testuser);
-
-        loginUserLogger.log(Level.INFO,"Start logging in " + testuser);
-        loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
-
        return new SendBackToken(token, validUntil, testuser.getUserID());
     }
 
