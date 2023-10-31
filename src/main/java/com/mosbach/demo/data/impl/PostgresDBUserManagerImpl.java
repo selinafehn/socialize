@@ -206,6 +206,8 @@ public class PostgresDBUserManagerImpl implements UserManager {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email = "+email );
             String userID = rs.getNString(0);
+            final Logger rLogger = Logger.getLogger("ReadUserLogger");
+            readUserLogger.log(Level.INFO,"Start reading " +userID);
             return userID;
         } catch (SQLException e) {
             e.printStackTrace();
