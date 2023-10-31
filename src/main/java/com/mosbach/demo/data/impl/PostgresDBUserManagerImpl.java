@@ -216,7 +216,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return "hhhh";
     }
 
     @Override
