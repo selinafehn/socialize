@@ -1,6 +1,7 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.Meetup;
 import com.mosbach.demo.data.api.MeetupManager;
+import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -75,6 +76,43 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                 meetups;
     }
 
+    public List<Meetup>readMyMeetups() {
+        final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
+        readMeetupLogger.log(Level.INFO,"Start reading ");
+
+        List<Meetup> meetups = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM meetup WHERE userid = " + User.getUserID() );
+            while (rs.next()) {
+                meetups.add(
+                        new MeetupImpl(
+                                rs.getString("meetupid"),
+                                rs.getString("title"),
+                                rs.getString("friends"),
+                                rs.getString("option"),
+                                rs.getString("location"),
+                                rs.getLong("validuntil"),
+                                rs.getString("description")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                meetups;
+    }
 
 
     public void createMeetupTable() {

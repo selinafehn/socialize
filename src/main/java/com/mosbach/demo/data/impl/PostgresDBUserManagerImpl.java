@@ -1,6 +1,7 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
+import com.mosbach.demo.model.Userlogin;
 import com.mosbach.demo.model.auth.SendBackToken;
 import org.apache.commons.dbcp.BasicDataSource;
 import java.security.SecureRandom;
@@ -165,6 +166,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
             }
         }
         if (!testuser.getPassword().equals(password)) return null;
+
         //token generation
         long validUntil = (System.currentTimeMillis()+(1800*1000));
         byte[] tokenbyte = new byte[16];
@@ -193,6 +195,14 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
+
+        UserSession.sessionuser = (com.mosbach.demo.model.auth.User) testuser;
+
+        loginUserLogger.log(Level.INFO,"Start logging in " + testuser);
+        loginUserLogger.log(Level.INFO,"Start logging in " + UserSession.sessionuser);
+
        return new SendBackToken(token, validUntil, testuser.getUserID());
     }
 
