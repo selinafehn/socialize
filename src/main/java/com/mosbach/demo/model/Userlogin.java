@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "email",
-    "password"
+    "password",
+    "meetupid"
 })
 @Generated("jsonschema2pojo")
 public class Userlogin {
@@ -23,6 +24,8 @@ public class Userlogin {
     private String email;
     @JsonProperty("password")
     private String password;
+    @JsonProperty("userid")
+    private String userid;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -34,6 +37,16 @@ public class Userlogin {
     @JsonProperty("email")
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @JsonProperty("userid")
+    public String getUserID() {
+        return userid;
+    }
+
+    @JsonProperty("userid")
+    public void setUserID(String userid) {
+        this.email = userid;
     }
 
     @JsonProperty("password")

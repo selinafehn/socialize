@@ -119,7 +119,7 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public SendBackToken userLogIn(@RequestBody Userlogin userlogin) {
-        return userManager.logUserIn(userlogin.getEmail(), userlogin.getPassword());
+        return userManager.logUserIn(userlogin.getEmail(), userlogin.getPassword(), userlogin.getUserID());
     }
 
     /**

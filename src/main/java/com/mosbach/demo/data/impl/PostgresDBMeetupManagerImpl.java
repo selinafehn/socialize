@@ -40,10 +40,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     public List<Meetup>readAllMeetup() {
-
         final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
         readMeetupLogger.log(Level.INFO,"Start reading ");
-
         List<Meetup> meetups = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;

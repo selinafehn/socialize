@@ -149,7 +149,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
     @Override
-    public SendBackToken logUserIn(String email, String password) {
+    public SendBackToken logUserIn(String email, String password, String userID) {
 
         final Logger loginUserLogger = Logger.getLogger("LoginUserLogger");
         loginUserLogger.log(Level.INFO,"Start logging in " + email);

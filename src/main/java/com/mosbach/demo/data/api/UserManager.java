@@ -11,7 +11,7 @@ public interface UserManager {
     void createUserTable();
 
 
-    SendBackToken logUserIn(String email, String password);
+    SendBackToken logUserIn(String email, String password, String userID);
     boolean logUserOff( String token);
 
     // TODO mal gucken ob man die überhaupt braucht
