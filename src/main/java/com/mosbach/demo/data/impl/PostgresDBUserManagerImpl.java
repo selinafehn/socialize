@@ -193,7 +193,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-       return new SendBackToken(token, validUntil);
+       return new SendBackToken(token, validUntil, userID);
     }
 
     @Override
