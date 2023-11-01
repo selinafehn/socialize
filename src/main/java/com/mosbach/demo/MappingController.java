@@ -325,7 +325,7 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String attendeeAdd(@RequestBody CreateAttendee addAttendee) {
+    public String createAttendee(@RequestBody CreateAttendee addAttendee) {
         return "Attendee was added";
     }
 
