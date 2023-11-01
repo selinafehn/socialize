@@ -325,8 +325,14 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String createAttendee(@RequestBody CreateAttendee addAttendee) {
+    public String createAttendee(@RequestBody CreateAttendee createAttendee) {
+        attendeesManager.createAttendee(
+                createAttendee.getRelID(),
+                createAttendee.getUserID(),
+                createAttendee.getMeetupID(),
+                createAttendee.getHost());
         return "Attendee was added";
     }
+
 
 }

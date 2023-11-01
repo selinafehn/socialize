@@ -34,7 +34,7 @@ public class CreateAttendee {
 
     @JsonProperty("relID")
     public String getRelID() {
-        return relID;
+        return (userID+meetupID);
     }
 
     @JsonProperty("relID")
