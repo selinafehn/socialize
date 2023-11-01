@@ -81,6 +81,33 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     }
 
     public List<Meetup>readMyMeetups(String token) {
+
+
+        /**
+         * IDEE für die implementierung
+         *
+         * über eine SQL abfrage mit testuser
+         *
+         * man muss die userid oder ein token mitgeben -> am besten userid
+         *
+         * erst alle holen SELECT * FROM meetups WHERE userid = userid;
+         *
+         * man hat dann ja die userid. mit der user id kann man dann
+         * eine abfrage an die attendees tabelle stellen welche meetups
+         * bei dem user zwischengespeichert sind.
+         *
+         * die dann zurückgeben
+         *
+         * TODO: WICHTIG:
+         * beim erstellen jedes meetups muss noch in die attendees tabelle alles zwischengespeichert werden
+         *
+         *
+         */
+
+
+
+
+
         final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
         readMeetupLogger.log(Level.INFO,"Start reading ");
 

@@ -56,8 +56,8 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "meetupid String NOT NULL, " +
                     "host boolean ) ";
 
-            String dropTable = "drop table attendees";
-            stmt.executeUpdate(dropTable);
+            //String dropTable = "drop table attendees";
+            //stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
