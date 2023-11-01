@@ -51,9 +51,9 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
             stmt = connection.createStatement();
 
             String createTable = "CREATE TABLE attendees (" +
-                    "relid String PRIMARY KEY NOT NULL, " +
-                    "userID String NOT NULL, " +
-                    "meetupid String NOT NULL, " +
+                    "relid varchar PRIMARY KEY NOT NULL, " +
+                    "userID varchar NOT NULL, " +
+                    "meetupid varchar NOT NULL, " +
                     "host boolean ) ";
 
             //String dropTable = "drop table attendees";
