@@ -184,7 +184,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public void createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description) {
+    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
@@ -214,6 +214,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 

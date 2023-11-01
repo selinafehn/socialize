@@ -136,6 +136,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 /**
