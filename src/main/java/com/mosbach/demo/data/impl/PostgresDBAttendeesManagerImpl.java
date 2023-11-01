@@ -109,7 +109,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
         }
 
     @Override
-    public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
+    public Attendees createAttendee(String relID, String userID, String meetupID, boolean host) {
         final Logger createAttendeeLogger = Logger.getLogger("CreateUserLogger");
         createAttendeeLogger.log(Level.INFO,"Start creating " + relID);
         Statement stmt = null;
