@@ -28,7 +28,7 @@ public class CreateAttendee {
     @JsonProperty("meetupID")
     private String meetupID;
     @JsonProperty("host")
-    private String host;
+    private boolean host;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -63,12 +63,12 @@ public class CreateAttendee {
     }
 
     @JsonProperty("host")
-    public String getHost() {
+    public boolean getHost() {
         return host;
     }
 
     @JsonProperty("host")
-    public void setHost(String host) {
+    public void setHost(boolean host) {
         this.host = host;
     }
 
