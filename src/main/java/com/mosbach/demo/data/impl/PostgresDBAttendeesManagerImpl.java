@@ -91,7 +91,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                                     rs.getString("relid"),
                                     rs.getString("userid"),
                                     rs.getString("meetupid"),
-                                    rs.getByte("host")
+                                    rs.getBoolean("host")
                             )
                     );
                 }

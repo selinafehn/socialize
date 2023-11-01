@@ -8,9 +8,9 @@ public class AttendeesImpl implements Attendees {
     private String relID;
     private String userID;
     private String meetupID;
-    private byte host;
+    private boolean host;
 
-    public AttendeesImpl(String relID, String userID, String meetupID, byte host) {
+    public AttendeesImpl(String relID, String userID, String meetupID, boolean host) {
         this.relID = relID;
         this.userID = userID;
         this.meetupID = meetupID;
@@ -47,11 +47,11 @@ public class AttendeesImpl implements Attendees {
         this.meetupID = meetupID;
     }
 
-    public byte getHost() {
+    public boolean getHost() {
         return host;
     }
 
-    public void setHost(byte host) {
+    public void setHost(boolean host) {
         this.host = host;
     }
 
