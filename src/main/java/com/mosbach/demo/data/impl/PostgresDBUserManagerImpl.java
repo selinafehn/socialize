@@ -149,6 +149,40 @@ public class PostgresDBUserManagerImpl implements UserManager {
     }
 
     @Override
+    public User getUserbyToken(String token) {
+        User user = null;
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE token =  '" +token +"'" );
+            if (rs.next()) {
+                user = new UserImpl(
+                        rs.getString("userid"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("token"),
+                        rs.getLong("validuntil")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                user;
+    }
+
+
+    @Override
     public User createUser(String userID, String firstName, String lastName, String password, String email, String token, long validUntil) {
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start creating " + email);
