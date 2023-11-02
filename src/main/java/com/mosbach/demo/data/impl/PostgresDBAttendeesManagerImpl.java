@@ -56,8 +56,8 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
                     "meetupid varchar(100) NOT NULL, " +
                     "host boolean ) ";
 
-            //String dropTable = "drop table attendees";
-            //stmt.executeUpdate(dropTable);
+            String dropTable = "drop table attendees";
+            stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
@@ -77,7 +77,6 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
     public List<Attendees>readAllAttendees() {
             final Logger readUserLogger = Logger.getLogger("ReadAttendeeLogger");
             readUserLogger.log(Level.INFO,"Start reading ");
-
             List<Attendees> attendees = new ArrayList<>();
             Statement stmt = null;
             Connection connection = null;
