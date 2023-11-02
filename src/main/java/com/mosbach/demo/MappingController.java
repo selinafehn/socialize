@@ -188,6 +188,9 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String meetupCreation(@RequestBody CreateMeetup createMeetup) {
+
+        List<String> attendees = Arrays.asList(createMeetup.getFriends().split("\\s*,\\s*"));
+
         meetupManager.createMeetup(
                 UUID.randomUUID().toString(),
                 createMeetup.getTitle(),
@@ -195,7 +198,9 @@ public class MappingController {
                 createMeetup.getOption(),
                 createMeetup.getLocation(),
                 createMeetup.getValiduntil(),
-                createMeetup.getDescription());
+                createMeetup.getDescription(),
+                attendees
+                );
         return "meetup created";
     }
 
@@ -319,7 +324,6 @@ public class MappingController {
         return attendeesManager.readAllAttendees();
     }
 
-
     @PostMapping(
             path = "/dashboard/addAttendee",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -333,6 +337,41 @@ public class MappingController {
                 createAttendee.getHost());
         return "Attendee was added";
     }
+
+
+// ---------------------------------------------------------------------------------------
+// ATTENDEES
+// ---------------------------------------------------------------------------------------
+
+    @PostMapping(
+            path = "/dashboard/addVoting",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String createVoting(@RequestBody CreateVoting createVoting) {
+        votingManager.createVoting(
+                createVoting.getVoteid(),
+                createVoting.getUserid(),
+                createVoting.getMeetupid(),
+                createVoting.getOpt1(),
+                createVoting.getOpt2(),
+                createVoting.getOpt3(),
+                createVoting.getOpt4(),
+                createVoting.getOpt5(),
+                createVoting.getOpt6(),
+                createVoting.getOpt7(),
+                createVoting.getLoc1(),
+                createVoting.getLoc2(),
+                createVoting.getLoc3(),
+                createVoting.getLoc4(),
+                createVoting.getLoc5(),
+                createVoting.getLoc6(),
+                createVoting.getLoc7());
+        return "Voting was added";
+    }
+
+
+
 
 
 }

@@ -1,7 +1,5 @@
 package com.mosbach.demo.data.impl;
-import com.mosbach.demo.data.api.Meetup;
-import com.mosbach.demo.data.api.MeetupManager;
-import com.mosbach.demo.data.api.User;
+import com.mosbach.demo.data.api.*;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +22,8 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     String username = "uiefynxlnqznhz";
     String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
     BasicDataSource basicDataSource;
+
+    UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
 
     // dass die bytes randomized werden (stack overflow)
     private static SecureRandom random = new SecureRandom();
@@ -82,15 +82,19 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
     public List<Meetup>readMyMeetups(String token) {
 
+        // TODO testuser implementieren
 
+        // TODO sql abfrage machen wo man das meetup bekommt über die user id und die meetup id
         /**
-         * IDEE für die implementierung
-         *
-         * über eine SQL abfrage mit testuser
-         *
-         * man muss die userid oder ein token mitgeben -> am besten userid
-         *
-         * erst alle holen SELECT * FROM meetups WHERE userid = userid;
+         * SELECT * FROM meetup WHERE userid = ""
+         */
+
+
+
+
+
+
+         /**
          *
          * man hat dann ja die userid. mit der user id kann man dann
          * eine abfrage an die attendees tabelle stellen welche meetups
@@ -104,11 +108,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
          *
          */
 
-
-
-
-
-        final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
+        final Logger readMeetupLogger = Logger.getLogger("ReadMyMeetupLogger");
         readMeetupLogger.log(Level.INFO,"Start reading ");
 
         List<Meetup> meetups = new ArrayList<>();
@@ -183,7 +183,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description) {
+    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description, List<String> attendees) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
@@ -200,8 +200,34 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "'" + location + "', " +
                     validUntil +")";
             Logger.getLogger("DbMeetupManager").log(Level.INFO,udapteSQL);
-
             stmt.executeUpdate(udapteSQL);
+
+            /*
+            String holen
+            zerlegen in liste an mails
+            for each mit liste holen user aus db anhand emailadresse
+            getuser from DB by token/ email
+            übergeben in interface
+             */
+
+            int i = 0;
+
+            for(String s: attendees){
+                boolean host = false;
+                String userid = userManager.getUserbyEmail(s).getEmail();
+                String relid = userid + meetupID;
+                if( i == 0){
+                    host = true;
+                }
+                i++;
+                String updateSQL = "INSERT into attendees (relid, userid, meetupid, host) VALUES (" +
+                        "'" + relid +"', " +
+                        "'" + userid +"', "+
+                        "'" + meetupID + "', " +
+                        host +")";
+                stmt.executeUpdate(updateSQL);
+            }
+
             stmt.close();
             connection.close();
         } catch (SQLException e) {
@@ -213,8 +239,15 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
+        // TODO attendee update
+
         return null;
     }
+
+
 
 
 

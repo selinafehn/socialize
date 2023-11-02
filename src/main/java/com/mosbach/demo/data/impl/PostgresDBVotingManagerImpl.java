@@ -1,5 +1,7 @@
 package com.mosbach.demo.data.impl;
 
+import com.mosbach.demo.data.api.Attendees;
+import com.mosbach.demo.data.api.Voting;
 import com.mosbach.demo.data.api.VotingManager;
 import org.apache.commons.dbcp.BasicDataSource;
 
@@ -8,6 +10,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PostgresDBVotingManagerImpl implements VotingManager {
 
@@ -77,6 +81,54 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
             e.printStackTrace();
         }
 
+    }
+
+
+    @Override
+    public Voting createVoting(String voteID, String userID, String meetupID, boolean opt1,
+                               boolean opt2, boolean opt3, boolean opt4, boolean opt5,
+                               boolean opt6, boolean opt7, boolean loc1, boolean loc2,
+                               boolean loc3, boolean loc4, boolean loc5, boolean loc6, boolean loc7){
+        final Logger createAttendeeLogger = Logger.getLogger("CreateVotingLogger");
+        createAttendeeLogger.log(Level.INFO,"Start creating " + voteID);
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into voting (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7,\n" +
+                    "                              loc1, loc2, loc3, loc4, loc5, loc6, loc7) VALUES (" +
+                    "'" + voteID +"', " +
+                    "'" + userID + "', " +
+                    "'" + meetupID + "', " +
+                    "'" + opt1 + "', " +
+                    "'" + opt2 + "', " +
+                    "'" + opt3 + "', " +
+                    "'" + opt4 + "', " +
+                    "'" + opt5 + "', " +
+                    "'" + opt6 + "', " +
+                    "'" + opt7 + "', " +
+                    "'" + loc1 + "', " +
+                    "'" + loc2 + "', " +
+                    "'" + loc3 + "', " +
+                    "'" + loc4 + "', " +
+                    "'" + loc5 + "', " +
+                    "'" + loc6 + "', " +
+                    loc7 +")";
+            Logger.getLogger("DbVotingManager").log(Level.INFO,udapteSQL);
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

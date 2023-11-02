@@ -6,7 +6,6 @@ public interface AttendeesManager {
 
     void createAttendeesTable();
     List<Attendees> readAllAttendees();
-
     Attendees createAttendee(String relID, String userID, String meetupID, boolean host);
 
 }
