@@ -48,9 +48,9 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
             stmt = connection.createStatement();
 
             String createTable = "CREATE TABLE voting (" +
-                    "voteID bigint PRIMARY KEY NOT NULL, " +
-                    "userID bigint NOT NULL, " +
-                    "meetupID bigint NOT NULL, " +
+                    "voteID String PRIMARY KEY NOT NULL, " +
+                    "userID String NOT NULL, " +
+                    "meetupID String NOT NULL, " +
                     "opt1 boolean, " +
                     "opt2 boolean, " +
                     "opt3 boolean, " +
@@ -66,8 +66,8 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "loc6 boolean, " +
                     "loc7 boolean ) " ;
 
-            //String dropTable = "drop table favourites";
-            //stmt.executeUpdate(dropTable);
+            String dropTable = "drop table favourites";
+            stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
@@ -97,7 +97,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "INSERT into voting (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7,\n" +
-                    "                              loc1, loc2, loc3, loc4, loc5, loc6, loc7) VALUES (" +
+                                "loc1, loc2, loc3, loc4, loc5, loc6, loc7) VALUES (" +
                     "'" + voteID +"', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
