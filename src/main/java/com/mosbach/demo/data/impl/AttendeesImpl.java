@@ -38,11 +38,6 @@ public class AttendeesImpl implements Attendees {
         return meetupID;
     }
 
-    @Override
-    public Byte gethost() {
-        return null;
-    }
-
     public void setMeetupID(String meetupID) {
         this.meetupID = meetupID;
     }
