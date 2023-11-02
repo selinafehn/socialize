@@ -182,7 +182,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
             for(String s: attendees){
                 boolean host = false;
-                String userid = userManager.getUserbyEmail(s).getEmail();
+                String userid = userManager.getUserbyEmail(s).getUserID();
                 String relid = userid + meetupID;
                 if( i == 0){
                     host = true;
