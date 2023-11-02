@@ -116,7 +116,7 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into attendees (relID, userID, meetupID, host) VALUES (" +
+            String udapteSQL = "INSERT into attendees(relID, userID, meetupID, host) VALUES (" +
                     "'" + relID +"', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
