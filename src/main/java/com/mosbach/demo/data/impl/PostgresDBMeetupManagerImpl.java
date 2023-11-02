@@ -156,7 +156,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
 
-            /**
+
             String createTable = "CREATE TABLE meetups (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
                     "title varchar(255) NOT NULL, " +
@@ -166,12 +166,10 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
-             */
+            //String droptable = "drop table meetup";
+            //stmt.executeUpdate(droptable);
 
-            String droptable = "drop table meetup";
-            stmt.executeUpdate(droptable);
-
-            //stmt.executeUpdate(createTable);
+            stmt.executeUpdate(createTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }
