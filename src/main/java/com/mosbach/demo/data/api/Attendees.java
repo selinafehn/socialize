@@ -5,5 +5,5 @@ public interface Attendees {
     String getRelID();
     String getUserID();
     String getMeetupID();
-    Byte gethost();
+    boolean getHost();
 }

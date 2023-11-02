@@ -38,6 +38,7 @@ public class AttendeesImpl implements Attendees {
         return meetupID;
     }
 
+
     public void setMeetupID(String meetupID) {
         this.meetupID = meetupID;
     }
