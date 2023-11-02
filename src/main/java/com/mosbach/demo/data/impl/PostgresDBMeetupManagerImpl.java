@@ -168,7 +168,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
              */
 
-            String droptable = "drop table users";
+            String droptable = "drop table meetup";
             stmt.executeUpdate(droptable);
 
             //stmt.executeUpdate(createTable);
