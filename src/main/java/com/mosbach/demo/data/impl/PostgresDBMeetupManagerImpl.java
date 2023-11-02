@@ -157,7 +157,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             stmt = connection.createStatement();
 
 
-            String createTable = "CREATE TABLE meetups (" +
+            String createTable = "CREATE TABLE meetup (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
                     "title varchar(255) NOT NULL, " +
                     "friends varchar(255) NOT NULL, " +
@@ -166,7 +166,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
-            String droptable = "drop table meetup";
+            String droptable = "drop table meetups";
             stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
