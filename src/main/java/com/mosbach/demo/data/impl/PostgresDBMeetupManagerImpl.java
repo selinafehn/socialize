@@ -90,7 +90,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM attendees a, meetups m WHERE a.meetupid = m.meetupid AND a.userid = '" +user.getUserID() +"'" );
+            ResultSet rs = stmt.executeQuery("SELECT * FROM attendees a, meetup m WHERE a.meetupid = m.meetupid AND a.userid = '" +user.getUserID() +"'" );
             while (rs.next()) {
                 meetups.add(
                         new MeetupImpl(
