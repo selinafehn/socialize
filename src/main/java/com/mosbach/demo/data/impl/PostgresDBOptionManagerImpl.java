@@ -6,10 +6,7 @@ import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,16 +73,21 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
         Statement stmt = null;
         Connection connection = null;
         try {
+
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into options (optionid, meetupid, dateandtime) VALUES (" +
+
+            ResultSet rs1 = stmt.executeQuery("SELECT COUNT(*) options WHERE meetupid = " +meetupid +"'" );
+            int counting = rs1.getInt(1)+1;
+
+            String udapteSQL = "INSERT into options (optionid,optionserial, meetupid, dateandtime) VALUES (" +
                     "'" + optionid +"', " +
-                    //"'" + optionserial + "', " +
+                    "'" + counting +"', " +
                     "'" + meetupid + "', " + "'" +
                     dateandtime +"'" +")";
             Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
-
             stmt.executeUpdate(udapteSQL);
+
             stmt.close();
             connection.close();
         } catch (SQLException e) {
