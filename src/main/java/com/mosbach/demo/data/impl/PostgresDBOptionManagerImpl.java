@@ -1,13 +1,17 @@
 package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.OptionsManager;
+import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PostgresDBOptionManagerImpl implements OptionsManager {
 
@@ -65,4 +69,35 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
         }
 
     }
+
+    @Override
+    public User createOptions(String optionid, String optionserial, String meetupid, Timestamp dateandtime) {
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String udapteSQL = "INSERT into options (optionid, optionserial, meetupid, dateandtime) VALUES (" +
+                    "'" + optionid +"', " +
+                    "'" + optionserial + "', " +
+                    "'" + meetupid + "', " +
+                    dateandtime +")";
+            Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
+
+            stmt.executeUpdate(udapteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                null;
+    }
+
 }

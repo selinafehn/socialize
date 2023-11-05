@@ -360,4 +360,20 @@ public class MappingController {
         return votingManager.readAllVotings();
     }
 
+    // ------------
+
+    @PostMapping(
+            path = "/dashboard/addOptions",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public String createOptions(@RequestBody CreateOptions createOptions) {
+        optionsManager.createOptions(
+                UUID.randomUUID().toString(),
+                createOptions.getOptionserial(),
+                createOptions.getMeetupid(),
+                createOptions.getDateandtime());
+        return "Option was added";
+    }
+
 }

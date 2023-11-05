@@ -1,13 +1,18 @@
 package com.mosbach.demo.data.api;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public interface Options {
 
-    //TODO in einen Serial ändern !
-    int getOptionID();
+    String getOption();
 
-    //TODO wsl nicht ideal aber fuer anfang ganz gut
-    Date dateAndTime();
+    String getOptionserial();
+
+    String getMeetupid();
+
+    Timestamp getDateandtime();
+
+
 
 }
