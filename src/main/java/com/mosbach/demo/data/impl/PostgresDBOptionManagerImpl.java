@@ -78,9 +78,9 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into options (optionid, optionserial, meetupid, dateandtime) VALUES (" +
+            String udapteSQL = "INSERT into options (optionid, meetupid, dateandtime) VALUES (" +
                     "'" + optionid +"', " +
-                    "'" + optionserial + "', " +
+                    //"'" + optionserial + "', " +
                     "'" + meetupid + "', " + "'" +
                     dateandtime +"'" +")";
             Logger.getLogger("DbUSerManager").log(Level.INFO,udapteSQL);
