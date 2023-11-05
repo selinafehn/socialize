@@ -59,8 +59,8 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "opt6 boolean, " +
                     "opt7 boolean ) " ;
 
-            String dropTable = "drop table voting";
-            stmt.executeUpdate(dropTable);
+            //String dropTable = "drop table voting";
+            //stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
