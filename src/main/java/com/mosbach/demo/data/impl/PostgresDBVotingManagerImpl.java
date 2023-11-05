@@ -47,9 +47,9 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String createTable = "CREATE TABLE votings (" +
-                    "voteID String PRIMARY KEY NOT NULL, " +
-                    "userID String NOT NULL, " +
-                    "meetupID String NOT NULL, " +
+                    "voteID varchar PRIMARY KEY NOT NULL, " +
+                    "userID varchar NOT NULL, " +
+                    "meetupID varchar NOT NULL, " +
                     "opt1 boolean, " +
                     "opt2 boolean, " +
                     "opt3 boolean, " +
