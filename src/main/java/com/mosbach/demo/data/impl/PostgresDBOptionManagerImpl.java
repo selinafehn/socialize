@@ -44,11 +44,12 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
             stmt = connection.createStatement();
 
             String createTable = "CREATE TABLE options (" +
-                    "optionid bigint PRIMARY KEY NOT NULL, " +
+                    "optionid varchar PRIMARY KEY NOT NULL, " +
+                    "meetupid varchar NOT NULL, " +
                     "dateandtime timestamp NOT NULL) ";
 
-            //String dropTable = "drop table favourites";
-            //stmt.executeUpdate(dropTable);
+            String dropTable = "drop table options";
+            stmt.executeUpdate(dropTable);
 
             stmt.executeUpdate(createTable);
 
