@@ -46,10 +46,8 @@ public class PostgresDBLocationManagerImpl implements LocationManager {
                     "place varchar(255), " +
                     "specification varchar(255) NOT NULL) ";
 
-            String dropTable = "drop table locations";
+            String dropTable = "DROP TABLE locations";
             stmt.executeUpdate(dropTable);
-
-            stmt.executeUpdate(createTable);
 
         } catch (SQLException e) {
             e.printStackTrace();
