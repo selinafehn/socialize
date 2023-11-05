@@ -1,5 +1,6 @@
 package com.mosbach.demo.data.impl;
 
+import com.mosbach.demo.data.api.Options;
 import com.mosbach.demo.data.api.OptionsManager;
 import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -71,7 +72,7 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
     }
 
     @Override
-    public User createOptions(String optionid, String optionserial, String meetupid, Timestamp dateandtime) {
+    public Options createOptions(String optionid, String optionserial, String meetupid, Timestamp dateandtime) {
         Statement stmt = null;
         Connection connection = null;
         try {

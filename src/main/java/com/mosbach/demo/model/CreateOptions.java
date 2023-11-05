@@ -2,6 +2,7 @@
 package com.mosbach.demo.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
