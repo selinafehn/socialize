@@ -22,7 +22,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     BasicDataSource basicDataSource;
 
 
-    // dass die bytes randomized werden (stack overflow)
+    // dass die bytes randomized werden(stack overflow)
     private static SecureRandom random = new SecureRandom();
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
 
@@ -219,15 +219,10 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
     @Override
     public SendBackToken logUserIn(String email, String password) {
-
         final Logger loginUserLogger = Logger.getLogger("LoginUserLogger");
         loginUserLogger.log(Level.INFO,"Start logging in " + email);
-
-
         Statement stmt = null;
         Connection connection = null;
-
-
         List<User> user = readAllUsers();
         User testuser = null;
 
@@ -237,13 +232,11 @@ public class PostgresDBUserManagerImpl implements UserManager {
             }
         }
         if (!testuser.getPassword().equals(password)) return null;
-
         //token generation
         long validUntil = (System.currentTimeMillis()+(1800*1000));
         byte[] tokenbyte = new byte[16];
         random.nextBytes(tokenbyte);
         String token = encoder.encodeToString(tokenbyte);
-
         //SQL Statement for update database
         try {
             connection = basicDataSource.getConnection();

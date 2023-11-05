@@ -343,7 +343,6 @@ public class MappingController {
 // ATTENDEES
 // ---------------------------------------------------------------------------------------
 
-
     @PostMapping(
             path = "/dashboard/addVoting",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
