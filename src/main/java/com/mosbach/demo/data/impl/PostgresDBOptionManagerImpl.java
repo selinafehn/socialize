@@ -80,7 +80,7 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
             ResultSet rs1 = stmt.executeQuery("SELECT COUNT(*) options WHERE meetupid = " +"'" +meetupid  +"'" );
             int counting = rs1.getInt(1)+1;
 
-            String udapteSQL = "INSERT into options (optionid,optionserial, meetupid, dateandtime) VALUES (" +
+            String udapteSQL = "INSERT into options (optionid, optionserial, meetupid, dateandtime) VALUES (" +
                     "'" + optionid +"', " +
                     "'" + counting +"', " +
                     "'" + meetupid + "', " + "'" +
