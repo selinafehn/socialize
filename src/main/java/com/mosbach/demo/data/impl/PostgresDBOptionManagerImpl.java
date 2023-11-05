@@ -45,6 +45,7 @@ public class PostgresDBOptionManagerImpl implements OptionsManager {
 
             String createTable = "CREATE TABLE options (" +
                     "optionid varchar PRIMARY KEY NOT NULL, " +
+                    "optionserial serial NOT NULL, " +
                     "meetupid varchar NOT NULL, " +
                     "dateandtime timestamp NOT NULL) ";
 
