@@ -46,8 +46,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-
-            String createTable = "CREATE TABLE voting (" +
+            String createTable = "CREATE TABLE votings (" +
                     "voteID String PRIMARY KEY NOT NULL, " +
                     "userID String NOT NULL, " +
                     "meetupID String NOT NULL, " +
@@ -58,12 +57,9 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "opt5 boolean, " +
                     "opt6 boolean, " +
                     "opt7 boolean ) " ;
-
             //String dropTable = "drop table voting";
             //stmt.executeUpdate(dropTable);
-
             stmt.executeUpdate(createTable);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
