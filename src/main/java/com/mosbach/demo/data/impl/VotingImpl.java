@@ -44,37 +44,37 @@ public class VotingImpl implements Voting {
 
     @Override
     public boolean getOpt1() {
-        return false;
+        return opt1;
     }
 
     @Override
     public boolean getOpt2() {
-        return false;
+        return opt2;
     }
 
     @Override
     public boolean getOpt3() {
-        return false;
+        return opt3;
     }
 
     @Override
     public boolean getOpt4() {
-        return false;
+        return opt4;
     }
 
     @Override
     public boolean getOpt5() {
-        return false;
+        return opt5;
     }
 
     @Override
     public boolean getOpt6() {
-        return false;
+        return opt6;
     }
 
     @Override
     public boolean getOpt7() {
-        return false;
+        return opt7;
     }
 
     public void setMeetupID(String meetupID) {
