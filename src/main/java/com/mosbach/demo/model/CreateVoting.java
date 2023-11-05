@@ -22,14 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "opt4",
     "opt5",
     "opt6",
-    "opt7",
-    "loc1",
-    "loc2",
-    "loc3",
-    "loc4",
-    "loc5",
-    "loc6",
-    "loc7"
+    "opt7"
 })
 @Generated("jsonschema2pojo")
 public class CreateVoting {
@@ -54,20 +47,7 @@ public class CreateVoting {
     private boolean opt6;
     @JsonProperty("opt7")
     private boolean opt7;
-    @JsonProperty("loc1")
-    private boolean loc1;
-    @JsonProperty("loc2")
-    private boolean loc2;
-    @JsonProperty("loc3")
-    private boolean loc3;
-    @JsonProperty("loc4")
-    private boolean loc4;
-    @JsonProperty("loc5")
-    private boolean loc5;
-    @JsonProperty("loc6")
-    private boolean loc6;
-    @JsonProperty("loc7")
-    private boolean loc7;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -169,76 +149,6 @@ public class CreateVoting {
     @JsonProperty("opt7")
     public void setOpt7(boolean opt7) {
         this.opt7 = opt7;
-    }
-
-    @JsonProperty("loc1")
-    public boolean getLoc1() {
-        return loc1;
-    }
-
-    @JsonProperty("loc1")
-    public void setLoc1(boolean loc1) {
-        this.loc1 = loc1;
-    }
-
-    @JsonProperty("loc2")
-    public boolean getLoc2() {
-        return loc2;
-    }
-
-    @JsonProperty("loc2")
-    public void setLoc2(boolean loc2) {
-        this.loc2 = loc2;
-    }
-
-    @JsonProperty("loc3")
-    public boolean getLoc3() {
-        return loc3;
-    }
-
-    @JsonProperty("loc3")
-    public void setLoc3(boolean loc3) {
-        this.loc3 = loc3;
-    }
-
-    @JsonProperty("loc4")
-    public boolean getLoc4() {
-        return loc4;
-    }
-
-    @JsonProperty("loc4")
-    public void setLoc4(boolean loc4) {
-        this.loc4 = loc4;
-    }
-
-    @JsonProperty("loc5")
-    public boolean getLoc5() {
-        return loc5;
-    }
-
-    @JsonProperty("loc5")
-    public void setLoc5(boolean loc5) {
-        this.loc5 = loc5;
-    }
-
-    @JsonProperty("loc6")
-    public boolean getLoc6() {
-        return loc6;
-    }
-
-    @JsonProperty("loc6")
-    public void setLoc6(boolean loc6) {
-        this.loc6 = loc6;
-    }
-
-    @JsonProperty("loc7")
-    public boolean getLoc7() {
-        return loc7;
-    }
-
-    @JsonProperty("loc7")
-    public void setLoc7(boolean loc7) {
-        this.loc7 = loc7;
     }
 
     @JsonAnyGetter

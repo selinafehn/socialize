@@ -351,14 +351,7 @@ public class MappingController {
                 createVoting.getOpt4(),
                 createVoting.getOpt5(),
                 createVoting.getOpt6(),
-                createVoting.getOpt7(),
-                createVoting.getLoc1(),
-                createVoting.getLoc2(),
-                createVoting.getLoc3(),
-                createVoting.getLoc4(),
-                createVoting.getLoc5(),
-                createVoting.getLoc6(),
-                createVoting.getLoc7());
+                createVoting.getOpt7());
         return "Voting was added";
     }
 
