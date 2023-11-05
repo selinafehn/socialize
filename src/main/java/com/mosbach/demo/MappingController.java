@@ -360,7 +360,16 @@ public class MappingController {
         return votingManager.readAllVotings();
     }
 
-    // ------------
+    @GetMapping("/dashboard/voting")
+    public int getTopOptVoting(@RequestParam(value = "meetupid", defaultValue = "meetupid") String meetupid) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + meetupid);
+        return votingManager.readOptFromVoting(meetupid);
+    }
+
+// ---------------------------------------------------------------------------------------
+// OPTIONS
+// ---------------------------------------------------------------------------------------
+
 
     @PostMapping(
             path = "/dashboard/addOptions",

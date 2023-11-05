@@ -150,15 +150,11 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                 votings;
     }
 
-
-
+    /**
     @Override
     public List<Voting>readVotingsForOption() {
-
         final Logger readVotingLogger = Logger.getLogger("ReadVotingsForOptionLogger");
         readVotingLogger.log(Level.INFO,"Start reading ");
-
-
         List<Voting> votings = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;
@@ -194,57 +190,43 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         return
                 votings;
     }
-
+    */
 
     public int readOptFromVoting(String meetupID){
         final Logger readopt1Logger = Logger.getLogger("Read Opt1 from Votings");
         readopt1Logger.log(Level.INFO, "Start reading");
-        int counting1 = 0;
-        int counting2 = 0;
-        int counting3 = 0;
-        int counting4 = 0;
-        int counting5 = 0;
-        int counting6 = 0;
-        int counting7 = 0;
-
+        int counting1 = 0; int counting2 = 0; int counting3 = 0; int counting4 = 0; int counting5 = 0; int counting6 = 0; int counting7 = 0;
         Statement stmt = null;
         Connection connection = null;
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs1 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt1 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting1 = rs1.getInt(1);
-
+            counting1 = rs1.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs2 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt2 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting2 = rs2.getInt(1);
-
+            counting2 = rs2.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs3 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt3 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting3 = rs3.getInt(1);
-
+            counting3 = rs3.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs4 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt4 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting4 = rs4.getInt(1);
-
+            counting4 = rs4.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs5 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt5 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting5 = rs5.getInt(1);
-
+            counting5 = rs5.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs6 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt6 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting6 = rs6.getInt(1);
-
+            counting6 = rs6.getInt(0);
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             ResultSet rs7 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt7 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting7 = rs7.getInt(1);
-
+            counting7 = rs7.getInt(0);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -254,10 +236,8 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         int max = 0;
         int counting = 0;
-
         int arr[] = {counting1,counting2,counting3,counting4,counting5,counting6,counting7};
         for(int i=0; i<arr.length; i++)
         {
@@ -269,7 +249,5 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         }
         return counting;
     }
-
-
 
 }
