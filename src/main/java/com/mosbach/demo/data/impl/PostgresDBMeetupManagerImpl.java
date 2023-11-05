@@ -124,7 +124,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
 
-
             String createTable = "CREATE TABLE meetup (" +
                     "meetupid varchar(100) PRIMARY KEY NOT NULL, " +
                     "title varchar(255) NOT NULL, " +
@@ -170,14 +169,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
             Logger.getLogger("DbMeetupManager").log(Level.INFO,udapteSQL);
             stmt.executeUpdate(udapteSQL);
 
-            /*
-            String holen
-            zerlegen in liste an mails
-            for each mit liste holen user aus db anhand emailadresse
-            getuser from DB by token/ email
-            übergeben in interface
-             */
-
             int i = 0;
 
             for(String s: attendees){
@@ -207,11 +198,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
-        // TODO attendee update
-
         return null;
     }
 

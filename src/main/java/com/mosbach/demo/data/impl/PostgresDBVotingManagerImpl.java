@@ -76,7 +76,6 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
 
     }
 
-
     @Override
     public Voting createVoting(String voteID, String userID, String meetupID, boolean opt1,
                                boolean opt2, boolean opt3, boolean opt4, boolean opt5,
@@ -88,7 +87,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into voting (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7) VALUES (" +
+            String udapteSQL = "INSERT into votings (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7) VALUES (" +
                     "'" + voteID +"', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
