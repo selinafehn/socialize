@@ -12,11 +12,4 @@ public interface Voting {
     boolean getOpt5();
     boolean getOpt6();
     boolean getOpt7();
-    boolean getLoc1();
-    boolean getLoc2();
-    boolean getLoc3();
-    boolean getLoc4();
-    boolean getLoc5();
-    boolean getLoc6();
-    boolean getLoc7();
 }

@@ -1,15 +1,19 @@
 package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.Attendees;
+import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.Voting;
 import com.mosbach.demo.data.api.VotingManager;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,7 +60,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "opt4 boolean, " +
                     "opt5 boolean, " +
                     "opt6 boolean, " +
-                    "opt7 boolean ) " ;
+                    "opt7 boolean) " ;
             //String dropTable = "drop table voting";
             //stmt.executeUpdate(dropTable);
             stmt.executeUpdate(createTable);
@@ -111,5 +115,44 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         return null;
     }
 
+    @Override
+    public List<Voting>readAllVotings() {
+        final Logger readVotingLogger = Logger.getLogger("ReadVotingLogger");
+        readVotingLogger.log(Level.INFO,"Start reading ");
+        List<Voting> votings = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
+            while (rs.next()) {
+                votings.add(
+                        new VotingImpl(
+                                rs.getString("voteid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getBoolean("opt1"),
+                                rs.getBoolean("opt2"),
+                                rs.getBoolean("opt3"),
+                                rs.getBoolean("opt4"),
+                                rs.getBoolean("opt5"),
+                                rs.getBoolean("opt6"),
+                                rs.getBoolean("opt7")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                votings;
+    }
 
 }

@@ -355,6 +355,12 @@ public class MappingController {
         return "Voting was added";
     }
 
+    @GetMapping("/auth/votings")
+    public List<Voting> getInfoVotings(@RequestParam(value = "name", defaultValue = "Student") String name) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
+        return votingManager.readAllVotings();
+    }
+
 
 
 
