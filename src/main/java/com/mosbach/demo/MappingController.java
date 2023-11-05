@@ -342,7 +342,7 @@ public class MappingController {
     @ResponseStatus(HttpStatus.OK)
     public String createVoting(@RequestBody CreateVoting createVoting) {
         votingManager.createVoting(
-                createVoting.getVoteid(),
+                UUID.randomUUID().toString(),
                 createVoting.getUserid(),
                 createVoting.getMeetupid(),
                 createVoting.getOpt1(),
@@ -360,9 +360,5 @@ public class MappingController {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + name);
         return votingManager.readAllVotings();
     }
-
-
-
-
 
 }

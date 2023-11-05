@@ -73,7 +73,6 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -118,6 +117,90 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     public List<Voting>readAllVotings() {
         final Logger readVotingLogger = Logger.getLogger("ReadVotingLogger");
         readVotingLogger.log(Level.INFO,"Start reading ");
+        List<Voting> votings = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
+            while (rs.next()) {
+                votings.add(
+                        new VotingImpl(
+                                rs.getString("voteid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getBoolean("opt1"),
+                                rs.getBoolean("opt2"),
+                                rs.getBoolean("opt3"),
+                                rs.getBoolean("opt4"),
+                                rs.getBoolean("opt5"),
+                                rs.getBoolean("opt6"),
+                                rs.getBoolean("opt7")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                votings;
+    }
+
+    //TODO funktionen schreiben zum lesen wie oft welche option gewählt wurde
+
+    public Voting readOpt1FromVoting(String meetupID){
+        final Logger readopt1Logger = Logger.getLogger("Read Opt1 from Votings");
+        readopt1Logger.log(Level.INFO, "Start reading");
+        Voting countingOpt1 = null;
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt1 = '" +true +"'" );
+            if (rs.next()) {
+                countingOpt1 = new VotingImpl(
+                                rs.getString("voteid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getBoolean("opt1"),
+                                rs.getBoolean("opt2"),
+                                rs.getBoolean("opt3"),
+                                rs.getBoolean("opt4"),
+                                rs.getBoolean("opt5"),
+                                rs.getBoolean("opt6"),
+                                rs.getBoolean("opt7")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                countingOpt1;
+    }
+
+
+
+    @Override
+    public List<Voting>readVotingsForOption() {
+
+        final Logger readVotingLogger = Logger.getLogger("ReadVotingsForOptionLogger");
+        readVotingLogger.log(Level.INFO,"Start reading ");
+
+
         List<Voting> votings = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;

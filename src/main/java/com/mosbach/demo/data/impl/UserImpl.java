@@ -20,8 +20,6 @@ public class UserImpl implements User {
     private String token;
     private long validUntil;
 
-    User sessionuser;
-
     BasicDataSource basicDataSource;
     public UserImpl(String ID, String firstname, String lastname, String password, String email, String token, long validUntil) {
         this.ID = ID;
