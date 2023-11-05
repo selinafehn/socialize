@@ -88,7 +88,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into voting (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7+) VALUES (" +
+            String udapteSQL = "INSERT into voting (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7) VALUES (" +
                     "'" + voteID +"', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
