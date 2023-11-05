@@ -18,7 +18,6 @@ public class MappingController {
     // Datenbankenschnittstelle
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
     MeetupManager meetupManager = PostgresDBMeetupManagerImpl.getPostgresDBUserManagerImpl();
-    LocationManager locationManager = PostgresDBLocationManagerImpl.getPostgresDBLocationManagerImpl();
     OptionsManager optionsManager = PostgresDBOptionManagerImpl.getPostgresDBOptionManagerImpl();
     AttendeesManager attendeesManager = PostgresDBAttendeesManagerImpl.getPostgresDBAttendeesManagerImpl();
     VotingManager votingManager = PostgresDBVotingManagerImpl.getPostgresDBVotingManagerImpl();
@@ -48,13 +47,6 @@ public class MappingController {
     public String createMeetupTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
         meetupManager.createMeetupTable();
         return "MeetupTable Created";
-    }
-
-    // erstellt die Datenbanktabelle zur Location.
-    @PostMapping ("/create-table/location")
-    public String createLocationTable(@RequestParam(value = "token", defaultValue = "Student") String name) {
-        locationManager.createLocationTable();
-        return "LocationTable Created";
     }
 
     // erstellt die Datenbanktabelle zu den Datums Optionen.
