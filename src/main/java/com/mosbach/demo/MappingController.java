@@ -163,10 +163,8 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String userDelete(@RequestBody DeleteUser deleteuser) {
-        return "deleted succesfully";
+        return "deleted succesfully " +deleteuser.getUserid();
     }
-
-
 
     // ---------------------------------------------------------------------------------------
     // MEETUP
