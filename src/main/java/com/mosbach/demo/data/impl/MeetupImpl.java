@@ -10,11 +10,11 @@ public class MeetupImpl implements Meetup {
     private String friends;
     private String option;
     private String location;
-    private long validUntil;
+    private String validUntil;
     private String description;
 
 
-    public MeetupImpl(String ID, String title, String friends, String option, String location, long validUntil, String description) {
+    public MeetupImpl(String ID, String title, String friends, String option, String location, String validUntil, String description) {
         this.ID = ID;
         this.title = title;
         this.friends= friends;
@@ -50,7 +50,7 @@ public class MeetupImpl implements Meetup {
     }
 
     @Override
-    public long getValidUntil() {
+    public String getValidUntil() {
         return validUntil;
     }
 
@@ -74,7 +74,7 @@ public class MeetupImpl implements Meetup {
         this.location = location;
     }
 
-    public void setValidUntil(long validUntil) {
+    public void setValidUntil(String validUntil) {
         this.validUntil = validUntil;
     }
 

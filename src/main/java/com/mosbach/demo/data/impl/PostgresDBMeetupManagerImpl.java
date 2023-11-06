@@ -61,7 +61,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getLong("validuntil"),
+                                rs.getString("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -98,7 +98,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getLong("validuntil"),
+                                rs.getString("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -129,7 +129,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "friends varchar(255) NOT NULL, " +
                     "option varchar(255), " +
                     "location varchar(255), " +
-                    "validuntil bigint NOT NULL, " +
+                    "validuntil varchar NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
             String droptable = "drop table meetup";
@@ -149,7 +149,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description, List<String> attendees) {
+    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, String validUntil, String description, List<String> attendees) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;

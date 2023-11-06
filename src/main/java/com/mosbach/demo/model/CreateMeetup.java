@@ -36,7 +36,7 @@ public class CreateMeetup {
     @JsonProperty("location")
     private String location;
     @JsonProperty("validuntil")
-    private long validuntil;
+    private String validuntil;
     @JsonProperty("description")
     private String description;
     @JsonIgnore
@@ -93,12 +93,12 @@ public class CreateMeetup {
     }
 
     @JsonProperty("validuntil")
-    public long getValiduntil() {
+    public String getValiduntil() {
         return validuntil;
     }
 
     @JsonProperty("validuntil")
-    public void setValiduntil(long validuntil) {
+    public void setValiduntil(String validuntil) {
         this.validuntil = validuntil;
     }
 
