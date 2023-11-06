@@ -2,6 +2,9 @@ package com.mosbach.demo;
 import com.mosbach.demo.data.api.*;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
+import com.mosbach.demo.model.alexa.AlexaRO;
+import com.mosbach.demo.model.alexa.OutputSpeechRO;
+import com.mosbach.demo.model.alexa.ResponseRO;
 import com.mosbach.demo.model.auth.SendBackToken;
 import com.mosbach.utils.OptionSorter;
 import org.springframework.http.HttpStatus;
@@ -368,9 +371,6 @@ public class MappingController {
         return OptionSorter.Sorter(meetupid);
     }
 
-
-
-
 // ---------------------------------------------------------------------------------------
 // OPTIONS
 // ---------------------------------------------------------------------------------------
@@ -390,4 +390,37 @@ public class MappingController {
         return "Option was added";
     }
 
+    //-----------------------------------------------------------------------------------------------------------
+
+
+    @PostMapping(path= "/alexa", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public AlexaRO readTasksViaAlexa(@RequestBody AlexaRO alexaRO) {
+        Logger.getLogger("MappingController").log(Level.INFO,"MappingController /alexa ");
+        String outText = "";
+
+        //launchRequest
+        if(alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")){
+            outText += "Welcome to socialize. ";
+        }
+
+        //TaskReadIntent
+        if(alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest")
+                && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetingintend")){
+            outText += "You have the following meetings: ";
+        }
+        return prepareResponse(alexaRO, outText, true);
+    }
+
+    private AlexaRO prepareResponse(AlexaRO alexaRO, String outText, boolean shouldEndSession) {
+
+        alexaRO.setRequest(null);
+        alexaRO.setContext(null);
+        alexaRO.setSession(null);
+        OutputSpeechRO outputSpeechRO = new OutputSpeechRO();
+        outputSpeechRO.setType("PlainText");
+        outputSpeechRO.setText(outText);
+        ResponseRO response = new ResponseRO(outputSpeechRO, shouldEndSession);
+        alexaRO.setResponse(response);
+        return alexaRO;
+    }
 }
