@@ -39,8 +39,7 @@ public class OptionSorter {
         }
 
         //sort
-        //Stream<Map.Entry<String, Integer>> sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors);
-
+        /**
         List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
         list.sort(Map.Entry.comparingByValue());
         Map<String, Integer> sortedmap = new HashMap<>();
@@ -48,8 +47,8 @@ public class OptionSorter {
         for (Map.Entry<String,Integer> entry : list){
             sortedmap.put(entry.getKey(), entry.getValue());
         }
-
-        return sortedmap;
+        */
+        return map;
 
     }
 
