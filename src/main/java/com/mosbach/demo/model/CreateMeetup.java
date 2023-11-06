@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "friends",
     "option",
     "location",
-    "validuntil",
     "description",
 
 })

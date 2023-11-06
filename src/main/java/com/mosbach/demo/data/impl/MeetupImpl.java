@@ -10,7 +10,6 @@ public class MeetupImpl implements Meetup {
     private String friends;
     private String option;
     private String location;
-    private String validUntil;
     private String description;
 
 
