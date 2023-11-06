@@ -133,7 +133,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
-            String droptable = "drop table meetups";
+            String droptable = "drop table meetup";
             stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
