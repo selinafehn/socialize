@@ -61,7 +61,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getString("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -98,7 +97,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
-                                rs.getString("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -129,7 +127,6 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "friends varchar(255) NOT NULL, " +
                     "option varchar(255), " +
                     "location varchar(255), " +
-                    "validuntil varchar NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
             String droptable = "drop table meetup";
@@ -149,7 +146,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, String validUntil, String description, List<String> attendees) {
+    public Meetup createMeetup(String meetupID, String title, String friends, String option, String location, String description, List<String> attendees) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
@@ -157,14 +154,13 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into meetup (meetupID, friends, description, title, option, location, validUntil) VALUES (" +
+            String udapteSQL = "INSERT into meetup (meetupID, friends, description, title, option, location) VALUES (" +
                     "'" + meetupID +"', " +
                     "'" + friends +"', "+
                     "'" + description + "', " +
                     "'" + title + "', " +
                     "'" + option + "', " +
-                    "'" + location + "', " +
-                    validUntil +")";
+                    location +")";
             Logger.getLogger("DbMeetupManager").log(Level.INFO,udapteSQL);
             stmt.executeUpdate(udapteSQL);
 

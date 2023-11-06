@@ -194,7 +194,6 @@ public class MappingController {
                 createMeetup.getFriends(),
                 createMeetup.getOption(),
                 createMeetup.getLocation(),
-                createMeetup.getValiduntil(),
                 createMeetup.getDescription(),
                 attendees
                 );

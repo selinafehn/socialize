@@ -6,7 +6,7 @@ public interface MeetupManager {
 
     List<Meetup> readAllMeetup();
     List<Meetup> readMyMeetups(String token);
-    Meetup createMeetup(String meetupID, String title, String friends, String option, String location, String validUntil, String description, List<String> attendees);
+    Meetup createMeetup(String meetupID, String title, String friends, String option, String location, String description, List<String> attendees);
     void createMeetupTable();
 
 }

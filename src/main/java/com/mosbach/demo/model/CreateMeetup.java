@@ -35,8 +35,6 @@ public class CreateMeetup {
     private String option;
     @JsonProperty("location")
     private String location;
-    @JsonProperty("validuntil")
-    private String validuntil;
     @JsonProperty("description")
     private String description;
     @JsonIgnore
@@ -92,15 +90,6 @@ public class CreateMeetup {
         this.location = location;
     }
 
-    @JsonProperty("validuntil")
-    public String getValiduntil() {
-        return validuntil;
-    }
-
-    @JsonProperty("validuntil")
-    public void setValiduntil(String validuntil) {
-        this.validuntil = validuntil;
-    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
