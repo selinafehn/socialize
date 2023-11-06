@@ -162,7 +162,7 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userDelete(@RequestBody DeleteUser deleteuser) {
+    public String deleteUser(@RequestBody DeleteUser deleteuser) {
         return "deleted succesfully " +deleteuser.getUserid();
     }
 
