@@ -404,8 +404,8 @@ public class MappingController {
         }
 
         //TaskReadIntent
-        if(alexaRO.getRequest().getType().equalsIgnoreCase("Meetingintend")
-                && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetingintend")){
+        if(alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
+                && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")){
             outText += "You have the following meetings: " + alexameetups();
         }
         return prepareResponse(alexaRO, outText,true);
