@@ -334,19 +334,37 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return true;
     }
 
 
-
-
-
-    // ?????
     @Override
-    public String getEmailForToken(String token) {
-        // SQL WHERE
-        return "not-found";
+    public String deleteUser(String userID) {
+        final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
+        createUserLogger.log(Level.INFO,"Start deleting " );
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            String deleteSQL = "DELETE * FROM users WHERE userID = '" + userID + "'";
+            Logger.getLogger("DbUSerManager").log(Level.INFO,deleteSQL);
+            stmt.executeUpdate(deleteSQL);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                "deleted " +userID;
     }
+
+
+
 }

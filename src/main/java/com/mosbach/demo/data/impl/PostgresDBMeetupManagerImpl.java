@@ -201,48 +201,5 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         return null;
     }
 
-    /**
-    @Override
-    public List<Voting>readAllVotings() {
-        final Logger readVotingLogger = Logger.getLogger("ReadVotingLogger");
-        readVotingLogger.log(Level.INFO,"Start reading ");
-        List<Voting> votings = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
-            while (rs.next()) {
-                votings.add(
-                        new VotingImpl(
-                                rs.getString("voteid"),
-                                rs.getString("userid"),
-                                rs.getString("meetupid"),
-                                rs.getBoolean("opt1"),
-                                rs.getBoolean("opt2"),
-                                rs.getBoolean("opt3"),
-                                rs.getBoolean("opt4"),
-                                rs.getBoolean("opt5"),
-                                rs.getBoolean("opt6"),
-                                rs.getBoolean("opt7")
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return
-                votings;
-    }
-*/
-
-
 
 }

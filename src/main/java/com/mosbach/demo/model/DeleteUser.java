@@ -13,50 +13,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "token",
-    "email",
-    "password"
+    "userid"
 })
 @Generated("jsonschema2pojo")
-public class Userdelete {
+public class DeleteUser {
 
-    @JsonProperty("token")
-    private String token;
-    @JsonProperty("email")
-    private String email;
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("userid")
+    private String userid;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("token")
-    public String getToken() {
-        return token;
+    @JsonProperty("userid")
+    public String getUserid() {
+        return userid;
     }
 
-    @JsonProperty("token")
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @JsonProperty("email")
-    public String getEmail() {
-        return email;
-    }
-
-    @JsonProperty("email")
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @JsonProperty("password")
-    public String getPassword() {
-        return password;
-    }
-
-    @JsonProperty("password")
-    public void setPassword(String password) {
-        this.password = password;
+    @JsonProperty("userid")
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     @JsonAnyGetter

@@ -157,22 +157,15 @@ public class MappingController {
         return "could not log off";
     }
 
-    /**
-     * DELETE to  /auth/register, to delete the user account. FOLLOWING JSON HAS TO BE SEND:
-     * {
-     * "email":"email",
-     * "token":"token",
-     * "password":"password"
-     * }
-     */
     @DeleteMapping(
             path = "/auth/register",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userDelete(@RequestBody Userdelete userdelete) {
-        return "sucessfully deleted";
+    public String userDelete(@RequestBody DeleteUser deleteuser) {
+        return "deleted succesfully";
     }
+
 
 
     // ---------------------------------------------------------------------------------------

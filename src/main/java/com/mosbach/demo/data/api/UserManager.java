@@ -13,8 +13,7 @@ public interface UserManager {
     User getUserbyToken(String token);
     SendBackToken logUserIn(String email, String password);
     boolean logUserOff( String token);
-    // TODO mal gucken ob man die überhaupt braucht
-    String getEmailForToken(String token);
+     String deleteUser(String userID);
 
 
 }
