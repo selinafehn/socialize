@@ -406,9 +406,18 @@ public class MappingController {
         //TaskReadIntent
         if(alexaRO.getRequest().getType().equalsIgnoreCase("Meetingintend")
                 && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetingintend")){
-            outText += "You have the following meetings: ";
+            outText += "You have the following meetings: " + alexameetups();
         }
-        return prepareResponse(alexaRO, outText, true);
+        return prepareResponse(alexaRO, outText,true);
+    }
+
+    public List<Meetup> alexameetups(){
+
+        List<Meetup> list = new ArrayList<>();
+        list = meetupManager.readAllMeetup();
+
+        return list;
+
     }
 
     private AlexaRO prepareResponse(AlexaRO alexaRO, String outText, boolean shouldEndSession) {
