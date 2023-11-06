@@ -3,6 +3,7 @@ import com.mosbach.demo.data.api.*;
 import com.mosbach.demo.data.impl.*;
 import com.mosbach.demo.model.*;
 import com.mosbach.demo.model.auth.SendBackToken;
+import com.mosbach.utils.OptionSorter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class MappingController {
     OptionsManager optionsManager = PostgresDBOptionManagerImpl.getPostgresDBOptionManagerImpl();
     AttendeesManager attendeesManager = PostgresDBAttendeesManagerImpl.getPostgresDBAttendeesManagerImpl();
     VotingManager votingManager = PostgresDBVotingManagerImpl.getPostgresDBVotingManagerImpl();
+
 
     // ---------------------------------------------------------------------------------------
     // CHECK SERVER
@@ -360,11 +362,14 @@ public class MappingController {
         return votingManager.readAllVotings();
     }
 
-    @GetMapping("/dashboard/voting")
-    public int getTopOptVoting(@RequestParam(value = "meetupid", defaultValue = "meetupid") String meetupid) {
+    @GetMapping("/dashboard/doneVoting")
+    public Map<String,Integer> getTopOptVoting(@RequestParam(value = "meetupid", defaultValue = "meetupid") String meetupid) {
         Logger.getLogger("MappingController").log(Level.INFO,"MappingController auth " + meetupid);
-        return votingManager.readOptFromVoting(meetupid);
+        return OptionSorter.Sorter(meetupid);
     }
+
+
+
 
 // ---------------------------------------------------------------------------------------
 // OPTIONS

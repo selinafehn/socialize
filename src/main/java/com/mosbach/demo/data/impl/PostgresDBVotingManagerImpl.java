@@ -192,41 +192,33 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     }
     */
 
-    public int readOptFromVoting(String meetupID){
+    public List<Voting> readVotingbyMeetupID(String meetupID){
         final Logger readopt1Logger = Logger.getLogger("Read Opt1 from Votings");
         readopt1Logger.log(Level.INFO, "Start reading");
-        int counting1 = 0; int counting2 = 0; int counting3 = 0; int counting4 = 0; int counting5 = 0; int counting6 = 0; int counting7 = 0;
         Statement stmt = null;
         Connection connection = null;
+        List<Voting> optionvoting = new ArrayList<>();
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs1 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt1 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting1 = rs1.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs2 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt2 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting2 = rs2.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs3 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt3 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting3 = rs3.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs4 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt4 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting4 = rs4.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs5 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt5 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting5 = rs5.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs6 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt6 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting6 = rs6.getInt(0);
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs7 = stmt.executeQuery("SELECT COUNT(userid) FROM votings WHERE opt7 = '" +true +"AND meetupid = " +meetupID +"'" );
-            counting7 = rs7.getInt(0);
+            ResultSet rs1 = stmt.executeQuery("SELECT * FROM votings WHERE meetupid = " +meetupID +"'" );
+            while (rs1.next()){
+                optionvoting.add(
+                    new VotingImpl(
+                            rs1.getString("voteid"),
+                            rs1.getString("userid"),
+                            rs1.getString("meetupid"),
+                            rs1.getBoolean("opt1"),
+                            rs1.getBoolean("opt2"),
+                            rs1.getBoolean("opt3"),
+                            rs1.getBoolean("opt4"),
+                            rs1.getBoolean("opt5"),
+                            rs1.getBoolean("opt6"),
+                            rs1.getBoolean("opt7")
+                    )
+                );
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -236,18 +228,8 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        int max = 0;
-        int counting = 0;
-        int arr[] = {counting1,counting2,counting3,counting4,counting5,counting6,counting7};
-        for(int i=0; i<arr.length; i++)
-        {
-            if(max < arr[i])
-            {
-                counting = i+1;
-                max = arr[i];
-            }
-        }
-        return counting;
+        return optionvoting;
     }
 
 }
+
