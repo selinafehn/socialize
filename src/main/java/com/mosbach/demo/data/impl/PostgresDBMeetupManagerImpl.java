@@ -43,6 +43,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         return postgresDBMeetupManager;
     }
 
+
     public List<Meetup>readAllMeetup() {
         final Logger readMeetupLogger = Logger.getLogger("ReadMeetupLogger");
         readMeetupLogger.log(Level.INFO,"Start reading ");
@@ -61,6 +62,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
+                                rs.getLong("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -97,6 +99,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                                 rs.getString("friends"),
                                 rs.getString("option"),
                                 rs.getString("location"),
+                                rs.getLong("validuntil"),
                                 rs.getString("description")
                         )
                 );
@@ -127,9 +130,10 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "friends varchar(255) NOT NULL, " +
                     "option varchar(255), " +
                     "location varchar(255), " +
+                    "validuntil bigint NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
-            String droptable = "drop table meetup";
+            String droptable = "drop table meetups";
             stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
@@ -146,7 +150,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
 
     @Override
-    public Meetup createMeetup(String meetupID, String title, String friends, String option, String location, String description, List<String> attendees) {
+    public Meetup createMeetup(String meetupID, String title, String friends,  String option, String location, long validUntil, String description, List<String> attendees) {
         final Logger createMeetupLogger = Logger.getLogger("CreateMeetupLogger");
         createMeetupLogger.log(Level.INFO,"Start creating ");
         Statement stmt = null;
@@ -154,13 +158,14 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String udapteSQL = "INSERT into meetup (meetupID, friends, description, title, option, location) VALUES (" +
+            String udapteSQL = "INSERT into meetup (meetupID, friends, description, title, option, location, validUntil) VALUES (" +
                     "'" + meetupID +"', " +
                     "'" + friends +"', "+
                     "'" + description + "', " +
                     "'" + title + "', " +
                     "'" + option + "', " +
-                    location +")";
+                    "'" + location + "', " +
+                    validUntil +")";
             Logger.getLogger("DbMeetupManager").log(Level.INFO,udapteSQL);
             stmt.executeUpdate(udapteSQL);
 
@@ -196,8 +201,47 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
         return null;
     }
 
-
-
+    /**
+    @Override
+    public List<Voting>readAllVotings() {
+        final Logger readVotingLogger = Logger.getLogger("ReadVotingLogger");
+        readVotingLogger.log(Level.INFO,"Start reading ");
+        List<Voting> votings = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
+            while (rs.next()) {
+                votings.add(
+                        new VotingImpl(
+                                rs.getString("voteid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getBoolean("opt1"),
+                                rs.getBoolean("opt2"),
+                                rs.getBoolean("opt3"),
+                                rs.getBoolean("opt4"),
+                                rs.getBoolean("opt5"),
+                                rs.getBoolean("opt6"),
+                                rs.getBoolean("opt7")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                votings;
+    }
+*/
 
 
 

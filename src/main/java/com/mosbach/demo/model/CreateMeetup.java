@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "friends",
     "option",
     "location",
+    "validuntil",
     "description",
 
 })
@@ -34,6 +35,8 @@ public class CreateMeetup {
     private String option;
     @JsonProperty("location")
     private String location;
+    @JsonProperty("validuntil")
+    private long validuntil;
     @JsonProperty("description")
     private String description;
     @JsonIgnore
@@ -89,6 +92,15 @@ public class CreateMeetup {
         this.location = location;
     }
 
+    @JsonProperty("validuntil")
+    public long getValiduntil() {
+        return validuntil;
+    }
+
+    @JsonProperty("validuntil")
+    public void setValiduntil(long validuntil) {
+        this.validuntil = validuntil;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

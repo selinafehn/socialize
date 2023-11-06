@@ -10,5 +10,6 @@ public interface Meetup {
     String getDescription();
     String getOption();
     String getLocation();
+    long getValidUntil();
 
 }
