@@ -201,7 +201,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs1 = stmt.executeQuery("SELECT * FROM votings WHERE meetupid = " +meetupID +"'" );
+            ResultSet rs1 = stmt.executeQuery("SELECT * FROM votings WHERE meetupid = '" +meetupID +"'" );
             while (rs1.next()){
                 optionvoting.add(
                     new VotingImpl(
