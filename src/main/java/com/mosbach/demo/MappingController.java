@@ -395,7 +395,7 @@ public class MappingController {
             outText += "Welcome to socialize Selina. You have an upcoming meeting with Saskia Grund on 8th November at 16 o'clock with the Title: Filming the video. You wanted to meetup at DHBW Mosbach ";
         }
         //MeetupIntent
-        if (alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
+        if (alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest")
                 && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")) {
             outText += "You have the following meetings: " + alexameetups().toString();
         }
@@ -407,7 +407,6 @@ public class MappingController {
 
         List<Meetup> list = new ArrayList<>();
         list = meetupManager.readAllMeetup();
-
         return list;
 
     }
