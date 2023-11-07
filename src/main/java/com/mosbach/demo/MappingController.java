@@ -158,12 +158,12 @@ public class MappingController {
     }
 
     @DeleteMapping(
-            path = "/auth/register",
+            path = "createuser",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
     public String deleteUserbyID(@RequestParam(name = "userID") String userID){
-        return "deleted succesfully ";
+        return "deleted successfully ";
     }
 
     // ---------------------------------------------------------------------------------------
