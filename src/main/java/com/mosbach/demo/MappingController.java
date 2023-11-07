@@ -388,20 +388,19 @@ public class MappingController {
 
     @PostMapping(path= "/alexa", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public AlexaRO readTasksViaAlexa(@RequestBody AlexaRO alexaRO) {
-        Logger.getLogger("MappingController").log(Level.INFO,"MappingController /alexa ");
+        Logger.getLogger("MappingController").log(Level.INFO, "MappingController /alexa ");
         String outText = "";
-
         //launchRequest
-        if(alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")){
+        if (alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")) {
             outText += "Welcome to socialize. ";
         }
-
-        //TaskReadIntent
-        if(alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
-                && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")){
-            outText += "You have the following meetings: " + alexameetups();
+        //MeetupIntent
+        if (alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
+                && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")) {
+            outText += "You have the following meetings: " + alexameetups().toString();
         }
-        return prepareResponse(alexaRO, outText,true);
+        return prepareResponse(alexaRO, outText, true);
+
     }
 
     public List<Meetup> alexameetups(){
