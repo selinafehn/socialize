@@ -397,22 +397,24 @@ public class MappingController {
         //MeetupIntent
         if (alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest")
                 && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")) {
-            outText += "You have the following meetings: " + alexameetups().toString();
+            outText += "You have the following meetings: " + alexameetups();
         }
         return prepareResponse(alexaRO, outText, false);
-
     }
 
-    public List<Meetup> alexameetups(){
+    public String alexameetups(){
 
+        String message = "";
         List<Meetup> list = new ArrayList<>();
         list = meetupManager.readAllMeetup();
-        return list;
 
+        for ( Meetup m : list){
+           message = message + m.getTitle() +" und ";
+        }
+
+        return message;
     }
-
     private AlexaRO prepareResponse(AlexaRO alexaRO, String outText, boolean shouldEndSession) {
-
         alexaRO.setRequest(null);
         alexaRO.setContext(null);
         alexaRO.setSession(null);
