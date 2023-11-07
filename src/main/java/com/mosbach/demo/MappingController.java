@@ -392,7 +392,7 @@ public class MappingController {
         String outText = "";
         //launchRequest
         if (alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")) {
-            outText += "Welcome to socialize. ";
+            outText += "Welcome to socialize Selina. You have an upcoming meeting with Saskia Grund on 8th November with the Title: Filming the video ";
         }
         //MeetupIntent
         if (alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
