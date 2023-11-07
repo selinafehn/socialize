@@ -339,7 +339,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
 
     @Override
-    public String deleteUser(String userID) {
+    public String deleteUserbyID(String userID) {
         final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
         createUserLogger.log(Level.INFO,"Start deleting " );
         Statement stmt = null;
