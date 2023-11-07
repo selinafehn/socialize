@@ -347,7 +347,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            String deleteSQL = "DELETE FROM users WHERE userID = '" +userID +"'";
+            String deleteSQL = "DELETE FROM users WHERE userid = '" +userID +"'";
             Logger.getLogger("DbUSerManager").log(Level.INFO,deleteSQL);
             stmt.executeUpdate(deleteSQL);
             stmt.close();
