@@ -392,7 +392,7 @@ public class MappingController {
         String outText = "";
         //launchRequest
         if (alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")) {
-            outText += "Welcome to socialize Selina. You have an upcoming meeting with Saskia Grund on 8th November at 16 o'clock with the Title: Filming the video. You wanted to meetup at DHBW Mosbach ";
+            outText += "Welcome to socialize ";
         }
         //MeetupIntent
         if (alexaRO.getRequest().getType().equalsIgnoreCase("IntentRequest")
@@ -404,14 +404,17 @@ public class MappingController {
 
     public String alexameetups(){
 
-        String message = "the 1. Meetup is: ";
+        String message = "The 1. Meetup is: ";
         int i = 1;
         List<Meetup> list = new ArrayList<>();
         list = meetupManager.readAllMeetup();
 
         for ( Meetup m : list){
-           message = message + m.getTitle() +" with " +m.getFriends() +" and the " +i +". Meetup is: ";
+           message = message + m.getTitle() +" with your friend " +m.getFriends()  ;
            i++;
+
+
+
         }
 
         return message;
