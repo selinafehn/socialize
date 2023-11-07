@@ -404,12 +404,14 @@ public class MappingController {
 
     public String alexameetups(){
 
-        String message = "";
+        String message = "the 1. Meetup is: ";
+        int i = 1;
         List<Meetup> list = new ArrayList<>();
         list = meetupManager.readAllMeetup();
 
         for ( Meetup m : list){
-           message = message + m.getTitle() +" und ";
+           message = message + m.getTitle() +" with " +m.getFriends() +" and the " +i +". Meetup is: ";
+           i++;
         }
 
         return message;
