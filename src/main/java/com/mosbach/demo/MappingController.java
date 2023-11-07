@@ -392,14 +392,14 @@ public class MappingController {
         String outText = "";
         //launchRequest
         if (alexaRO.getRequest().getType().equalsIgnoreCase("LaunchRequest")) {
-            outText += "Welcome to socialize Selina. You have an upcoming meeting with Saskia Grund on 8th November at 16 o'clock with the Title: Filming the video ";
+            outText += "Welcome to socialize Selina. You have an upcoming meeting with Saskia Grund on 8th November at 16 o'clock with the Title: Filming the video. You wanted to meetup at DHBW Mosbach ";
         }
         //MeetupIntent
         if (alexaRO.getRequest().getType().equalsIgnoreCase("Meetupintend")
                 && alexaRO.getRequest().getIntent().getName().equalsIgnoreCase("Meetupintend")) {
             outText += "You have the following meetings: " + alexameetups().toString();
         }
-        return prepareResponse(alexaRO, outText, true);
+        return prepareResponse(alexaRO, outText, false);
 
     }
 
