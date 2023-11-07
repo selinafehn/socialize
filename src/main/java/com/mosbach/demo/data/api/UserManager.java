@@ -13,7 +13,7 @@ public interface UserManager {
     User getUserbyToken(String token);
     SendBackToken logUserIn(String email, String password);
     boolean logUserOff( String token);
-     String deleteUserbyID(String userID);
+     //String deleteUserbyID(String userID);
 
 
 }
