@@ -163,6 +163,8 @@ public class MappingController {
     )
     @ResponseStatus(HttpStatus.OK)
     public String deleteUser(@RequestBody DeleteUser deleteuser) {
+        final Logger createUserLogger = Logger.getLogger("CreateUserLogger");
+        createUserLogger.log(Level.INFO,"Start deleting " );
         return "deleted succesfully " +deleteuser.getUserid();
     }
 
