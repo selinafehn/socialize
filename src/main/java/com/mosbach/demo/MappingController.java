@@ -157,6 +157,7 @@ public class MappingController {
         return "could not log off";
     }
 
+    /**
     @DeleteMapping(
             path = "createuser",
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
@@ -165,6 +166,7 @@ public class MappingController {
     public String deleteUserbyID(@RequestParam(value = "userID") String userID){
         return "deleted successfully ";
     }
+    */
 
     // ---------------------------------------------------------------------------------------
     // MEETUP
