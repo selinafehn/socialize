@@ -1,0 +1,19 @@
+### Create Table User
+POST {{baseUrl}}/api/v1.0/create-table/user
+###
+
+### Create Table Meetup
+POST {{baseUrl}}/api/v1.0/create-table/meetup
+###
+
+### Create Table Attendees
+POST {{baseUrl}}/api/v1.0/create-table/attendees
+###
+
+### Create Table Voting
+POST {{baseUrl}}/api/v1.0/create-table/voting
+###
+
+### Create Table Options
+POST {{baseUrl}}/api/v1.0/create-table/options
+###

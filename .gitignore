@@ -14,3 +14,5 @@ build/
 .idea/
 bin
 bin/
+.gradle
+build
