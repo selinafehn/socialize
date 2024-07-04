@@ -1,0 +1,29 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="socialize.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.mosbach.demo.DemoApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.mosbach.demo.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+  <configuration default="false" name="Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="" />
+        <option name="sourceFilePath" value="docker/docker-compose.yaml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+  <configuration default="false" name="Local Development Server" type="CompoundRunConfigurationType">
+    <toRun name="Compose Deployment" type="docker-deploy" />
+    <toRun name="DemoApplication" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
