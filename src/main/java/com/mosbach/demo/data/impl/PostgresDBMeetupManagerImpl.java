@@ -1,6 +1,7 @@
 package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.*;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.SecureRandom;
@@ -18,9 +19,6 @@ import static com.mosbach.demo.data.impl.UserSession.sessionuser;
 
 public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-3-214-103-146.compute-1.amazonaws.com/ddba3pgnqq5msa";
-    String username = "uiefynxlnqznhz";
-    String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
     BasicDataSource basicDataSource;
 
     UserManager userManager = PostgresDBUserManagerImpl.getPostgresDBUserManagerImpl();
@@ -28,11 +26,23 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     // dass die bytes randomized werden (stack overflow)
     private static SecureRandom random = new SecureRandom();
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(PostgresDBUserManagerImpl.class);
 
     // Singleton
     static PostgresDBMeetupManagerImpl postgresDBMeetupManager = null;
     private PostgresDBMeetupManagerImpl() {
         basicDataSource = new BasicDataSource();
+        String jdbcHost = "localhost";
+        String envKey = "JDBC_HOST";
+        if (System.getenv(envKey) != null) {
+            jdbcHost = System.getenv(envKey);
+        } else if (System.getProperty(envKey) != null) {
+            jdbcHost = System.getProperty(envKey);
+        }
+        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
+        log.info("database connection URL: " + databaseURL);
+        String username = "uiefynxlnqznhz";
+        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
         basicDataSource.setUrl(databaseURL);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
@@ -133,7 +143,7 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
                     "validuntil bigint NOT NULL, " +
                     "description varchar(255) NOT NULL) ";
 
-            String droptable = "drop table meetup";
+            String droptable = "drop table IF EXISTS meetup";
             stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);

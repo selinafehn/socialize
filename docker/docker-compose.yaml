@@ -5,6 +5,7 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
+      POSTGRES_DB: sozialize
       POSTGRES_USER: uiefynxlnqznhz
       POSTGRES_PASSWORD: ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a
     ports:

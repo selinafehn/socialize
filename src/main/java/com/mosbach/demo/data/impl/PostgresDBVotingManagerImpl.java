@@ -5,6 +5,7 @@ import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.Voting;
 import com.mosbach.demo.data.api.VotingManager;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.slf4j.LoggerFactory;
 
 import java.security.SecureRandom;
 import java.sql.*;
@@ -16,18 +17,27 @@ import java.util.logging.Logger;
 
 public class PostgresDBVotingManagerImpl implements VotingManager {
 
-    String databaseURL = "jdbc:postgresql://ec2-3-214-103-146.compute-1.amazonaws.com/ddba3pgnqq5msa";
-    String username = "uiefynxlnqznhz";
-    String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
     BasicDataSource basicDataSource;
 
     // dass die bytes randomized werden (stack overflow)
     private static SecureRandom random = new SecureRandom();
     private static Base64.Encoder encoder = Base64.getUrlEncoder();
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(PostgresDBUserManagerImpl.class);
 
     static PostgresDBVotingManagerImpl postgresDBVotingManagerImpl = null;
     private PostgresDBVotingManagerImpl() {
         basicDataSource = new BasicDataSource();
+        String jdbcHost = "localhost";
+        String envKey = "JDBC_HOST";
+        if (System.getenv(envKey) != null) {
+            jdbcHost = System.getenv(envKey);
+        } else if (System.getProperty(envKey) != null) {
+            jdbcHost = System.getProperty(envKey);
+        }
+        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
+        log.info("database connection URL: " + databaseURL);
+        String username = "uiefynxlnqznhz";
+        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
         basicDataSource.setUrl(databaseURL);
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
@@ -58,7 +68,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "opt5 boolean, " +
                     "opt6 boolean, " +
                     "opt7 boolean) " ;
-            String dropTable = "drop table votings";
+            String dropTable = "drop table IF EXISTS votings";
             stmt.executeUpdate(dropTable);
             stmt.executeUpdate(createTable);
         } catch (SQLException e) {

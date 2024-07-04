@@ -37,7 +37,6 @@ public class PostgresDBUserManagerImpl implements UserManager {
 
     private PostgresDBUserManagerImpl() {
         basicDataSource = new BasicDataSource();
-
         String jdbcHost = "localhost";
         String envKey = "JDBC_HOST";
         if (System.getenv(envKey) != null) {
@@ -45,7 +44,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
         } else if (System.getProperty(envKey) != null) {
             jdbcHost = System.getProperty(envKey);
         }
-        String databaseURL = "jdbc:postgresql://" + jdbcHost + ":5432";
+        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
         log.info("database connection URL: " + databaseURL);
         String username = "uiefynxlnqznhz";
         String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
@@ -118,7 +117,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
                     "token varchar(255) NOT NULL," +
                     "validuntil bigint NOT NULL)";
 
-            String droptable = "drop table users";
+            String droptable = "drop table IF EXISTS users";
             stmt.executeUpdate(droptable);
 
             stmt.executeUpdate(createTable);
