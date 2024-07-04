@@ -1,7 +1,5 @@
 package com.mosbach.demo.data.impl;
 
-import com.mosbach.demo.data.api.Attendees;
-import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.Voting;
 import com.mosbach.demo.data.api.VotingManager;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -25,23 +23,11 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(PostgresDBUserManagerImpl.class);
 
     static PostgresDBVotingManagerImpl postgresDBVotingManagerImpl = null;
+
     private PostgresDBVotingManagerImpl() {
-        basicDataSource = new BasicDataSource();
-        String jdbcHost = "localhost";
-        String envKey = "JDBC_HOST";
-        if (System.getenv(envKey) != null) {
-            jdbcHost = System.getenv(envKey);
-        } else if (System.getProperty(envKey) != null) {
-            jdbcHost = System.getProperty(envKey);
-        }
-        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
-        log.info("database connection URL: " + databaseURL);
-        String username = "uiefynxlnqznhz";
-        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
-        basicDataSource.setUrl(databaseURL);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        basicDataSource = PostgresDBConnectionHolder.getBasicDataSource();
     }
+
     public static PostgresDBVotingManagerImpl getPostgresDBVotingManagerImpl() {
         if (postgresDBVotingManagerImpl == null)
             postgresDBVotingManagerImpl = new PostgresDBVotingManagerImpl();
@@ -67,7 +53,7 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "opt4 boolean, " +
                     "opt5 boolean, " +
                     "opt6 boolean, " +
-                    "opt7 boolean) " ;
+                    "opt7 boolean) ";
             String dropTable = "drop table IF EXISTS votings";
             stmt.executeUpdate(dropTable);
             stmt.executeUpdate(createTable);
@@ -85,16 +71,16 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     @Override
     public Voting createVoting(String voteID, String userID, String meetupID, boolean opt1,
                                boolean opt2, boolean opt3, boolean opt4, boolean opt5,
-                               boolean opt6, boolean opt7){
+                               boolean opt6, boolean opt7) {
         final Logger createAttendeeLogger = Logger.getLogger("CreateVotingLogger");
-        createAttendeeLogger.log(Level.INFO,"Start creating " + voteID);
+        createAttendeeLogger.log(Level.INFO, "Start creating " + voteID);
         Statement stmt = null;
         Connection connection = null;
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "INSERT into votings (voteID, userID, meetupID, opt1, opt2, opt3, opt4, opt5, opt6, opt7) VALUES (" +
-                    "'" + voteID +"', " +
+                    "'" + voteID + "', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
                     "'" + opt1 + "', " +
@@ -103,8 +89,8 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
                     "'" + opt4 + "', " +
                     "'" + opt5 + "', " +
                     "'" + opt6 + "', " +
-                    opt7 +")";
-            Logger.getLogger("DbVotingManager").log(Level.INFO,udapteSQL);
+                    opt7 + ")";
+            Logger.getLogger("DbVotingManager").log(Level.INFO, udapteSQL);
             stmt.executeUpdate(udapteSQL);
             stmt.close();
             connection.close();
@@ -121,9 +107,9 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     }
 
     @Override
-    public List<Voting>readAllVotings() {
+    public List<Voting> readAllVotings() {
         final Logger readVotingLogger = Logger.getLogger("ReadVotingLogger");
-        readVotingLogger.log(Level.INFO,"Start reading ");
+        readVotingLogger.log(Level.INFO, "Start reading ");
         List<Voting> votings = new ArrayList<>();
         Statement stmt = null;
         Connection connection = null;
@@ -161,48 +147,47 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
     }
 
     /**
-    @Override
-    public List<Voting>readVotingsForOption() {
-        final Logger readVotingLogger = Logger.getLogger("ReadVotingsForOptionLogger");
-        readVotingLogger.log(Level.INFO,"Start reading ");
-        List<Voting> votings = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
-            while (rs.next()) {
-                votings.add(
-                        new VotingImpl(
-                                rs.getString("voteid"),
-                                rs.getString("userid"),
-                                rs.getString("meetupid"),
-                                rs.getBoolean("opt1"),
-                                rs.getBoolean("opt2"),
-                                rs.getBoolean("opt3"),
-                                rs.getBoolean("opt4"),
-                                rs.getBoolean("opt5"),
-                                rs.getBoolean("opt6"),
-                                rs.getBoolean("opt7")
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return
-                votings;
-    }
-    */
+     * @Override public List<Voting>readVotingsForOption() {
+     * final Logger readVotingLogger = Logger.getLogger("ReadVotingsForOptionLogger");
+     * readVotingLogger.log(Level.INFO,"Start reading ");
+     * List<Voting> votings = new ArrayList<>();
+     * Statement stmt = null;
+     * Connection connection = null;
+     * try {
+     * connection = basicDataSource.getConnection();
+     * stmt = connection.createStatement();
+     * ResultSet rs = stmt.executeQuery("SELECT * FROM votings");
+     * while (rs.next()) {
+     * votings.add(
+     * new VotingImpl(
+     * rs.getString("voteid"),
+     * rs.getString("userid"),
+     * rs.getString("meetupid"),
+     * rs.getBoolean("opt1"),
+     * rs.getBoolean("opt2"),
+     * rs.getBoolean("opt3"),
+     * rs.getBoolean("opt4"),
+     * rs.getBoolean("opt5"),
+     * rs.getBoolean("opt6"),
+     * rs.getBoolean("opt7")
+     * )
+     * );
+     * }
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * try {
+     * stmt.close();
+     * connection.close();
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * return
+     * votings;
+     * }
+     */
 
-    public List<Voting> readVotingbyMeetupID(String meetupID){
+    public List<Voting> readVotingbyMeetupID(String meetupID) {
         final Logger readopt1Logger = Logger.getLogger("Read Opt1 from Votings");
         readopt1Logger.log(Level.INFO, "Start reading");
         Statement stmt = null;
@@ -211,21 +196,21 @@ public class PostgresDBVotingManagerImpl implements VotingManager {
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
-            ResultSet rs1 = stmt.executeQuery("SELECT * FROM votings WHERE meetupid = '" +meetupID +"'" );
-            while (rs1.next()){
+            ResultSet rs1 = stmt.executeQuery("SELECT * FROM votings WHERE meetupid = '" + meetupID + "'");
+            while (rs1.next()) {
                 optionvoting.add(
-                    new VotingImpl(
-                            rs1.getString("voteid"),
-                            rs1.getString("userid"),
-                            rs1.getString("meetupid"),
-                            rs1.getBoolean("opt1"),
-                            rs1.getBoolean("opt2"),
-                            rs1.getBoolean("opt3"),
-                            rs1.getBoolean("opt4"),
-                            rs1.getBoolean("opt5"),
-                            rs1.getBoolean("opt6"),
-                            rs1.getBoolean("opt7")
-                    )
+                        new VotingImpl(
+                                rs1.getString("voteid"),
+                                rs1.getString("userid"),
+                                rs1.getString("meetupid"),
+                                rs1.getBoolean("opt1"),
+                                rs1.getBoolean("opt2"),
+                                rs1.getBoolean("opt3"),
+                                rs1.getBoolean("opt4"),
+                                rs1.getBoolean("opt5"),
+                                rs1.getBoolean("opt6"),
+                                rs1.getBoolean("opt7")
+                        )
                 );
 
             }

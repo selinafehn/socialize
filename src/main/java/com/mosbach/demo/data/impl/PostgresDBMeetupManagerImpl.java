@@ -2,7 +2,6 @@ package com.mosbach.demo.data.impl;
 import com.mosbach.demo.data.api.*;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -14,8 +13,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.mosbach.demo.data.impl.UserSession.sessionuser;
 
 public class PostgresDBMeetupManagerImpl implements MeetupManager {
 
@@ -31,22 +28,9 @@ public class PostgresDBMeetupManagerImpl implements MeetupManager {
     // Singleton
     static PostgresDBMeetupManagerImpl postgresDBMeetupManager = null;
     private PostgresDBMeetupManagerImpl() {
-        basicDataSource = new BasicDataSource();
-        String jdbcHost = "localhost";
-        String envKey = "JDBC_HOST";
-        if (System.getenv(envKey) != null) {
-            jdbcHost = System.getenv(envKey);
-        } else if (System.getProperty(envKey) != null) {
-            jdbcHost = System.getProperty(envKey);
-        }
-        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
-        log.info("database connection URL: " + databaseURL);
-        String username = "uiefynxlnqznhz";
-        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
-        basicDataSource.setUrl(databaseURL);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        basicDataSource = PostgresDBConnectionHolder.getBasicDataSource();
     }
+
     public static PostgresDBMeetupManagerImpl getPostgresDBUserManagerImpl() {
         if (postgresDBMeetupManager == null)
             postgresDBMeetupManager = new PostgresDBMeetupManagerImpl();

@@ -2,7 +2,6 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.User;
 import com.mosbach.demo.data.api.UserManager;
-import com.mosbach.demo.model.Userlogin;
 import com.mosbach.demo.model.auth.SendBackToken;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,21 +34,7 @@ public class PostgresDBUserManagerImpl implements UserManager {
     static PostgresDBUserManagerImpl postgresDBUserManager = null;
 
     private PostgresDBUserManagerImpl() {
-        basicDataSource = new BasicDataSource();
-        String jdbcHost = "localhost";
-        String envKey = "JDBC_HOST";
-        if (System.getenv(envKey) != null) {
-            jdbcHost = System.getenv(envKey);
-        } else if (System.getProperty(envKey) != null) {
-            jdbcHost = System.getProperty(envKey);
-        }
-        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
-        log.info("database connection URL: " + databaseURL);
-        String username = "uiefynxlnqznhz";
-        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
-        basicDataSource.setUrl(databaseURL);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        basicDataSource = PostgresDBConnectionHolder.getBasicDataSource();
     }
 
     public static PostgresDBUserManagerImpl getPostgresDBUserManagerImpl() {

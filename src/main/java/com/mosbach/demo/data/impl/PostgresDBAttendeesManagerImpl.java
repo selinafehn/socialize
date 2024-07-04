@@ -2,7 +2,6 @@ package com.mosbach.demo.data.impl;
 
 import com.mosbach.demo.data.api.Attendees;
 import com.mosbach.demo.data.api.AttendeesManager;
-import com.mosbach.demo.data.api.User;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.LoggerFactory;
 
@@ -27,26 +26,15 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(PostgresDBUserManagerImpl.class);
 
     static PostgresDBAttendeesManagerImpl postgresDBAttendeesManagerImpl = null;
+
     private PostgresDBAttendeesManagerImpl() {
-        basicDataSource = new BasicDataSource();
-        String jdbcHost = "localhost";
-        String envKey = "JDBC_HOST";
-        if (System.getenv(envKey) != null) {
-            jdbcHost = System.getenv(envKey);
-        } else if (System.getProperty(envKey) != null) {
-            jdbcHost = System.getProperty(envKey);
-        }
-        String databaseURL = "jdbc:postgresql://"+jdbcHost+":5432/";
-        log.info("database connection URL: " + databaseURL);
-        String username = "uiefynxlnqznhz";
-        String password = "ba3c282752e67e5d6e0ef420e072f58f6c3c10ec5b179ff195d940efe66e8d1a";
-        basicDataSource.setUrl(databaseURL);
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        basicDataSource = PostgresDBConnectionHolder.getBasicDataSource();
     }
+
     public static PostgresDBAttendeesManagerImpl getPostgresDBAttendeesManagerImpl() {
-        if (postgresDBAttendeesManagerImpl == null)
+        if (postgresDBAttendeesManagerImpl == null) {
             postgresDBAttendeesManagerImpl = new PostgresDBAttendeesManagerImpl();
+        }
         return postgresDBAttendeesManagerImpl;
     }
 
@@ -84,54 +72,54 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
     }
 
     @Override
-    public List<Attendees>readAllAttendees() {
-            final Logger readUserLogger = Logger.getLogger("ReadAttendeeLogger");
-            readUserLogger.log(Level.INFO,"Start reading ");
-            List<Attendees> attendees = new ArrayList<>();
-            Statement stmt = null;
-            Connection connection = null;
-            try {
-                connection = basicDataSource.getConnection();
-                stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
-                while (rs.next()) {
-                    attendees.add(
-                            new AttendeesImpl(
-                                    rs.getString("relid"),
-                                    rs.getString("userid"),
-                                    rs.getString("meetupid"),
-                                    rs.getBoolean("host")
-                            )
-                    );
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public List<Attendees> readAllAttendees() {
+        final Logger readUserLogger = Logger.getLogger("ReadAttendeeLogger");
+        readUserLogger.log(Level.INFO, "Start reading ");
+        List<Attendees> attendees = new ArrayList<>();
+        Statement stmt = null;
+        Connection connection = null;
+        try {
+            connection = basicDataSource.getConnection();
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
+            while (rs.next()) {
+                attendees.add(
+                        new AttendeesImpl(
+                                rs.getString("relid"),
+                                rs.getString("userid"),
+                                rs.getString("meetupid"),
+                                rs.getBoolean("host")
+                        )
+                );
             }
-            try {
-                stmt.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return
-                    attendees;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return
+                attendees;
+    }
 
     @Override
     public Attendees createAttendee(String relID, String userID, String meetupID, boolean host) {
         final Logger createAttendeeLogger = Logger.getLogger("CreateUserLogger");
-        createAttendeeLogger.log(Level.INFO,"Start creating " + relID);
+        createAttendeeLogger.log(Level.INFO, "Start creating " + relID);
         Statement stmt = null;
         Connection connection = null;
         try {
             connection = basicDataSource.getConnection();
             stmt = connection.createStatement();
             String udapteSQL = "INSERT into attendees(relID, userID, meetupID, host) VALUES (" +
-                    "'" + relID +"', " +
+                    "'" + relID + "', " +
                     "'" + userID + "', " +
                     "'" + meetupID + "', " +
-                    host +")";
-            Logger.getLogger("DbAttendeeManager").log(Level.INFO,udapteSQL);
+                    host + ")";
+            Logger.getLogger("DbAttendeeManager").log(Level.INFO, udapteSQL);
 
             stmt.executeUpdate(udapteSQL);
             stmt.close();
@@ -149,72 +137,71 @@ public class PostgresDBAttendeesManagerImpl implements AttendeesManager {
     }
 
 /**
-    public List<Attendees>readAllAttendees() {
-        final Logger readAttendeesLogger = Logger.getLogger("ReadAttendeesLogger");
-        readAttendeesLogger.log(Level.INFO,"Start reading ");
-        List<Attendees> attendees = new ArrayList<>();
-        Statement stmt = null;
-        Connection connection = null;
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
-            while (rs.next()) {
-                attendees.add(
-                        (Attendees) new AttendeesImpl(
-                                rs.getString("relid"),
-                                rs.getString("userid"),
-                                rs.getString("meetupid"),
-                                rs.getByte("host")
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return
-                attendees;
-    }
+ public List<Attendees>readAllAttendees() {
+ final Logger readAttendeesLogger = Logger.getLogger("ReadAttendeesLogger");
+ readAttendeesLogger.log(Level.INFO,"Start reading ");
+ List<Attendees> attendees = new ArrayList<>();
+ Statement stmt = null;
+ Connection connection = null;
+ try {
+ connection = basicDataSource.getConnection();
+ stmt = connection.createStatement();
+ ResultSet rs = stmt.executeQuery("SELECT * FROM attendees");
+ while (rs.next()) {
+ attendees.add(
+ (Attendees) new AttendeesImpl(
+ rs.getString("relid"),
+ rs.getString("userid"),
+ rs.getString("meetupid"),
+ rs.getByte("host")
+ )
+ );
+ }
+ } catch (SQLException e) {
+ e.printStackTrace();
+ }
+ try {
+ stmt.close();
+ connection.close();
+ } catch (SQLException e) {
+ e.printStackTrace();
+ }
+ return
+ attendees;
+ }
 
 
-    @Override
-    public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
-        final Logger createAttendeesLogger = Logger.getLogger("CreateAttendeeLogger");
-        createAttendeesLogger.log(Level.INFO,"Start creating ");
-        Statement stmt = null;
-        Connection connection = null;
-        try {
-            connection = basicDataSource.getConnection();
-            stmt = connection.createStatement();
-            String udapteSQL = "INSERT into attendees (relID, userID, meetupID, host) VALUES (" +
-                    "'" + relID +"', " +
-                    "'" + userID + "', " +
-                    "'" + meetupID + "', " +
-                    host +")";
-            Logger.getLogger("DbAttendeeManager").log(Level.INFO,udapteSQL);
-            createAttendeesLogger.log(Level.INFO,"created attendee ");
+ @Override public Attendees createAttendee(String relID, String userID, String meetupID, byte host) {
+ final Logger createAttendeesLogger = Logger.getLogger("CreateAttendeeLogger");
+ createAttendeesLogger.log(Level.INFO,"Start creating ");
+ Statement stmt = null;
+ Connection connection = null;
+ try {
+ connection = basicDataSource.getConnection();
+ stmt = connection.createStatement();
+ String udapteSQL = "INSERT into attendees (relID, userID, meetupID, host) VALUES (" +
+ "'" + relID +"', " +
+ "'" + userID + "', " +
+ "'" + meetupID + "', " +
+ host +")";
+ Logger.getLogger("DbAttendeeManager").log(Level.INFO,udapteSQL);
+ createAttendeesLogger.log(Level.INFO,"created attendee ");
 
-            stmt.executeUpdate(udapteSQL);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return
-                null;
-    }
-*/
+ stmt.executeUpdate(udapteSQL);
+ stmt.close();
+ connection.close();
+ } catch (SQLException e) {
+ e.printStackTrace();
+ }
+ try {
+ stmt.close();
+ connection.close();
+ } catch (SQLException e) {
+ e.printStackTrace();
+ }
+ return
+ null;
+ }
+ */
 
 }
