@@ -1,0 +1,740 @@
+openapi: "3.1.0"
+info:
+  title: "socialize API"
+  description: "socialize API"
+  version: "1.0.0"
+servers:
+  - url: "https://socialize"
+paths:
+  /api/v1.0/alexa:
+    post:
+      summary: "POST api/v1.0/alexa"
+      operationId: "readTasksViaAlexa"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlexaRO"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/AlexaRO"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AlexaRO"
+  /api/v1.0/auth:
+    get:
+      summary: "GET api/v1.0/auth"
+      operationId: "getInfo"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+  /api/v1.0/auth/attendees:
+    get:
+      summary: "GET api/v1.0/auth/attendees"
+      operationId: "getInfoAttendees"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Attendees"
+  /api/v1.0/auth/login:
+    post:
+      summary: "POST api/v1.0/auth/login"
+      operationId: "userLogIn"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Userlogin"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Userlogin"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SendBackToken"
+    delete:
+      summary: "DELETE api/v1.0/auth/login"
+      operationId: "userLogoff"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Userlogoff"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Userlogoff"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/auth/meetup:
+    get:
+      summary: "GET api/v1.0/auth/meetup"
+      operationId: "getInfoMeetup"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Meetup"
+  /api/v1.0/auth/mymeetup:
+    get:
+      summary: "GET api/v1.0/auth/mymeetup"
+      operationId: "getMyMeetup"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Meetup"
+  /api/v1.0/auth/register:
+    post:
+      summary: "POST api/v1.0/auth/register"
+      operationId: "userRegister"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/auth/user:
+    get:
+      summary: "GET api/v1.0/auth/user"
+      operationId: "getInfoUser"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/User"
+  /api/v1.0/auth/votings:
+    get:
+      summary: "GET api/v1.0/auth/votings"
+      operationId: "getInfoVotings"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Voting"
+  /api/v1.0/create-table/attendees:
+    post:
+      summary: "POST api/v1.0/create-table/attendees"
+      operationId: "createAttendeesTable"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/create-table/meetup:
+    post:
+      summary: "POST api/v1.0/create-table/meetup"
+      operationId: "createMeetupTable"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/create-table/options:
+    post:
+      summary: "POST api/v1.0/create-table/options"
+      operationId: "createOptionsTable"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/create-table/user:
+    post:
+      summary: "POST api/v1.0/create-table/user"
+      operationId: "createUserTable"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/create-table/voting:
+    post:
+      summary: "POST api/v1.0/create-table/voting"
+      operationId: "createVotingTable"
+      parameters:
+        - name: "token"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "Student"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/createmeetup:
+    post:
+      summary: "POST api/v1.0/createmeetup"
+      operationId: "meetupCreation"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMeetup"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateMeetup"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/createuser:
+    post:
+      summary: "POST api/v1.0/createuser"
+      operationId: "userRegistration"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateUser"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/addAttendee:
+    post:
+      summary: "POST api/v1.0/dashboard/addAttendee"
+      operationId: "createAttendee"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAttendee"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateAttendee"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/addOptions:
+    post:
+      summary: "POST api/v1.0/dashboard/addOptions"
+      operationId: "createOptions"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOptions"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateOptions"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/addVoting:
+    post:
+      summary: "POST api/v1.0/dashboard/addVoting"
+      operationId: "createVoting"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateVoting"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/CreateVoting"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/create:
+    post:
+      summary: "POST api/v1.0/dashboard/create"
+      operationId: "meetupCreate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meetupcreate"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Meetupcreate"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+    delete:
+      summary: "DELETE api/v1.0/dashboard/create"
+      operationId: "meetupDelete"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meetupdelete"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Meetupdelete"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/doneVoting:
+    get:
+      summary: "GET api/v1.0/dashboard/doneVoting"
+      operationId: "getTopOptVoting"
+      parameters:
+        - name: "meetupid"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "meetupid"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/edit:
+    post:
+      summary: "POST api/v1.0/dashboard/edit"
+      operationId: "meetupEdit"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meetupedit"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Meetupedit"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/overview:
+    get:
+      summary: "GET api/v1.0/dashboard/overview"
+      operationId: "meetupOverview"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meetupoverview"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Meetupoverview"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /api/v1.0/dashboard/show:
+    get:
+      summary: "GET api/v1.0/dashboard/show"
+      operationId: "meetupShow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Meetupshow"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Meetupshow"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+components:
+  schemas:
+    IntentRO:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+    RequestRO:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+        requestId:
+          type: "string"
+        intent:
+          $ref: "#/components/schemas/IntentRO"
+        locale:
+          type: "string"
+        timestamp:
+          type: "string"
+    OutputSpeechRO:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+        text:
+          type: "string"
+    ResponseRO:
+      type: "object"
+      properties:
+        outputSpeech:
+          $ref: "#/components/schemas/OutputSpeechRO"
+        shouldEndSession:
+          type: "boolean"
+    SessionRO:
+      type: "object"
+      properties: { }
+    ContextRO:
+      type: "object"
+      properties: { }
+    AlexaRO:
+      type: "object"
+      properties:
+        request:
+          $ref: "#/components/schemas/RequestRO"
+        response:
+          $ref: "#/components/schemas/ResponseRO"
+        version:
+          type: "string"
+        session:
+          $ref: "#/components/schemas/SessionRO"
+        context:
+          $ref: "#/components/schemas/ContextRO"
+    Attendees:
+      type: "object"
+      properties: { }
+    Userlogin:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+        password:
+          type: "string"
+    SendBackToken:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+        validInSeconds:
+          type: "integer"
+          format: "int64"
+        userID:
+          type: "string"
+    Userlogoff:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+    Meetup:
+      type: "object"
+      properties: { }
+    CreateUser:
+      type: "object"
+      properties:
+        firstname:
+          type: "string"
+        lastname:
+          type: "string"
+        password:
+          type: "string"
+        email:
+          type: "string"
+        token:
+          type: "string"
+        validuntil:
+          type: "integer"
+          format: "int64"
+    User:
+      type: "object"
+      properties: { }
+    Voting:
+      type: "object"
+      properties: { }
+    CreateMeetup:
+      type: "object"
+      properties:
+        meetupID:
+          type: "string"
+        title:
+          type: "string"
+        friends:
+          type: "string"
+        option:
+          type: "string"
+        location:
+          type: "string"
+        validuntil:
+          type: "integer"
+          format: "int64"
+        description:
+          type: "string"
+    CreateAttendee:
+      type: "object"
+      properties:
+        relID:
+          type: "string"
+        userID:
+          type: "string"
+        meetupID:
+          type: "string"
+        host:
+          type: "boolean"
+    Timestamp:
+      type: "object"
+      properties:
+        nanos:
+          type: "integer"
+          format: "int32"
+    CreateOptions:
+      type: "object"
+      properties:
+        optionid:
+          type: "string"
+        optionserial:
+          type: "string"
+        meetupid:
+          type: "string"
+        dateandtime:
+          $ref: "#/components/schemas/Timestamp"
+    CreateVoting:
+      type: "object"
+      properties:
+        voteid:
+          type: "string"
+        userid:
+          type: "string"
+        meetupid:
+          type: "string"
+        opt1:
+          type: "boolean"
+        opt2:
+          type: "boolean"
+        opt3:
+          type: "boolean"
+        opt4:
+          type: "boolean"
+        opt5:
+          type: "boolean"
+        opt6:
+          type: "boolean"
+        opt7:
+          type: "boolean"
+    Meetupcreate:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        friends:
+          type: "string"
+        date:
+          type: "string"
+        place:
+          type: "string"
+        specification:
+          type: "string"
+        timerange:
+          type: "string"
+        token:
+          type: "string"
+        description:
+          type: "string"
+    Meetupdelete:
+      type: "object"
+      properties:
+        userID:
+          type: "string"
+        meetupID:
+          type: "string"
+    Meetupedit:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        friends:
+          type: "array"
+          items:
+            type: "string"
+        date:
+          type: "string"
+        place:
+          type: "string"
+        specification:
+          type: "string"
+        timerange:
+          type: "string"
+        meetupID:
+          type: "string"
+        userId:
+          type: "string"
+        description:
+          type: "string"
+    Meetupoverview:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+    Meetupshow:
+      type: "object"
+      properties:
+        meetupID:
+          type: "string"
+        token:
+          type: "string"

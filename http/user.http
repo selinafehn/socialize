@@ -1,0 +1,15 @@
+###
+POST {{baseUrl}}/api/v1.0/createuser
+Content-Type: application/json
+
+{
+  "firstname": "hhh",
+  "lastname": "hhh",
+  "password": "123",
+  "email": "selina@fehn.de"
+}
+###
+
+###
+GET {{baseUrl}}/api/v1.0/auth/user
+###

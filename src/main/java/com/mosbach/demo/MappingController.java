@@ -84,8 +84,8 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
     )
     @ResponseStatus(HttpStatus.OK)
-    public String userRegistration(@RequestBody CreateUser createUser) {
-        userManager.createUser(
+    public User userRegistration(@RequestBody CreateUser createUser) {
+        return userManager.createUser(
                 UUID.randomUUID().toString(),
                 createUser.getFirstname(),
                 createUser.getLastname(),
@@ -93,7 +93,6 @@ public class MappingController {
                 createUser.getEmail(),
                 createUser.getToken(),
                 createUser.getValiduntil());
-        return "user created";
     }
 
     @GetMapping("/auth/user")
